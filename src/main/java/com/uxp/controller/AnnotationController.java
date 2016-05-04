@@ -14,26 +14,52 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.uxp.model.Annotation;
+import com.uxp.model.AnnotationHashTag;
+import com.uxp.model.Hashtag;
+import com.uxp.model.ParentDomain;
 
 @RestController
+@RequestMapping("/annotations")
 public class AnnotationController {
 	
-
- /*GET all annotations, copied from umesh's code. Serv is not written yet.
-	@RequestMapping(value = "/annotations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Annotation>> displayAll() {
-		List<Annotation> annotationList = annotationService.displayAll();
-		if (annotationList.isEmpty()) {
-			return new ResponseEntity<List<Annotation>>(HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<List<Annotation>>(annotationList, HttpStatus.OK);
-*/		
-	@RequestMapping(value = "/annotations", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> save(@RequestBody Annotation Annotation, UriComponentsBuilder ucBuilder) {
-		
-		
+	
+	
+/***************************GET REQUESTS*****************************/	
+// GET all annotations, copied from umesh's code. Service is not written yet. here for testing
+	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Annotation>> displayAll(UriComponentsBuilder ucBuilder) {
+		System.out.println("GET WORKS");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(ucBuilder.path("/annotations").buildAndExpand().toUri());
+		return new ResponseEntity<List<Annotation>>(headers, HttpStatus.OK);
+	}
+	// end testing GET code
+	
+	
+/***************************POST REQUESTS*****************************/	
+	@RequestMapping(value="/", method=RequestMethod.POST, headers = "Content-type: application/*")
+	public ResponseEntity<Void> save(@RequestBody Annotation Annotation, UriComponentsBuilder ucBuilder, @PathVariable String pathURL) {
+				
 		//TODO call the annotation service, have it save the new annotation
 		System.out.println(Annotation);
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+	}
+	@RequestMapping(value="/hashtags", method=RequestMethod.POST)
+	public ResponseEntity<Void> hashtag(@RequestBody Hashtag hashtag, UriComponentsBuilder ucBuilder) {
+		//do something with the hashtag
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+	}
+	@RequestMapping(value="/annotationhashtag", method=RequestMethod.POST)
+	public ResponseEntity<Void> annotationHashtag(@RequestBody AnnotationHashTag annotationHashtag, UriComponentsBuilder ucBuilder) {
+		//do something with the annotationHashtag
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+	}
+	@RequestMapping(value="/parentdomain", method=RequestMethod.POST)
+	public ResponseEntity<Void> parentdomain(@RequestBody ParentDomain parentDomain, UriComponentsBuilder ucBuilder) {
+		//do something with the parentDomain
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
