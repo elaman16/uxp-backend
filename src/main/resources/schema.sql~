@@ -1,0 +1,7 @@
+create table users(
+      id int not null primary key,
+      useStatus varchar_ignorecase(1) not null,
+      programId varchar_ignorecase(50) not null,
+      locId varchar_ignorecase(50) not null,
+      timeUpdated date not null,
+      updatedBy int not null);

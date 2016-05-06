@@ -1,5 +1,9 @@
 package com.uxp.controller;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -7,19 +11,40 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.uxp.dao.UserDAO;
+import com.uxp.model.User;
 
 
 @RestController
 @RequestMapping(value="/user", method={RequestMethod.POST, RequestMethod.GET})
 public class UserController {
-	@RequestMapping(value="", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE )
-	public ResponseEntity<Void> postUser(@RequestParam String user, UriComponentsBuilder ucBuilder) {
+	@Autowired
+	private UserDAO userDAO;
+	@RequestMapping(value="", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
+	public ResponseEntity<String> createUser(@RequestParam char useStatus, @RequestParam String programId, @RequestParam String LocId, @RequestParam int updatedBy, UriComponentsBuilder ucBuilder) {
 		
-		System.out.println(user);
+		String userId = "";
+	    try {
+	      User user = new User();
+	      user.setLocId(LocId);
+	      user.setProgramId(programId);
+	      user.setTimeUpdated(new Date());
+	      user.setUpdatedBy(user.getUserId());
+	      user.setUseStatus(useStatus);
+	      userDAO.save(user);
+	      userId = String.valueOf(user.getUserId());
+	    }
+	    catch (Exception ex) {
+	      System.out.println("Error creating the user: " + ex.toString());
+	      HttpHeaders headers = new HttpHeaders();
+		  return new ResponseEntity<String>("{'error':'Could not create user!'}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<String>("User " + userId + " created!", headers, HttpStatus.CREATED);
 	}
 	@RequestMapping(value="/userProfile", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE )
 	public ResponseEntity<Void> postUserProfile(@RequestParam String userProfile, UriComponentsBuilder ucBuilder) {

@@ -1,9 +1,15 @@
 package com.uxp.model;
 
 import java.util.Date;
-
+import javax.persistence.*;
+ 
+@Entity
 public class Annotation {
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private int annotationId;
+	
+	
 	private String annotationTitle;
 	private String annotationText;
 	private int emojiId;
@@ -194,6 +200,20 @@ public class Annotation {
 		LocId = locId;
 		this.timeUpdated = timeUpdated;
 		this.updatedBy = updatedBy;
+	}
+	@Override
+	public String toString() {
+		return "Annotation [annotationId=" + annotationId + ", annotationTitle=" + annotationTitle + ", annotationText="
+				+ annotationText + ", emojiId=" + emojiId + ", pinTypeId=" + pinTypeId + ", annotationContentTypeId="
+				+ annotationContentTypeId + ", annotationTypeId=" + annotationTypeId + ", parentDomainId="
+				+ parentDomainId + ", specificURL=" + specificURL + ", pinXCoordinate=" + pinXCoordinate
+				+ ", pinYCoordinate=" + pinYCoordinate + ", annotationAudioURL=" + annotationAudioURL
+				+ ", annotationAttachmentURL=" + annotationAttachmentURL + ", annotationScreenshot="
+				+ annotationScreenshot + ", annotationScreenshotHeight=" + annotationScreenshotHeight
+				+ ", annotationScreenshotWidth=" + annotationScreenshotWidth + ", annotationScreenshotPinXCoordinate="
+				+ annotationScreenshotPinXCoordinate + ", annotationScreenshotPinYCoordinate="
+				+ annotationScreenshotPinYCoordinate + ", useStatus=" + useStatus + ", programId=" + programId
+				+ ", LocId=" + LocId + ", timeUpdated=" + timeUpdated + ", updatedBy=" + updatedBy + "]";
 	}
 	@Override
 	public int hashCode() {

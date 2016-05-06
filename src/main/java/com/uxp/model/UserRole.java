@@ -1,9 +1,14 @@
 package com.uxp.model;
 
 import java.util.Date;
+import javax.persistence.*;
 
+@Entity
 public class UserRole {
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private int userRoleId;
+	
 	private String userRoleDescription;
 	private char useStatus;
 	private String programId;

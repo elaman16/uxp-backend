@@ -1,22 +1,29 @@
 package com.uxp.model;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.*;
 
-public class User {
+@Entity
+@Table(name = "users")
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userId;
+	@Column(name="useStatus")
 	private char useStatus;
+	@Column(name="programId")
 	private String programId;
+	@Column(name="LocId")
 	private String LocId;
+	@Column(name="timeUpdated")
 	private Date timeUpdated;
+	@Column(name="updatedBy")
 	private int updatedBy;
-	public User(int userId, char useStatus, String programId, String locId, Date timeUpdated, int updatedBy) {
-		super();
-		this.userId = userId;
-		this.useStatus = useStatus;
-		this.programId = programId;
-		LocId = locId;
-		this.timeUpdated = timeUpdated;
-		this.updatedBy = updatedBy;
+	
+	public User() {
+		
 	}
 	public int getUserId() {
 		return userId;
@@ -63,7 +70,7 @@ public class User {
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
 		result = prime * result + updatedBy;
 		result = prime * result + useStatus;
-		result = prime * result + userId;
+		result = (int) (prime * result + userId);
 		return result;
 	}
 	@Override
