@@ -2,29 +2,40 @@ package com.uxp.model;
 
 import java.util.Date;
 
+import javax.persistence.*;
+@Entity
+@Table(name="userExpertise")
 public class UserExpertise {
-	private int userId;
-	private int pinTypeId;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long userId;
+	@Column(name="pinTypeId")
+	private int pinTypeId; //unsure of this field name, should be ? userExpertise ? String
+	@Column(name="useStatus")
 	private char useStatus;
-	private int programId;
+	@Column(name="programId")
+	private String programId;
+	@Column(name="locId")
 	private String LocId;
+	@Column(name="timeUpdated")
 	private Date timeUpdated;
-	private int updatedBy;
-	public UserExpertise(int userId, int pinTypeId, char useStatus, int programId, String locId, Date timeUpdated,
-			int updatedBy) {
-		super();
-		this.userId = userId;
+	@Column(name="updatedBy")
+	private long updatedBy;
+	
+	public UserExpertise(int pinTypeId, String programId, String locId) {
+		
 		this.pinTypeId = pinTypeId;
-		this.useStatus = useStatus;
+		this.useStatus = 'I';
 		this.programId = programId;
-		LocId = locId;
-		this.timeUpdated = timeUpdated;
-		this.updatedBy = updatedBy;
+		this.LocId = locId;
+		this.timeUpdated = new Date();
+		this.updatedBy = 0;
 	}
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 	public int getPinTypeId() {
@@ -39,17 +50,17 @@ public class UserExpertise {
 	public void setUseStatus(char useStatus) {
 		this.useStatus = useStatus;
 	}
-	public int getProgramId() {
+	public String getProgramId() {
 		return programId;
 	}
-	public void setProgramId(int programId) {
+	public void setProgramId(String programId) {
 		this.programId = programId;
 	}
 	public String getLocId() {
 		return LocId;
 	}
 	public void setLocId(String locId) {
-		LocId = locId;
+		this.LocId = locId;
 	}
 	public Date getTimeUpdated() {
 		return timeUpdated;
@@ -57,10 +68,10 @@ public class UserExpertise {
 	public void setTimeUpdated(Date timeUpdated) {
 		this.timeUpdated = timeUpdated;
 	}
-	public int getUpdatedBy() {
+	public long getUpdatedBy() {
 		return updatedBy;
 	}
-	public void setUpdatedBy(int updatedBy) {
+	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 	@Override
@@ -69,11 +80,10 @@ public class UserExpertise {
 		int result = 1;
 		result = prime * result + ((LocId == null) ? 0 : LocId.hashCode());
 		result = prime * result + pinTypeId;
-		result = prime * result + programId;
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
-		result = prime * result + updatedBy;
+		result = (int) (prime * result + updatedBy);
 		result = prime * result + useStatus;
-		result = prime * result + userId;
+		result = (int) (prime * result + userId);
 		return result;
 	}
 	@Override

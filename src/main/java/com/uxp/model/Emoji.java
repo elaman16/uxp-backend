@@ -2,91 +2,136 @@ package com.uxp.model;
 
 import java.util.Date;
 
+import javax.persistence.*;
+@Entity
+@Table(name="emojis")
 public class Emoji {
-	private String emojiDescription;
-	private String emojiCode;
-	private String emojiURI;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long emojiId;
+	private String emojiType;
+	private long annotationId;
 	private char useStatus;
 	private String programId;
 	private String LocId;
 	private Date timeUpdated;
-	private int updatedBy;
+	private long updatedBy;
 	
 	
-	public Emoji(String emojiDescription, String emojiCode, String emojiURI, char useStatus, String programId,
-			String locId, Date timeUpdated, int updatedBy) {
-		super();
-		this.emojiDescription = emojiDescription;
-		this.emojiCode = emojiCode;
-		this.emojiURI = emojiURI;
-		this.useStatus = useStatus;
+	public Emoji() {}
+
+	public Emoji(String emojiType, long annotationId, String programId, String locId, long updatedBy) {
+		this.emojiType = emojiType;
+		this.annotationId = annotationId;
+		this.useStatus = 'I';
 		this.programId = programId;
-		LocId = locId;
-		this.timeUpdated = timeUpdated;
+		this.LocId = locId;
+		this.timeUpdated = new Date();
 		this.updatedBy = updatedBy;
 	}
-	public String getEmojiDescription() {
-		return emojiDescription;
+
+	public long getEmojiId() {
+		return emojiId;
 	}
-	public void setEmojiDescription(String emojiDescription) {
-		this.emojiDescription = emojiDescription;
+
+
+	public void setEmojiId(long emojiId) {
+		this.emojiId = emojiId;
 	}
-	public String getEmojiCode() {
-		return emojiCode;
+
+
+	public String getEmojiType() {
+		return emojiType;
 	}
-	public void setEmojiCode(String emojiCode) {
-		this.emojiCode = emojiCode;
+
+
+	public void setEmojiType(String emojiType) {
+		this.emojiType = emojiType;
 	}
-	public String getEmojiURI() {
-		return emojiURI;
+
+
+	public long getAnnotationId() {
+		return annotationId;
 	}
-	public void setEmojiURI(String emojiURI) {
-		this.emojiURI = emojiURI;
+
+
+	public void setAnnotationId(long annotationId) {
+		this.annotationId = annotationId;
 	}
+
+
 	public char getUseStatus() {
 		return useStatus;
 	}
+
+
 	public void setUseStatus(char useStatus) {
 		this.useStatus = useStatus;
 	}
+
+
 	public String getProgramId() {
 		return programId;
 	}
+
+
 	public void setProgramId(String programId) {
 		this.programId = programId;
 	}
+
+
 	public String getLocId() {
 		return LocId;
 	}
+
+
 	public void setLocId(String locId) {
 		LocId = locId;
 	}
+
+
 	public Date getTimeUpdated() {
 		return timeUpdated;
 	}
+
+
 	public void setTimeUpdated(Date timeUpdated) {
 		this.timeUpdated = timeUpdated;
 	}
-	public int getUpdatedBy() {
+
+
+	public long getUpdatedBy() {
 		return updatedBy;
 	}
-	public void setUpdatedBy(int updatedBy) {
+
+
+	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((LocId == null) ? 0 : LocId.hashCode());
-		result = prime * result + ((emojiCode == null) ? 0 : emojiCode.hashCode());
-		result = prime * result + ((emojiDescription == null) ? 0 : emojiDescription.hashCode());
-		result = prime * result + ((emojiURI == null) ? 0 : emojiURI.hashCode());
+		result = prime * result + (int) (annotationId ^ (annotationId >>> 32));
+		result = prime * result + (int) (emojiId ^ (emojiId >>> 32));
+		result = prime * result + ((emojiType == null) ? 0 : emojiType.hashCode());
 		result = prime * result + ((programId == null) ? 0 : programId.hashCode());
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
-		result = prime * result + updatedBy;
+		result = (int) (prime * result + updatedBy);
 		result = prime * result + useStatus;
 		return result;
 	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -101,20 +146,14 @@ public class Emoji {
 				return false;
 		} else if (!LocId.equals(other.LocId))
 			return false;
-		if (emojiCode == null) {
-			if (other.emojiCode != null)
-				return false;
-		} else if (!emojiCode.equals(other.emojiCode))
+		if (annotationId != other.annotationId)
 			return false;
-		if (emojiDescription == null) {
-			if (other.emojiDescription != null)
-				return false;
-		} else if (!emojiDescription.equals(other.emojiDescription))
+		if (emojiId != other.emojiId)
 			return false;
-		if (emojiURI == null) {
-			if (other.emojiURI != null)
+		if (emojiType == null) {
+			if (other.emojiType != null)
 				return false;
-		} else if (!emojiURI.equals(other.emojiURI))
+		} else if (!emojiType.equals(other.emojiType))
 			return false;
 		if (programId == null) {
 			if (other.programId != null)
@@ -132,12 +171,15 @@ public class Emoji {
 			return false;
 		return true;
 	}
+
+
 	@Override
 	public String toString() {
-		return "Emoji [emojiDescription=" + emojiDescription + ", emojiCode=" + emojiCode + ", emojiURI=" + emojiURI
+		return "Emoji [emojiId=" + emojiId + ", emojiType=" + emojiType + ", annotationId=" + annotationId
 				+ ", useStatus=" + useStatus + ", programId=" + programId + ", LocId=" + LocId + ", timeUpdated="
 				+ timeUpdated + ", updatedBy=" + updatedBy + "]";
 	}
+
 	
 	
 }

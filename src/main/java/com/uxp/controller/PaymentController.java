@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
+/*
 @RestController
 @RequestMapping(value="/payment", method={RequestMethod.POST, RequestMethod.GET})
 public class PaymentController {
@@ -36,3 +36,4 @@ public class PaymentController {
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 }
+*/

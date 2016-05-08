@@ -2,75 +2,114 @@ package com.uxp.model;
 
 import java.util.Date;
 
+import javax.persistence.*;
+@Entity
+@Table(name="pinType")
 public class PinType {
-	private int pinTypeId;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long pinTypeId;
+	private String pinType;
 	private String pinTypeDescription;
 	private String pinTypeColor;
 	private char useStatus;
 	private String programId;
 	private String LocId;
 	private Date timeUpdated;
-	private int updatedBy;
-	public PinType(int pinTypeId, String pinTypeDescription, String pinTypeColor, char useStatus, String programId,
-			String locId, Date timeUpdated, int updatedBy) {
-		super();
-		this.pinTypeId = pinTypeId;
+	private long updatedBy;
+	
+	public PinType() {}
+	
+	public PinType(String pinType, String pinTypeDescription, String pinTypeColor, String programId, String locId, long userId) {
+		this.pinType = pinType;
 		this.pinTypeDescription = pinTypeDescription;
 		this.pinTypeColor = pinTypeColor;
-		this.useStatus = useStatus;
+		this.useStatus = 'I';
 		this.programId = programId;
 		LocId = locId;
-		this.timeUpdated = timeUpdated;
-		this.updatedBy = updatedBy;
+		this.timeUpdated = new Date();
+		this.updatedBy = userId;
 	}
-	public int getPinTypeId() {
+
+
+
+	public String getPinType() {
+		return pinType;
+	}
+
+	public void setPinType(String pinType) {
+		this.pinType = pinType;
+	}
+
+	public long getPinTypeId() {
 		return pinTypeId;
 	}
-	public void setPinTypeId(int pinTypeId) {
+
+	public void setPinTypeId(long pinTypeId) {
 		this.pinTypeId = pinTypeId;
 	}
+
 	public String getPinTypeDescription() {
 		return pinTypeDescription;
 	}
+
 	public void setPinTypeDescription(String pinTypeDescription) {
 		this.pinTypeDescription = pinTypeDescription;
 	}
+
 	public String getPinTypeColor() {
 		return pinTypeColor;
 	}
+
 	public void setPinTypeColor(String pinTypeColor) {
 		this.pinTypeColor = pinTypeColor;
 	}
+
 	public char getUseStatus() {
 		return useStatus;
 	}
+
 	public void setUseStatus(char useStatus) {
 		this.useStatus = useStatus;
 	}
+
 	public String getProgramId() {
 		return programId;
 	}
+
 	public void setProgramId(String programId) {
 		this.programId = programId;
 	}
+
 	public String getLocId() {
 		return LocId;
 	}
+
 	public void setLocId(String locId) {
 		LocId = locId;
 	}
+
 	public Date getTimeUpdated() {
 		return timeUpdated;
 	}
+
 	public void setTimeUpdated(Date timeUpdated) {
 		this.timeUpdated = timeUpdated;
 	}
-	public int getUpdatedBy() {
+
+	public long getUpdatedBy() {
 		return updatedBy;
 	}
-	public void setUpdatedBy(int updatedBy) {
+
+	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,13 +117,14 @@ public class PinType {
 		result = prime * result + ((LocId == null) ? 0 : LocId.hashCode());
 		result = prime * result + ((pinTypeColor == null) ? 0 : pinTypeColor.hashCode());
 		result = prime * result + ((pinTypeDescription == null) ? 0 : pinTypeDescription.hashCode());
-		result = prime * result + pinTypeId;
+		result = prime * result + (int) (pinTypeId ^ (pinTypeId >>> 32));
 		result = prime * result + ((programId == null) ? 0 : programId.hashCode());
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
-		result = prime * result + updatedBy;
+		result = (int) (prime * result + updatedBy);
 		result = prime * result + useStatus;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -127,12 +167,14 @@ public class PinType {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "PinType [pinTypeId=" + pinTypeId + ", pinTypeDescription=" + pinTypeDescription + ", pinTypeColor="
 				+ pinTypeColor + ", useStatus=" + useStatus + ", programId=" + programId + ", LocId=" + LocId
 				+ ", timeUpdated=" + timeUpdated + ", updatedBy=" + updatedBy + "]";
 	}
+	
 	
 	
 }

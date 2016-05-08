@@ -2,40 +2,56 @@ package com.uxp.model;
 
 import java.util.Date;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="userPermission")
 public class UserPermissions {
-	private int userPermissionId;
-	private int userRoleId;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long userPermissionId;
+	
+	@Column(name="userRoleId")
+	private long userRoleId;
+	@Column(name="userPermissionCode")
 	private String userPermissionCode;
+	@Column(name="userPermissionDescription")
 	private String userPermissionDescription;
+	@Column(name="useStatus")
 	private char useStatus;
+	@Column(name="programId")
 	private String programId;
+	@Column(name="locId")
 	private String LocId;
+	@Column(name="timeUpdated")
 	private Date timeUpdated;
-	private int updatedBy;
-	public UserPermissions(int userPermissionId, int userRoleId, String userPermissionCode,
-			String userPermissionDescription, char useStatus, String programId, String locId, Date timeUpdated,
-			int updatedBy) {
-		super();
-		this.userPermissionId = userPermissionId;
+	@Column(name="updatedBy")
+	private long updatedBy;
+	
+	public UserPermissions(String userPermissionCode, String userPermissionDescription, 
+		   long userRoleId, String programId, String locId) {
+	
 		this.userRoleId = userRoleId;
 		this.userPermissionCode = userPermissionCode;
 		this.userPermissionDescription = userPermissionDescription;
-		this.useStatus = useStatus;
+		this.useStatus = 'I';
 		this.programId = programId;
 		LocId = locId;
-		this.timeUpdated = timeUpdated;
-		this.updatedBy = updatedBy;
+		this.timeUpdated = new Date();
+		this.updatedBy = 0;
+		
 	}
-	public int getUserPermissionId() {
+	public long getUserPermissionId() {
 		return userPermissionId;
 	}
-	public void setUserPermissionId(int userPermissionId) {
+	public void setUserPermissionId(long userPermissionId) {
 		this.userPermissionId = userPermissionId;
 	}
-	public int getUserRoleId() {
+	public long getUserRoleId() {
 		return userRoleId;
 	}
-	public void setUserRoleId(int userRoleId) {
+	public void setUserRoleId(long userRoleId) {
 		this.userRoleId = userRoleId;
 	}
 	public String getUserPermissionCode() {
@@ -74,10 +90,10 @@ public class UserPermissions {
 	public void setTimeUpdated(Date timeUpdated) {
 		this.timeUpdated = timeUpdated;
 	}
-	public int getUpdatedBy() {
+	public long getUpdatedBy() {
 		return updatedBy;
 	}
-	public void setUpdatedBy(int updatedBy) {
+	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 	@Override
@@ -87,12 +103,12 @@ public class UserPermissions {
 		result = prime * result + ((LocId == null) ? 0 : LocId.hashCode());
 		result = prime * result + ((programId == null) ? 0 : programId.hashCode());
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
-		result = prime * result + updatedBy;
+		result = (int) (prime * result + updatedBy);
 		result = prime * result + useStatus;
 		result = prime * result + ((userPermissionCode == null) ? 0 : userPermissionCode.hashCode());
 		result = prime * result + ((userPermissionDescription == null) ? 0 : userPermissionDescription.hashCode());
-		result = prime * result + userPermissionId;
-		result = prime * result + userRoleId;
+		result = (int) (prime * result + userPermissionId);
+		result = (int) (prime * result + userRoleId);
 		return result;
 	}
 	@Override

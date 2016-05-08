@@ -2,33 +2,53 @@ package com.uxp.model;
 
 import java.util.Date;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="parentDomain")
 public class ParentDomain {
-	private int parentDomainId;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long parentDomainId;
+	private long annotationId;
 	private String parentDomainName;
 	private char useStatus;
 	private String programId;
 	private String LocId;
 	private Date timeUpdated;
-	private int updatedBy;
+	private long updatedBy;
 	
-	public ParentDomain(int parentDomainId, String parentDomainName, char useStatus, String programId, String locId,
-			Date timeUpdated, int updatedBy) {
-		super();
-		this.parentDomainId = parentDomainId;
+	public ParentDomain() {}
+	
+	
+
+	public ParentDomain(long annotationId, String parentDomainName, String programId, String locId, long updatedBy) {
+		this.annotationId = annotationId;
 		this.parentDomainName = parentDomainName;
-		this.useStatus = useStatus;
+		this.useStatus = 'I';
 		this.programId = programId;
-		LocId = locId;
-		this.timeUpdated = timeUpdated;
+		this.LocId = locId;
+		this.timeUpdated = new Date();
 		this.updatedBy = updatedBy;
 	}
 
-	public int getParentDomainId() {
+
+
+	public long getParentDomainId() {
 		return parentDomainId;
 	}
 
-	public void setParentDomainId(int parentDomainId) {
+	public void setParentDomainId(long parentDomainId) {
 		this.parentDomainId = parentDomainId;
+	}
+
+	public long getAnnotationId() {
+		return annotationId;
+	}
+
+	public void setAnnotationId(long annotationId) {
+		this.annotationId = annotationId;
 	}
 
 	public String getParentDomainName() {
@@ -71,12 +91,16 @@ public class ParentDomain {
 		this.timeUpdated = timeUpdated;
 	}
 
-	public int getUpdatedBy() {
+	public long getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(int updatedBy) {
+	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
@@ -84,11 +108,12 @@ public class ParentDomain {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((LocId == null) ? 0 : LocId.hashCode());
-		result = prime * result + parentDomainId;
+		result = prime * result + (int) (annotationId ^ (annotationId >>> 32));
+		result = prime * result + (int) (parentDomainId ^ (parentDomainId >>> 32));
 		result = prime * result + ((parentDomainName == null) ? 0 : parentDomainName.hashCode());
 		result = prime * result + ((programId == null) ? 0 : programId.hashCode());
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
-		result = prime * result + updatedBy;
+		result = (int) (prime * result + updatedBy);
 		result = prime * result + useStatus;
 		return result;
 	}
@@ -106,6 +131,8 @@ public class ParentDomain {
 			if (other.LocId != null)
 				return false;
 		} else if (!LocId.equals(other.LocId))
+			return false;
+		if (annotationId != other.annotationId)
 			return false;
 		if (parentDomainId != other.parentDomainId)
 			return false;
@@ -133,10 +160,11 @@ public class ParentDomain {
 
 	@Override
 	public String toString() {
-		return "ParentDomain [parentDomainId=" + parentDomainId + ", parentDomainName=" + parentDomainName
-				+ ", useStatus=" + useStatus + ", programId=" + programId + ", LocId=" + LocId + ", timeUpdated="
-				+ timeUpdated + ", updatedBy=" + updatedBy + "]";
+		return "ParentDomain [parentDomainId=" + parentDomainId + ", annotationId=" + annotationId
+				+ ", parentDomainName=" + parentDomainName + ", useStatus=" + useStatus + ", programId=" + programId
+				+ ", LocId=" + LocId + ", timeUpdated=" + timeUpdated + ", updatedBy=" + updatedBy + "]";
 	}
+	
 	
 	
 }

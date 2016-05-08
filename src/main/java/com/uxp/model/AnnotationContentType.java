@@ -2,70 +2,99 @@ package com.uxp.model;
 
 import java.util.Date;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="annotationContentType")
 public class AnnotationContentType {
-	private int annotationContentTypeId;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long annotationContentTypeId;
+	@Column(name="annotationContentTypeDescription")
 	private String annotationContentTypeDescription;
+	@Column(name="useStatus")
 	private char useStatus;
+	@Column(name="programId")
 	private String programId;
+	@Column(name="locId")
 	private String LocId;
+	@Column(name="timeUpdated")
 	private Date timeUpdated;
-	private int updatedBy;
+	@Column(name="updatedBy")
+	private long updatedBy;
 	
+	public AnnotationContentType() {}
 	
-	
-	public AnnotationContentType(int annotationContentTypeId, String annotationContentTypeDescription, char useStatus,
-			String programId, String locId, Date timeUpdated, int updatedBy) {
-		super();
-		this.annotationContentTypeId = annotationContentTypeId;
+	public AnnotationContentType(String annotationContentTypeDescription, String programId, String locId, long updatedBy) {
 		this.annotationContentTypeDescription = annotationContentTypeDescription;
-		this.useStatus = useStatus;
+		this.useStatus = 'I';
 		this.programId = programId;
 		LocId = locId;
-		this.timeUpdated = timeUpdated;
+		this.timeUpdated = new Date();
 		this.updatedBy = updatedBy;
 	}
-	public int getAnnotationContentTypeId() {
+
+	public long getAnnotationContentTypeId() {
 		return annotationContentTypeId;
 	}
-	public void setAnnotationContentTypeId(int annotationContentTypeId) {
+
+	public void setAnnotationContentTypeId(long annotationContentTypeId) {
 		this.annotationContentTypeId = annotationContentTypeId;
 	}
+
 	public String getAnnotationContentTypeDescription() {
 		return annotationContentTypeDescription;
 	}
+
 	public void setAnnotationContentTypeDescription(String annotationContentTypeDescription) {
 		this.annotationContentTypeDescription = annotationContentTypeDescription;
 	}
+
 	public char getUseStatus() {
 		return useStatus;
 	}
+
 	public void setUseStatus(char useStatus) {
 		this.useStatus = useStatus;
 	}
+
 	public String getProgramId() {
 		return programId;
 	}
+
 	public void setProgramId(String programId) {
 		this.programId = programId;
 	}
+
 	public String getLocId() {
 		return LocId;
 	}
+
 	public void setLocId(String locId) {
 		LocId = locId;
 	}
+
 	public Date getTimeUpdated() {
 		return timeUpdated;
 	}
+
 	public void setTimeUpdated(Date timeUpdated) {
 		this.timeUpdated = timeUpdated;
 	}
-	public int getUpdatedBy() {
+
+	public long getUpdatedBy() {
 		return updatedBy;
 	}
-	public void setUpdatedBy(int updatedBy) {
+
+	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,13 +102,14 @@ public class AnnotationContentType {
 		result = prime * result + ((LocId == null) ? 0 : LocId.hashCode());
 		result = prime * result
 				+ ((annotationContentTypeDescription == null) ? 0 : annotationContentTypeDescription.hashCode());
-		result = prime * result + annotationContentTypeId;
+		result = prime * result + (int) (annotationContentTypeId ^ (annotationContentTypeId >>> 32));
 		result = prime * result + ((programId == null) ? 0 : programId.hashCode());
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
-		result = prime * result + updatedBy;
+		result = (int) (prime * result + updatedBy);
 		result = prime * result + useStatus;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -117,6 +147,7 @@ public class AnnotationContentType {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "AnnotationContentType [annotationContentTypeId=" + annotationContentTypeId

@@ -2,36 +2,60 @@ package com.uxp.model;
 
 import java.util.Date;
 
+import javax.persistence.*;
+
+
+import com.uxp.BCrypt;
+
+@Entity
+@Table(name = "userAccountSetting")
 public class UserAccountSetting {
-	private int userId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long userId;
+	@Column(name="userPassword")
 	private String userPassword;
+	@Column(name="useStatus")
 	private char useStatus;
+	@Column(name="programId")
 	private String programId;
+	@Column(name="locId")
 	private String LocId;
+	@Column(name="timeUpdated")
 	private Date timeUpdated;
+	@Column(name="updatedBy")
 	private int updatedBy;
-	public UserAccountSetting(int userId, String userPassword, char useStatus, String programId, String locId,
-			Date timeUpdated, int updatedBy) {
-		super();
-		this.userId = userId;
-		this.userPassword = userPassword;
-		this.useStatus = useStatus;
+	
+	public UserAccountSetting() {}
+	
+	public UserAccountSetting(String userPassword, String programId, String locId) {
+		
+		this.userPassword = BCrypt.hashpw(userPassword, BCrypt.gensalt());
+		this.useStatus = 'I';
 		this.programId = programId;
-		LocId = locId;
-		this.timeUpdated = timeUpdated;
-		this.updatedBy = updatedBy;
+		this.LocId = locId;
+		this.timeUpdated = new Date();
+		this.updatedBy = 0;
 	}
-	public int getUserId() {
+	
+	public boolean checkForMatch(String candidate) {
+		if(BCrypt.checkpw(candidate, this.userPassword)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 	public String getUserPassword() {
 		return userPassword;
 	}
 	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+		this.userPassword = BCrypt.hashpw(userPassword, BCrypt.gensalt());
 	}
 	public char getUseStatus() {
 		return useStatus;
@@ -72,7 +96,7 @@ public class UserAccountSetting {
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
 		result = prime * result + updatedBy;
 		result = prime * result + useStatus;
-		result = prime * result + userId;
+		result = (int) (prime * result + userId);
 		result = prime * result + ((userPassword == null) ? 0 : userPassword.hashCode());
 		return result;
 	}

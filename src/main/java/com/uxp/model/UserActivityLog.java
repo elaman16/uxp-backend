@@ -2,34 +2,58 @@ package com.uxp.model;
 
 import java.util.Date;
 
+import javax.persistence.*;
 
+
+@Entity
+@Table(name = "userActivityLog")
 public class UserActivityLog {
-	private int activeUserId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long activityId;
+	@Column(name="activeUserId")
+	private long activeUserId;
+	@Column(name="lastLogin")
 	private Date lastLogin;
+	@Column(name="activityDescription")
 	private String activityDescription;
+	@Column(name="useStatus")
 	private char useStatus;
+	@Column(name="programId")
 	private String programId;
+	@Column(name="locId")
 	private String LocId;
+	@Column(name="timeUpdated")
 	private Date timeUpdated;
-	private int updatedBy;
-	public UserActivityLog(int activeUserId, Date lastLogin, String activityDescription, char useStatus,
-			String programId, String locId, Date timeUpdated, int updatedBy) {
-		super();
+	@Column(name="updatedBy")
+	private long updatedBy;
+	
+	public UserActivityLog() {}
+	
+	public UserActivityLog(long activeUserId, String activityDescription, String programId, String locId) {
 		this.activeUserId = activeUserId;
-		this.lastLogin = lastLogin;
+		this.lastLogin = new Date();
 		this.activityDescription = activityDescription;
-		this.useStatus = useStatus;
+		this.useStatus = 'I';
 		this.programId = programId;
-		LocId = locId;
-		this.timeUpdated = timeUpdated;
-		this.updatedBy = updatedBy;
+		this.LocId = locId;
+		this.timeUpdated = new Date();
+		this.updatedBy = 0;
 	}
-	public int getActiveUserId() {
+	public long getActiveUserId() {
 		return activeUserId;
 	}
-	public void setActiveUserId(int activeUserId) {
+	public void setActiveUserId(long activeUserId) {
 		this.activeUserId = activeUserId;
 	}
+	public long getActivityId() {
+		return activityId;
+	}
+
+	public void setActivityId(long activityId) {
+		this.activityId = activityId;
+	}
+
 	public Date getLastLogin() {
 		return lastLogin;
 	}
@@ -66,10 +90,10 @@ public class UserActivityLog {
 	public void setTimeUpdated(Date timeUpdated) {
 		this.timeUpdated = timeUpdated;
 	}
-	public int getUpdatedBy() {
+	public long getUpdatedBy() {
 		return updatedBy;
 	}
-	public void setUpdatedBy(int updatedBy) {
+	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 	@Override
@@ -77,12 +101,12 @@ public class UserActivityLog {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((LocId == null) ? 0 : LocId.hashCode());
-		result = prime * result + activeUserId;
+		result = (int) (prime * result + activeUserId);
 		result = prime * result + ((activityDescription == null) ? 0 : activityDescription.hashCode());
 		result = prime * result + ((lastLogin == null) ? 0 : lastLogin.hashCode());
 		result = prime * result + ((programId == null) ? 0 : programId.hashCode());
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
-		result = prime * result + updatedBy;
+		result = (int) (prime * result + updatedBy);
 		result = prime * result + useStatus;
 		return result;
 	}

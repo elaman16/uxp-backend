@@ -1,28 +1,53 @@
 package com.uxp.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserProfile {
-	private int userId;
+import javax.persistence.*;
+
+@Entity
+@Table(name="userProfile")
+public class UserProfile implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long userId;
+	
+	@Column(name="userName")
 	private String userName;
+	@Column(name="userFirstName")
 	private String userFirstName;
+	@Column(name="userLastName")
 	private String userLastName;
-	private StringBuffer userPicURL;
+	@Column(name="userPicURL")
+	private String userPicURL;
+	@Column(name="userEmail")
 	private String userEmail;
+	@Column(name="userEmployer")
 	private String userEmployer;
+	@Column(name="userDesignation")
 	private String userDesignation;
+	@Column(name="userCity")
 	private String userCity;
+	@Column(name="userState")
 	private String userState;
+	@Column(name="useStatus")
 	private char useStatus;
+	@Column(name="programId")
 	private String programId;
+	@Column(name="locId")
 	private String LocId;
+	@Column(name="timeUpdated")
 	private Date timeUpdated;
+	@Column(name="updatedBy")
 	private int updatedBy;
-	public UserProfile(int userId, String userName, String userFirstName, String userLastName, StringBuffer userPicURL,
+	
+	public UserProfile() {}
+	
+	public UserProfile(String userName, String userFirstName, String userLastName, String userPicURL,
 			String userEmail, String userEmployer, String userDesignation, String userCity, String userState,
-			char useStatus, String programId, String locId, Date timeUpdated, int updatedBy) {
-		super();
-		this.userId = userId;
+			String programId, String locId) {
 		this.userName = userName;
 		this.userFirstName = userFirstName;
 		this.userLastName = userLastName;
@@ -32,13 +57,13 @@ public class UserProfile {
 		this.userDesignation = userDesignation;
 		this.userCity = userCity;
 		this.userState = userState;
-		this.useStatus = useStatus;
+		this.useStatus = 'I';
 		this.programId = programId;
-		LocId = locId;
-		this.timeUpdated = timeUpdated;
-		this.updatedBy = updatedBy;
+		this.LocId = locId;
+		this.timeUpdated = new Date();
+		this.updatedBy = 10;
 	}
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 	public void setUserId(int userId) {
@@ -62,10 +87,10 @@ public class UserProfile {
 	public void setUserLastName(String userLastName) {
 		this.userLastName = userLastName;
 	}
-	public StringBuffer getUserPicURL() {
+	public String getUserPicURL() {
 		return userPicURL;
 	}
-	public void setUserPicURL(StringBuffer userPicURL) {
+	public void setUserPicURL(String userPicURL) {
 		this.userPicURL = userPicURL;
 	}
 	public String getUserEmail() {
@@ -114,7 +139,7 @@ public class UserProfile {
 		return LocId;
 	}
 	public void setLocId(String locId) {
-		LocId = locId;
+		this.LocId = locId;
 	}
 	public Date getTimeUpdated() {
 		return timeUpdated;
@@ -142,7 +167,7 @@ public class UserProfile {
 		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
 		result = prime * result + ((userEmployer == null) ? 0 : userEmployer.hashCode());
 		result = prime * result + ((userFirstName == null) ? 0 : userFirstName.hashCode());
-		result = prime * result + userId;
+		result = (int) (prime * result + userId);
 		result = prime * result + ((userLastName == null) ? 0 : userLastName.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		result = prime * result + ((userPicURL == null) ? 0 : userPicURL.hashCode());

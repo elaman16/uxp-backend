@@ -2,83 +2,119 @@ package com.uxp.model;
 
 import java.util.Date;
 
+import javax.persistence.*;
 
 
+
+@Entity
+@Table(name="annotatoinHashtag")
 public class AnnotationHashTag {
-	private int annotationId;
-	private int annotationHashtagId;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long annotationHashtagId;
+	private long annotationId;
+	private String hashTagValue;
 	private char useStatus;
 	private String programId;
 	private String LocId;
 	private Date timeUpdated;
-	private int updatedBy;
+	private long updatedBy;
 	
-	public AnnotationHashTag(int annotationId, int annotationHashtagId, char useStatus, String programId, String locId,
-			Date timeUpdated, int updatedBy) {
-		super();
+	public AnnotationHashTag() {}
+
+	public AnnotationHashTag(long annotationId, String hashTagValue, String programId, String locId, long updatedBy) {
 		this.annotationId = annotationId;
-		this.annotationHashtagId = annotationHashtagId;
-		this.useStatus = useStatus;
+		this.hashTagValue = hashTagValue;
+		this.useStatus = 'I';
 		this.programId = programId;
-		LocId = locId;
-		this.timeUpdated = timeUpdated;
+		this.LocId = locId;
+		this.timeUpdated = new Date();
 		this.updatedBy = updatedBy;
 	}
-	public int getAnnotationId() {
+
+	public String getHashTagValue() {
+		return hashTagValue;
+	}
+
+	public void setHashTagValue(String hashTagValue) {
+		this.hashTagValue = hashTagValue;
+	}
+
+	public long getAnnotationId() {
 		return annotationId;
 	}
-	public void setAnnotationId(int annotationId) {
+
+	public void setAnnotationId(long annotationId) {
 		this.annotationId = annotationId;
 	}
-	public int getAnnotationHashtagId() {
+
+	public long getAnnotationHashtagId() {
 		return annotationHashtagId;
 	}
-	public void setAnnotationHashtagId(int annotationHashtagId) {
+
+	public void setAnnotationHashtagId(long annotationHashtagId) {
 		this.annotationHashtagId = annotationHashtagId;
 	}
+
 	public char getUseStatus() {
 		return useStatus;
 	}
+
 	public void setUseStatus(char useStatus) {
 		this.useStatus = useStatus;
 	}
+
 	public String getProgramId() {
 		return programId;
 	}
+
 	public void setProgramId(String programId) {
 		this.programId = programId;
 	}
+
 	public String getLocId() {
 		return LocId;
 	}
+
 	public void setLocId(String locId) {
 		LocId = locId;
 	}
+
 	public Date getTimeUpdated() {
 		return timeUpdated;
 	}
+
 	public void setTimeUpdated(Date timeUpdated) {
 		this.timeUpdated = timeUpdated;
 	}
-	public int getUpdatedBy() {
+
+	public long getUpdatedBy() {
 		return updatedBy;
 	}
-	public void setUpdatedBy(int updatedBy) {
+
+	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((LocId == null) ? 0 : LocId.hashCode());
-		result = prime * result + annotationHashtagId;
-		result = prime * result + annotationId;
+		result = prime * result + (int) (annotationHashtagId ^ (annotationHashtagId >>> 32));
+		result = prime * result + (int) (annotationId ^ (annotationId >>> 32));
 		result = prime * result + ((programId == null) ? 0 : programId.hashCode());
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
-		result = prime * result + updatedBy;
+		result = (int) (prime * result + updatedBy);
 		result = prime * result + useStatus;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -113,12 +149,15 @@ public class AnnotationHashTag {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "AnnotationHashTag [annotationId=" + annotationId + ", annotationHashtagId=" + annotationHashtagId
 				+ ", useStatus=" + useStatus + ", programId=" + programId + ", LocId=" + LocId + ", timeUpdated="
 				+ timeUpdated + ", updatedBy=" + updatedBy + "]";
 	}
+	
+	
 	
 	
 }

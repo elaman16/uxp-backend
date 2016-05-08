@@ -4,32 +4,38 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
+@Table(name="userRoles")
 public class UserRole {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private int userRoleId;
-	
+	private long userRoleId;
+	@Column(name="userRoleDescription")
 	private String userRoleDescription;
+	@Column(name="useStatus")
 	private char useStatus;
+	@Column(name="programId")
 	private String programId;
+	@Column(name="locId")
 	private String LocId;
+	@Column(name="timeUpdated")
 	private Date timeUpdated;
-	private int updatedBy;
-	public UserRole(int userRoleId, String userRoleDescription, char useStatus, String programId, String locId,
-			Date timeUpdated, int updatedBy) {
-		super();
-		this.userRoleId = userRoleId;
+	@Column(name="updatedBy")
+	private long updatedBy;
+	
+	public UserRole() {}
+	
+	public UserRole(String userRoleDescription, String programId, String locId) {		
 		this.userRoleDescription = userRoleDescription;
-		this.useStatus = useStatus;
+		this.useStatus = 'I';
 		this.programId = programId;
-		LocId = locId;
-		this.timeUpdated = timeUpdated;
-		this.updatedBy = updatedBy;
+		this.LocId = locId;
+		this.timeUpdated = new Date();
+		this.updatedBy = 0;
 	}
-	public int getUserRoleId() {
+	public long getUserRoleId() {
 		return userRoleId;
 	}
-	public void setUserRoleId(int userRoleId) {
+	public void setUserRoleId(long userRoleId) {
 		this.userRoleId = userRoleId;
 	}
 	public String getUserRoleDescription() {
@@ -62,10 +68,10 @@ public class UserRole {
 	public void setTimeUpdated(Date timeUpdated) {
 		this.timeUpdated = timeUpdated;
 	}
-	public int getUpdatedBy() {
+	public long getUpdatedBy() {
 		return updatedBy;
 	}
-	public void setUpdatedBy(int updatedBy) {
+	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 	@Override
@@ -75,10 +81,10 @@ public class UserRole {
 		result = prime * result + ((LocId == null) ? 0 : LocId.hashCode());
 		result = prime * result + ((programId == null) ? 0 : programId.hashCode());
 		result = prime * result + ((timeUpdated == null) ? 0 : timeUpdated.hashCode());
-		result = prime * result + updatedBy;
+		result = (int) (prime * result + updatedBy);
 		result = prime * result + useStatus;
 		result = prime * result + ((userRoleDescription == null) ? 0 : userRoleDescription.hashCode());
-		result = prime * result + userRoleId;
+		result = (int) (prime * result + userRoleId);
 		return result;
 	}
 	@Override
