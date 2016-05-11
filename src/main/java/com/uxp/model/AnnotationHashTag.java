@@ -1,13 +1,17 @@
 package com.uxp.model;
 
+
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+
+import org.hibernate.mapping.Array;
 
 
 
 @Entity
-@Table(name="annotatoinHashtag")
+@Table(name="annotationHashtag")
 public class AnnotationHashTag {
 	private static final long serialVersionUID = 1L;
 	@Id

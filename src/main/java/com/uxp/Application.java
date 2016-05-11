@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * Spring Boot main Application
@@ -16,6 +19,21 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableAutoConfiguration
 @ComponentScan({"com"})
 public class Application {
+	
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("file:///home/kelly/golive/uxpass/public/");
+    }
+	/*public void addCorsMappings(CorsRegistry registry) {
+		registry
+			.addMapping("/**")
+			//.allowedOrigins("http://xyz.com")
+			.allowedMethods("GET", "POST", "PUT", "DELETE")
+			.allowedHeaders("header1", "header2", "header3","header4", "header5", "header6", "header7", "header8", "header9","header10", "header11", "header12")
+			.exposedHeaders("header1", "header2", "header3","header4", "header5", "header6", "header7", "header8", "header9","header10", "header11", "header12")
+			.allowCredentials(false)
+			.maxAge(3600);
+			
+	}*/
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);

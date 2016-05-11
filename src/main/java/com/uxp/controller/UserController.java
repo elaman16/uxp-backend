@@ -59,7 +59,7 @@ public class UserController {
 	public @ResponseBody Object createUser(@RequestParam String userName, @RequestParam String userPassword, @RequestParam String userFirstName, 
 			@RequestParam String userLastName, @RequestParam String userPicURL,@RequestParam String userEmail, @RequestParam String userEmployer,
 			@RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState, @RequestParam String programId, 
-			@RequestParam long updatedBy, @RequestParam int userExpertise, @RequestParam String userRoleDescription,
+			@RequestParam long updatedBy, @RequestParam String userExpertise, @RequestParam String userRoleDescription,
 			@RequestParam String userPermissionCode, @RequestParam String userPermissionDescription, HttpServletRequest request, HttpServletResponse response) {
 		
 		long profileId;
@@ -221,7 +221,7 @@ public class UserController {
 			return userResponse;
 		}
 	}
-	@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
+	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
 	public @ResponseBody Object postUserActivityLog(@PathVariable("userId") long userId, @RequestHeader("programId") String programId, HttpServletResponse response,  HttpServletRequest request) {
 		try {
 			List<UserActivityLog> userActions = userActivityDAO.findByActiveUserId(userId);
@@ -237,4 +237,5 @@ public class UserController {
 		    return new ResponseMsg("Error", "Could not find any user actions");
 	 }
 	}
+	*/
 }
