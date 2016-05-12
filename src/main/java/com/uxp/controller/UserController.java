@@ -24,7 +24,7 @@ public class UserController {
 	/*
 	 * POST to create a new user.
 	 */
-	@RequestMapping(value="", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
+	@RequestMapping(value="", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_UTF8_VALUE, produces = "application/json")
 	public @ResponseBody Object createUser(@RequestParam String userName, @RequestParam String userPassword, @RequestParam String userFirstName, 
 			@RequestParam String userLastName, @RequestParam String userPicURL,@RequestParam String userEmail, @RequestParam String userEmployer,
 			@RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState, @RequestParam String programId, 
