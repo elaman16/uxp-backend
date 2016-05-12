@@ -130,20 +130,17 @@ public class AnnotationService_Impl implements AnnotationService {
 		return url;
 	}
 	public String decodeBase64(StringBuffer mediaData) {
-		try {
+		
 			String header = mediaData.substring(0, mediaData.indexOf(","));
 			System.out.println("____________________________________");
 			System.out.println(header);
 			System.out.println("____________________________________");
-			if(header == "data:image/jpeg;base64") {
+			if(header.contentEquals("data:image/jpeg;base64")) {
 				return decodeBase64JPEG(mediaData);
 			} else {
-				throw new Exception("Unsupported File Encoding");
+				return "No match!";
 			}
-		} catch (Exception ex) {
-		      System.out.println("Unsupported File Encoding: " + ex.toString());
-			  return "Unsupported File Encoding";
-		 }
+		
 	}
 	
 	public String decodeBase64JPEG(StringBuffer mediaData) {
