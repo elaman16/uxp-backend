@@ -46,6 +46,9 @@ public class UserService_Impl implements UserService {
 	
 	public Object userLogin(String userName, String userPass) {
 		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
+			if(userProfile == null) {
+				return new ResponseMsg("USER", "NOT FOUND!");
+			}
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
 		UserAccountSetting userAccountSetting = userAccountSettingDAO.findOne(user.getAccountSettingId());
 		if(userAccountSetting.checkForMatch(userPass)) {
