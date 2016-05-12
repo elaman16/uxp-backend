@@ -10,6 +10,8 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
+
+
 @Entity
 @Table(name="annotationMedia")
 public class AnnotationMedia {
@@ -25,34 +27,16 @@ public class AnnotationMedia {
 	
 	public AnnotationMedia() {}
 	
-	public AnnotationMedia(String mediaType, StringBuffer mediaData) {
+	
+	
+	public AnnotationMedia(String mediaType, String mediaData) {
 		
-		this.annotationMediaData = decodeBase64JPEG(mediaData);	
+		this.annotationMediaData = mediaData;	
 		this.annotationMediaType = mediaType;
 		this.timeUpdated = new Date();
 	}
-	public String decodeBase64JPEG(StringBuffer mediaData) {
-		String header = mediaData.substring(0, mediaData.indexOf(","));
-		String encoded = mediaData.substring(mediaData.indexOf(",") + 1);
-		try {
-		System.out.println("____________________________________________________");
-		System.out.println("Trying to decode..");
-		System.out.println("Header for file is: " + header );
-		System.out.println("____________________________________________________");
-		UUID uid = UUID.randomUUID();
-		byte[] decoded = Base64.getMimeDecoder().decode(encoded);
-		File f = new File("public/annotationImage/" + uid + ".jpeg");
-		FileOutputStream fos = new FileOutputStream("public/annotationImage/" + uid + ".jpeg");
-		fos.write(decoded);
-		fos.close();
-		
-		String hostname = InetAddress.getLocalHost().getHostName();
-		return "http://192.168.1.62:8080" + "/annotationImage/" + uid + ".jpeg";
-		} catch(Exception ex) {
-		      return "Error creating the user: " + ex.toString();
-		    }
-
-	}
+	
+	
 
 	public String getAnnotationMediaType() {
 		return annotationMediaType;

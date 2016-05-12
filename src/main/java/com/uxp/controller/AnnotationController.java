@@ -42,6 +42,7 @@ import com.uxp.model.ParentDomain;
 import com.uxp.model.PinType;
 import com.uxp.model.ResponseMsg;
 import com.uxp.model.UserActivityLog;
+import com.uxp.service.AnnotationService;
 
 
 @RestController
@@ -68,6 +69,8 @@ public class AnnotationController {
 	private UserActivityDAO userActivityDAO; 
 	@Autowired
 	private EmojiDAO emojiDAO;
+	@Autowired
+	private AnnotationService annotationService;
 	
 	//********************************POST Requests ***************************************
 	@CrossOrigin
@@ -78,8 +81,9 @@ public class AnnotationController {
 			@RequestParam String pinXCoordinate, @RequestParam String pinYCoordinate, @RequestParam String annotationMediaType,
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam StringBuffer annotationMedia,
 			@RequestParam String programId, @RequestParam long userId,@RequestParam String hashtag, HttpServletRequest request, HttpServletResponse response ) {
-		
-		try {
+			
+			return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, pinTypeColor, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, request, response);
+		/*try {
 			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, request.getRemoteAddr(), userId);
 			ParentDomain _parentDomain = new ParentDomain(annotation.getAnnotationId(), parentDomain, programId, request.getRemoteAddr(), userId);
 			PinType _pinType = new PinType(pinType, pinTypeDescription, pinTypeColor, programId, request.getRemoteAddr(), userId);
@@ -118,7 +122,7 @@ public class AnnotationController {
 		      System.out.println("Error updating the user profile: " + ex.toString());
 		      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			  return new ResponseMsg("Error", "Could not update user profile");
-		 }
+		 }*/
 	}
 	
 	//*********************************GET Requests************************************************

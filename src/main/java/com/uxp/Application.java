@@ -3,6 +3,7 @@ package com.uxp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.aws.context.config.annotation.EnableContextCredentials;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan({"com"})
+@EnableContextCredentials(accessKey="AKIAJAEOKYIRMVE3VK5Q", secretKey="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")
 public class Application {
 	
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
