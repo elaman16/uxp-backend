@@ -124,14 +124,17 @@ public class AnnotationService_Impl implements AnnotationService {
 	public String uploadToS3(String fileName, String fileLocation) {
 		AWSCredentials credentials = new BasicAWSCredentials("AKIAJAEOKYIRMVE3VK5Q", "P7XutdkzEyO56IanKX9gGJzDSZ2T9bqBS7NMly0B");
 		AmazonS3Client s3client = new AmazonS3Client(credentials);
-		s3client.putObject(new PutObjectRequest("uxpass", fileName, new File(fileLocation))
+		s3client.putObject(new PutObjectRequest("uxpjpeg", fileName, new File(fileLocation))
 		.withCannedAcl(CannedAccessControlList.PublicRead));
-		String url = s3client.getResourceUrl("uxpass", fileName);
+		String url = s3client.getResourceUrl("uxpjpeg", fileName);
 		return url;
 	}
 	public String decodeBase64(StringBuffer mediaData) {
 		try {
 			String header = mediaData.substring(0, mediaData.indexOf(","));
+			System.out.println("____________________________________");
+			System.out.println(header);
+			System.out.println("____________________________________");
 			if(header == "data:image/jpeg;base64") {
 				return decodeBase64JPEG(mediaData);
 			} else {
