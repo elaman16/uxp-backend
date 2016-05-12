@@ -137,15 +137,31 @@ public class AnnotationService_Impl implements AnnotationService {
 			System.out.println("____________________________________");
 			if(header.contentEquals("data:image/jpeg;base64")) {
 				return decodeBase64JPEG(mediaData);
+			} else if(header.contentEquals("data:video/webm;base64")) {
+				return decodeBase64WEBM(mediaData);
 			} else {
 				return "No match!";
 			}
 		
 	}
+	public String decodeBase64WEBM(StringBuffer mediaData) {
+		try {
+			String encoded = mediaData.substring(mediaData.indexOf(",") + 1);
+			UUID uid = UUID.randomUUID();
+			byte[] decoded = Base64.getMimeDecoder().decode(encoded);
+			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".webm");
+			fos.write(decoded);
+			fos.close();
+			String url = uploadToS3(uid + ".webm", "tmp/" + uid + ".webm");
+			return url;
+		} catch(Exception ex) {
+		      return "Error Decoding Base64 string " + ex.toString();
+		    }
+	}
 	
 	public String decodeBase64JPEG(StringBuffer mediaData) {
-		String encoded = mediaData.substring(mediaData.indexOf(",") + 1);
 		try {
+			String encoded = mediaData.substring(mediaData.indexOf(",") + 1);
 			UUID uid = UUID.randomUUID();
 			byte[] decoded = Base64.getMimeDecoder().decode(encoded);
 			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".jpeg");
