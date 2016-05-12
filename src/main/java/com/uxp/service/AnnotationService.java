@@ -3,8 +3,6 @@ package com.uxp.service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 public interface AnnotationService {
 	Object postAnnotation( String annotationTitle, String annotationText, String emoji,
 		String pinType, String pinTypeColor, String pinTypeDescription,	String annotationContentType,
@@ -14,5 +12,6 @@ public interface AnnotationService {
 	
 	String uploadToS3(String fileName, String fileLocation);
 	String decodeBase64JPEG(StringBuffer mediaData);
-
+	Object getAllAnnotations(String programId,  HttpServletRequest request, HttpServletResponse response);
+	Object getUserAnnotations(long userId, String programId, HttpServletRequest request, HttpServletResponse response);
 }
