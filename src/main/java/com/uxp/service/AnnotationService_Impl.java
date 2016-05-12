@@ -139,11 +139,28 @@ public class AnnotationService_Impl implements AnnotationService {
 				return decodeBase64JPEG(mediaData);
 			} else if(header.contentEquals("data:video/webm;base64")) {
 				return decodeBase64WEBM(mediaData);
+			} else if(header.contentEquals("data:audio/ogg;base64")) {
+				return decodeBase64OGG(mediaData);
 			} else {
 				return "No match!";
 			}
 		
 	}
+	public String decodeBase64OGG(StringBuffer mediaData) {
+		try {
+			String encoded = mediaData.substring(mediaData.indexOf(",") + 1);
+			UUID uid = UUID.randomUUID();
+			byte[] decoded = Base64.getMimeDecoder().decode(encoded);
+			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".ogg");
+			fos.write(decoded);
+			fos.close();
+			String url = uploadToS3(uid + ".ogg", "tmp/" + uid + ".ogg");
+			return url;
+		} catch(Exception ex) {
+		      return "Error Decoding Base64 string " + ex.toString();
+		    }
+	}
+	
 	public String decodeBase64WEBM(StringBuffer mediaData) {
 		try {
 			String encoded = mediaData.substring(mediaData.indexOf(",") + 1);
