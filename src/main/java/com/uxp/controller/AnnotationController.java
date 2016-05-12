@@ -34,6 +34,19 @@ public class AnnotationController {
 		
 	}
 	
+	@RequestMapping(value="/audio", method={RequestMethod.POST})
+	public @ResponseBody Object postAudioAnnotation(@RequestParam String annotationTitle, @RequestParam String annotationText,
+			@RequestParam String emoji, @RequestParam String pinType, @RequestParam String pinTypeColor, @RequestParam String pinTypeDescription,
+			@RequestParam String annotationContentType,	@RequestParam String annotationType, @RequestParam String parentDomain, @RequestParam String specificUrl, 
+			@RequestParam String pinXCoordinate, @RequestParam String pinYCoordinate, @RequestParam String annotationMediaType,
+			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam String programId, 
+			@RequestParam long userId,@RequestParam String hashtag, @RequestParam StringBuffer annotationMediaImage,
+			@RequestParam StringBuffer annotationMediaAudio, HttpServletRequest request, HttpServletResponse response ) {
+			
+			return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, pinTypeColor, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
+		
+	}
+	
 	//*********************************GET Requests************************************************
 	
 	@RequestMapping(value="/all", method={RequestMethod.GET})

@@ -24,6 +24,7 @@ import com.uxp.dao.AnnotationDAO;
 import com.uxp.dao.AnnotationHashTagDAO;
 import com.uxp.dao.AnnotationMediaDAO;
 import com.uxp.dao.AnnotationTypeDAO;
+import com.uxp.dao.AudioAnnotationDAO;
 import com.uxp.dao.EmojiDAO;
 import com.uxp.dao.ParentDomainDAO;
 import com.uxp.dao.PinTypeDAO;
@@ -35,6 +36,7 @@ import com.uxp.model.AnnotationHashTag;
 import com.uxp.model.AnnotationMedia;
 import com.uxp.model.AnnotationResponse;
 import com.uxp.model.AnnotationType;
+import com.uxp.model.AudioAnnotation;
 import com.uxp.model.Emoji;
 import com.uxp.model.ParentDomain;
 import com.uxp.model.PinType;
@@ -60,6 +62,8 @@ public class AnnotationService_Impl implements AnnotationService {
 	private PinTypeDAO pinTypeDAO;
 	@Autowired 
 	private AnnotationMediaDAO annotationMediaDAO;
+	@Autowired 
+	private AudioAnnotationDAO audioAnnotationDAO;
 	@Autowired
 	private UserActivityDAO userActivityDAO; 
 	@Autowired
@@ -223,6 +227,53 @@ public class AnnotationService_Impl implements AnnotationService {
 			annotation.setAnnotationContentTypeId(_annotationContentType.getAnnotationContentTypeId());
 			annotation.setEmojiId(_emoji.getEmojiId());
 			annotation.setAnnotationMediaId(_annotationMedia.getAnnotationMediaId());
+			
+			annotationDAO.save(annotation);
+			
+			UserActivityLog userActivityLog = new UserActivityLog(userId, "annotationPosted", programId, request.getRemoteAddr());
+			userActivityLog.setUpdatedBy(userId);
+			userActivityDAO.save(userActivityLog);
+			
+			return new ResponseMsg("link", "/annotation/" + annotation.getAnnotationId());
+		} catch (Exception ex) {
+			  UserActivityLog userActivityLog = new UserActivityLog(userId, "annotationPostFail", programId, request.getRemoteAddr());
+			  userActivityLog.setUpdatedBy(userId);
+			  userActivityDAO.save(userActivityLog);
+		      System.out.println("Could not post new Annotation: " + ex.toString());
+			  return new ResponseMsg("Error", "Could not post new Annotation");
+		 }
+	}
+	public Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String pinTypeColor,
+			String pinTypeDescription, String annotationContentType, String annotationType, String parentDomain, String specificUrl, 
+			String pinXCoordinate, String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth, 
+			String programId, long userId, String hashtag, StringBuffer annotationMediaImage, StringBuffer annotationMediaAudio,
+			HttpServletRequest request, HttpServletResponse response) {
+		try {
+			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, 
+					pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, 
+					request.getRemoteAddr(), userId);
+			ParentDomain _parentDomain = new ParentDomain(annotation.getAnnotationId(), parentDomain, programId, request.getRemoteAddr(), userId);
+			PinType _pinType = new PinType(pinType, pinTypeDescription, pinTypeColor, programId, request.getRemoteAddr(), userId);
+			AnnotationType _annotationType = new AnnotationType(annotationType, programId, request.getRemoteAddr(), userId);
+			AnnotationHashTag _annotationHashTag = new AnnotationHashTag(annotation.getAnnotationId(), hashtag, programId, request.getRemoteAddr(), userId);
+			AnnotationContentType _annotationContentType = new AnnotationContentType(annotationContentType, programId, request.getRemoteAddr(), userId);
+			Emoji _emoji = new Emoji(emoji, annotation.getAnnotationId(), programId, request.getRemoteAddr(), userId);
+			AudioAnnotation _audioAnnotation  = new AudioAnnotation(annotationMediaType, decodeBase64(annotationMediaImage), decodeBase64(annotationMediaAudio));
+			
+			emojiDAO.save(_emoji);
+			annotationContentTypeDAO.save(_annotationContentType);
+			annotationHashTagDAO.save(_annotationHashTag);
+			annotationTypeDAO.save(_annotationType);
+			pinTypeDAO.save(_pinType);
+			parentDomainDAO.save(_parentDomain);
+			audioAnnotationDAO.save(_audioAnnotation);
+			
+			annotation.setParentDomainId(_parentDomain.getParentDomainId());
+			annotation.setPinTypeId(_pinType.getPinTypeId());
+			annotation.setAnnotationTypeId(_annotationType.getAnnotationTypeId());
+			annotation.setAnnotationContentTypeId(_annotationContentType.getAnnotationContentTypeId());
+			annotation.setEmojiId(_emoji.getEmojiId());
+			annotation.setAnnotationMediaId(_audioAnnotation.getAnnotationMediaId());
 			
 			annotationDAO.save(annotation);
 			
