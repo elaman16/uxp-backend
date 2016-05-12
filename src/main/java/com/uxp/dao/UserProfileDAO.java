@@ -9,5 +9,5 @@ import com.uxp.model.UserProfile;
 
 @Transactional
 public interface UserProfileDAO extends CrudRepository<UserProfile, Long> {
-	
+	public UserProfile findOneByUserName(String userName);
 }

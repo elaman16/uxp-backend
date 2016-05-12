@@ -34,6 +34,14 @@ public class UserController {
 		return userService.createUser(userName, userPassword, userFirstName, userLastName, userPicURL, userEmail, userEmployer, userDesignation, userCity, userState, programId, updatedBy, userExpertise, userRoleDescription, userPermissionCode, userPermissionDescription, request, response);
 	}
 	/*
+	 * POST to Login
+	 */
+	@RequestMapping(value="/login", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
+	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {
+		
+		return userService.userLogin(userName, userPassword);
+	}
+	/*
 	 * POST to update existing user profile
 	 */
 	@RequestMapping(value="/{userId}/userProfile", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE )

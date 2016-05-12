@@ -44,6 +44,16 @@ public class UserService_Impl implements UserService {
 	@Autowired
 	private UserPermissionDAO userPermissionDAO;
 	
+	public Object userLogin(String userName, String userPass) {
+		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
+		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
+		UserAccountSetting userAccountSetting = userAccountSettingDAO.findOne(user.getAccountSettingId());
+		if(userAccountSetting.checkForMatch(userPass)) {
+			return new ResponseMsg("PASSWORD", "MATCH, LOGGING IN!");
+		}
+		return new ResponseMsg("PASSWORD", "MISMATCH!!");
+	}
+	
 	public Object createUser(String userName, String userPassword, String userFirstName, 
 		   String userLastName, String userPicURL, String userEmail, String userEmployer,
 		   String userDesignation, String userCity, String userState, String programId, 
@@ -68,7 +78,7 @@ public class UserService_Impl implements UserService {
 			      UserPermissions userPermission = new UserPermissions(userPermissionCode, userPermissionDescription, userRole.getUserRoleId(), programId, request.getRemoteAddr());
 			      userPermissionDAO.save(userPermission);
 			      
-			      User user = new User(userAccountSetting.getUserId(), userRole.getUserRoleId(), userProfile.getUserId(), _userExpertise.getUserId(), userPermission.getUserPermissionId(), programId, request.getRemoteAddr());
+			      User user = new User(userAccountSetting.getUserId(), userRole.getUserRoleId(), userProfile.getUserProfileId(), _userExpertise.getUserId(), userPermission.getUserPermissionId(), programId, request.getRemoteAddr());
 			      UserActivityLog userActivityLog = new UserActivityLog(user.getUserId(), "newUserCreated", programId, request.getRemoteAddr());
 			      user.setUserActivityId(userActivityLog.getActivityId());
 			      

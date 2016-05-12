@@ -12,7 +12,7 @@ public class UserProfile implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long userId;
+	private long userProfileId;
 	
 	@Column(name="userName")
 	private String userName;
@@ -63,12 +63,19 @@ public class UserProfile implements Serializable {
 		this.timeUpdated = new Date();
 		this.updatedBy = 10;
 	}
-	public long getUserId() {
-		return userId;
+	
+	public long getUserProfileId() {
+		return userProfileId;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+
+	public void setUserProfileId(long userProfileId) {
+		this.userProfileId = userProfileId;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -167,7 +174,7 @@ public class UserProfile implements Serializable {
 		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
 		result = prime * result + ((userEmployer == null) ? 0 : userEmployer.hashCode());
 		result = prime * result + ((userFirstName == null) ? 0 : userFirstName.hashCode());
-		result = (int) (prime * result + userId);
+		result = (int) (prime * result + userProfileId);
 		result = prime * result + ((userLastName == null) ? 0 : userLastName.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		result = prime * result + ((userPicURL == null) ? 0 : userPicURL.hashCode());
@@ -227,7 +234,7 @@ public class UserProfile implements Serializable {
 				return false;
 		} else if (!userFirstName.equals(other.userFirstName))
 			return false;
-		if (userId != other.userId)
+		if (userProfileId != other.userProfileId)
 			return false;
 		if (userLastName == null) {
 			if (other.userLastName != null)
@@ -253,7 +260,7 @@ public class UserProfile implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "UserProfile [userId=" + userId + ", userName=" + userName + ", userFirstName=" + userFirstName
+		return "UserProfile [userId=" + userProfileId + ", userName=" + userName + ", userFirstName=" + userFirstName
 				+ ", userLastName=" + userLastName + ", userPicURL=" + userPicURL + ", userEmail=" + userEmail
 				+ ", userEmployer=" + userEmployer + ", userDesignation=" + userDesignation + ", userCity=" + userCity
 				+ ", userState=" + userState + ", useStatus=" + useStatus + ", programId=" + programId + ", LocId="

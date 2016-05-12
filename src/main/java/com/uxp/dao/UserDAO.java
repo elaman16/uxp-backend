@@ -8,5 +8,5 @@ import com.uxp.model.User;
 
 @Transactional
 public interface UserDAO extends CrudRepository<User, Long> {
-	
+	public User findOneByUserProfileId(long profileId);
 }

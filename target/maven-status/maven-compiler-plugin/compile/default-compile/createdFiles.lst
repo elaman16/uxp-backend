@@ -36,7 +36,6 @@ com/uxp/dao/PinTypeDAO.class
 com/uxp/model/User.class
 com/uxp/service/UserService_Impl.class
 com/uxp/dao/EmojiDAO.class
-com/uxp/controller/UserController.class
 com/uxp/model/Hashtag.class
 com/uxp/dao/AnnotationTypeDAO.class
 com/uxp/service/AnnotationService.class
