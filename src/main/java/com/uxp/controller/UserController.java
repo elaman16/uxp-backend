@@ -45,7 +45,7 @@ public class UserController {
 		System.out.println("_________________________");
 		System.out.println(session.getId());
 		System.out.println("_________________________");
-		request.getSession().setAttribute("name", new ResponseMsg("Derp", "works"));
+		request.getSession().setAttribute("name", "damn it worked!");
 		return userService.userLogin(userName, userPassword);
 	}
 	/*
