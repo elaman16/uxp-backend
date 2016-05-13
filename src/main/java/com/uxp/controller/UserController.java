@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.uxp.model.ResponseMsg;
@@ -19,6 +20,7 @@ import com.uxp.service.UserService;
 
 @RestController
 @RequestMapping(value="/user", method={RequestMethod.POST, RequestMethod.GET})
+@SessionAttributes("userDetails")
 public class UserController {
 	@Autowired
 	private UserService userService;
@@ -43,8 +45,8 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		System.out.println("_________________________");
-		System.out.println(request.getSession().getAttribute("id"));
-		request.getSession().setAttribute("name", "arg1");
+		System.out.println(session.getAttributeNames());
+		System.out.println(session.toString());
 		System.out.println("_________________________");
 		
 		return userService.userLogin(userName, userPassword, session);
