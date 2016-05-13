@@ -12,7 +12,7 @@ public interface AnnotationService {
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
 		StringBuffer annotationMedia, String programId, long userId, String hashtag, HttpServletRequest request, HttpServletResponse response );
 	
-	String uploadToS3(String fileName, String fileLocation);
+	String uploadToS3(String fileName, String fileLocation, String bucket);
 	
 	String decodeBase64JPEG(StringBuffer mediaData);
 	

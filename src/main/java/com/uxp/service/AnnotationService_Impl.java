@@ -125,12 +125,12 @@ public class AnnotationService_Impl implements AnnotationService {
 			 }
 		}
 	
-	public String uploadToS3(String fileName, String fileLocation) {
+	public String uploadToS3(String fileName, String fileLocation, String bucket) {
 		AWSCredentials credentials = new BasicAWSCredentials("AKIAJAEOKYIRMVE3VK5Q", "P7XutdkzEyO56IanKX9gGJzDSZ2T9bqBS7NMly0B");
 		AmazonS3Client s3client = new AmazonS3Client(credentials);
-		s3client.putObject(new PutObjectRequest("uxpjpeg", fileName, new File(fileLocation))
+		s3client.putObject(new PutObjectRequest(bucket, fileName, new File(fileLocation))
 		.withCannedAcl(CannedAccessControlList.PublicRead));
-		String url = s3client.getResourceUrl("uxpjpeg", fileName);
+		String url = s3client.getResourceUrl(bucket, fileName);
 		return url;
 	}
 	public String decodeBase64(StringBuffer mediaData) {
@@ -158,7 +158,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".ogg");
 			fos.write(decoded);
 			fos.close();
-			String url = uploadToS3(uid + ".ogg", "tmp/" + uid + ".ogg");
+			String url = uploadToS3(uid + ".ogg", "tmp/" + uid + ".ogg", "uxpogg");
 			return url;
 		} catch(Exception ex) {
 		      return "Error Decoding Base64 string " + ex.toString();
@@ -173,7 +173,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".webm");
 			fos.write(decoded);
 			fos.close();
-			String url = uploadToS3(uid + ".webm", "tmp/" + uid + ".webm");
+			String url = uploadToS3(uid + ".webm", "tmp/" + uid + ".webm", "uxpwebm");
 			return url;
 		} catch(Exception ex) {
 		      return "Error Decoding Base64 string " + ex.toString();
@@ -188,7 +188,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".jpeg");
 			fos.write(decoded);
 			fos.close();
-			String url = uploadToS3(uid + ".jpeg", "tmp/" + uid + ".jpeg");
+			String url = uploadToS3(uid + ".jpeg", "tmp/" + uid + ".jpeg", "uxpjpeg");
 			return url;
 		} catch(Exception ex) {
 		      return "Error Decoding Base64 string " + ex.toString();
