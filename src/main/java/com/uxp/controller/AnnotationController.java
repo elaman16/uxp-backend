@@ -33,11 +33,7 @@ public class AnnotationController {
 			@RequestParam String pinXCoordinate, @RequestParam String pinYCoordinate, @RequestParam String annotationMediaType,
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam StringBuffer annotationMedia,
 			@RequestParam String programId, @RequestParam long userId,@RequestParam String hashtag, HttpServletRequest request, HttpServletResponse response, HttpSession session ) {
-			System.out.println("_________________________");
-			System.out.println(session.getId());
-			ResponseMsg rm = (ResponseMsg) session.getAttribute("datas");
-			System.out.println(rm.getDescription());
-			System.out.println("_________________________");
+			
 			return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, pinTypeColor, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, request, response, session);
 		
 	}
@@ -58,7 +54,18 @@ public class AnnotationController {
 	//*********************************GET Requests************************************************
 	
 	@RequestMapping(value="/all", method={RequestMethod.GET})
-	public @ResponseBody Object getAllAnnotations(@RequestHeader String programId,  HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Object getAllAnnotations(@RequestHeader String programId,  HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		if(session.getAttribute("datas") != null) {
+			System.out.println("_________________________");
+			System.out.println(session.getId());
+			ResponseMsg rm = (ResponseMsg) session.getAttribute("datas");
+			System.out.println(rm.getDescription());
+			System.out.println("_________________________");
+		} else {
+			System.out.println("___________________________");
+			System.out.println("Null Data! :(");
+			System.out.println("___________________________");
+		}
 		return annotationService.getAllAnnotations(programId, request, response);
 	}
 	
