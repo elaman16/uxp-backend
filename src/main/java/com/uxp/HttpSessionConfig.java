@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
 @Configuration
@@ -23,6 +24,11 @@ public class HttpSessionConfig {
         redis.setPort(redisUri.getPort());
         redis.setPassword(redisUri.getUserInfo().split(":",2)[1]);
         return redis;
+    }
+    
+    @Bean
+    public static ConfigureRedisAction configureRedisAction() {
+        return ConfigureRedisAction.NO_OP;
     }
         
         static class SessionInit extends AbstractHttpSessionApplicationInitializer { 
