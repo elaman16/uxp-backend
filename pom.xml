@@ -64,7 +64,17 @@
                 <artifactId>spring-session</artifactId>
                 <version>1.2.0.RELEASE</version>
         </dependency>
-        
+        <dependency>
+                <groupId>org.springframework.session</groupId>
+                <artifactId>spring-session-data-redis</artifactId>
+                <version>1.2.0.RELEASE</version>
+                <type>pom</type>
+        </dependency>
+        <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>4.2.5.RELEASE</version>
+        </dependency>
 	
     </dependencies>
     <!-- Additional lines to be added here... -->
