@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.uxp.model.ResponseMsg;
 import com.uxp.service.AnnotationService;
@@ -19,6 +20,7 @@ import com.uxp.service.AnnotationService;
 @RestController
 @CrossOrigin
 @RequestMapping(value="/annotations", method={RequestMethod.POST, RequestMethod.GET})
+@SessionAttributes("datas")
 public class AnnotationController {
 	@Autowired
 	private AnnotationService annotationService;
@@ -32,6 +34,7 @@ public class AnnotationController {
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam StringBuffer annotationMedia,
 			@RequestParam String programId, @RequestParam long userId,@RequestParam String hashtag, HttpServletRequest request, HttpServletResponse response, HttpSession session ) {
 			System.out.println("_________________________");
+			System.out.println(session.getId());
 			ResponseMsg rm = (ResponseMsg) session.getAttribute("datas");
 			System.out.println(rm.getDescription());
 			System.out.println("_________________________");
