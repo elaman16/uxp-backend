@@ -203,7 +203,6 @@ public class AnnotationService_Impl implements AnnotationService {
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
 		StringBuffer annotationMedia, String programId, long userId, String hashtag, HttpServletRequest request,
 		HttpServletResponse response, HttpSession session ) {
-		if(session.getAttribute("status") == "valid") {
 		try {
 			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, 
 					pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, 
@@ -245,9 +244,6 @@ public class AnnotationService_Impl implements AnnotationService {
 		      System.out.println("Could not post new Annotation: " + ex.toString());
 			  return new ResponseMsg("Error", "Could not post new Annotation");
 		 }
-		} else {
-			return new ResponseMsg("Error", "Not logged in!");
-		}
 	}
 	public Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String pinTypeColor,
 			String pinTypeDescription, String annotationContentType, String annotationType, String parentDomain, String specificUrl, 
