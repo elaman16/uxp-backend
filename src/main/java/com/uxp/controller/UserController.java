@@ -20,7 +20,7 @@ import com.uxp.service.UserService;
 
 @RestController
 @RequestMapping(value="/user", method={RequestMethod.POST, RequestMethod.GET})
-@SessionAttributes("userDetails")
+@SessionAttributes("datas")
 public class UserController {
 	@Autowired
 	private UserService userService;

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -46,6 +47,7 @@ import com.uxp.model.UserActivityLog;
 //propagation = Propagation.SUPPORTS, readOnly = false
 @Service("annotationService")
 @Transactional()
+@SessionAttributes("datas")
 public class AnnotationService_Impl implements AnnotationService {
 	@Autowired
 	private AnnotationDAO annotationDAO;
