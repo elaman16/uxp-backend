@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.uxp.model.ResponseMsg;
 import com.uxp.service.UserService;
 
 @RestController
@@ -43,6 +45,7 @@ public class UserController {
 		System.out.println("_________________________");
 		System.out.println(session.getId());
 		System.out.println("_________________________");
+		request.getSession().setAttribute("name", new ResponseMsg("Derp", "works"));
 		return userService.userLogin(userName, userPassword);
 	}
 	/*
