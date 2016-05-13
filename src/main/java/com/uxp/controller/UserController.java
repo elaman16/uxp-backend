@@ -46,9 +46,10 @@ public class UserController {
 	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		System.out.println("_________________________");
 		System.out.println(session.getId());
-		System.out.println(session.getValueNames());
+		
 		session.setAttribute("datas", new ResponseMsg("dang", "man"));
-		System.out.println(session.getAttribute("datas"));
+		ResponseMsg rm = (ResponseMsg) session.getAttribute("datas");
+		System.out.println(rm.getDescription());
 		System.out.println("_________________________");
 		
 		return userService.userLogin(userName, userPassword, session);
