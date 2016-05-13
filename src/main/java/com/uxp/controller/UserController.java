@@ -43,8 +43,10 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		System.out.println("_________________________");
-		System.out.println(session.getId());
+		System.out.println(request.getSession().getAttribute("id"));
+		request.getSession().setAttribute("name", "arg1");
 		System.out.println("_________________________");
+		
 		return userService.userLogin(userName, userPassword, session);
 	}
 	/*
