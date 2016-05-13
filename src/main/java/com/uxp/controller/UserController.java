@@ -45,8 +45,7 @@ public class UserController {
 		System.out.println("_________________________");
 		System.out.println(session.getId());
 		System.out.println("_________________________");
-		session.setAttribute("name", "damn it worked!");
-		return userService.userLogin(userName, userPassword);
+		return userService.userLogin(userName, userPassword, session);
 	}
 	/*
 	 * POST to update existing user profile

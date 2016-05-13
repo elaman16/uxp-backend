@@ -2,6 +2,7 @@ package com.uxp.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 public interface UserService {
@@ -18,5 +19,5 @@ public interface UserService {
 			String userLastName, String userPicURL, String userEmail, String userEmployer, String userDesignation,
 			String userCity, String userState, String programId, HttpServletResponse response, 
 			HttpServletRequest request);
-	public Object userLogin(String userName, String userPass);
+	public Object userLogin(String userName, String userPass, HttpSession session);
 }

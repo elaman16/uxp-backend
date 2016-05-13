@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,7 @@ public class UserService_Impl implements UserService {
 	@Autowired
 	private UserPermissionDAO userPermissionDAO;
 	
-	public Object userLogin(String userName, String userPass) {
+	public Object userLogin(String userName, String userPass, HttpSession session) {
 		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
 			if(userProfile == null) {
 				return new ResponseMsg("USER", "NOT FOUND!");
@@ -52,6 +53,8 @@ public class UserService_Impl implements UserService {
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
 		UserAccountSetting userAccountSetting = userAccountSettingDAO.findOne(user.getAccountSettingId());
 		if(userAccountSetting.checkForMatch(userPass)) {
+			session.setAttribute("userName", userName);
+			session.setAttribute("status", "valid");
 			return new ResponseMsg("PASSWORD", "MATCH, LOGGING IN!");
 		}
 		return new ResponseMsg("PASSWORD", "MISMATCH!!");

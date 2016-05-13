@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -200,7 +201,9 @@ public class AnnotationService_Impl implements AnnotationService {
 		String pinType, String pinTypeColor, String pinTypeDescription,	String annotationContentType,
 		String annotationType, String parentDomain, String specificUrl, String pinXCoordinate,
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
-		StringBuffer annotationMedia, String programId, long userId, String hashtag, HttpServletRequest request, HttpServletResponse response ) {
+		StringBuffer annotationMedia, String programId, long userId, String hashtag, HttpServletRequest request,
+		HttpServletResponse response, HttpSession session ) {
+		if(session.getAttribute("status") == "valid") {
 		try {
 			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, 
 					pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, 
@@ -242,6 +245,9 @@ public class AnnotationService_Impl implements AnnotationService {
 		      System.out.println("Could not post new Annotation: " + ex.toString());
 			  return new ResponseMsg("Error", "Could not post new Annotation");
 		 }
+		} else {
+			return new ResponseMsg("Error", "Not logged in!");
+		}
 	}
 	public Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String pinTypeColor,
 			String pinTypeDescription, String annotationContentType, String annotationType, String parentDomain, String specificUrl, 
