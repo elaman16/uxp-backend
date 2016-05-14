@@ -9,11 +9,9 @@ import javax.persistence.*;
 @Table(name="userProfile")
 public class UserProfile implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long userProfileId;
-	
 	@Column(name="userName")
 	private String userName;
 	@Column(name="userFirstName")

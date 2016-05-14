@@ -45,18 +45,22 @@ public class UserService_Impl implements UserService {
 	@Autowired
 	private UserPermissionDAO userPermissionDAO;
 	
-	public Object userLogin(String userName, String userPass, HttpSession session) {
+	public UserProfile getUserProfile(String userName) {
+		return userProfileDAO.findOneByUserName(userName);
+	}
+	
+	public boolean userLogin(String userName, String userPass) {
 		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
 			if(userProfile == null) {
-				return new ResponseMsg("USER", "NOT FOUND!");
+				return false;
 			}
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
 		UserAccountSetting userAccountSetting = userAccountSettingDAO.findOne(user.getAccountSettingId());
 		if(userAccountSetting.checkForMatch(userPass)) {
 			
-			return new ResponseMsg("PASSWORD", "MATCH, LOGGING IN!");
+			return true;
 		}
-		return new ResponseMsg("PASSWORD", "MISMATCH!!");
+		return false;
 	}
 	
 	public Object createUser(String userName, String userPassword, String userFirstName, 

@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.uxp.model.ResponseMsg;
+import com.uxp.model.UserProfile;
 import com.uxp.service.AnnotationService;
 
 @RestController
 @CrossOrigin
 @RequestMapping(value="/annotations", method={RequestMethod.POST, RequestMethod.GET})
-@SessionAttributes("datas")
+@SessionAttributes("user")
 public class AnnotationController {
 	@Autowired
 	private AnnotationService annotationService;
@@ -55,16 +56,11 @@ public class AnnotationController {
 	
 	@RequestMapping(value="/all", method={RequestMethod.GET})
 	public @ResponseBody Object getAllAnnotations(@RequestHeader String programId,  HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		if(session.getAttribute("datas") != null) {
-			System.out.println("_________________________");
-			System.out.println(session.getId());
-			ResponseMsg rm = (ResponseMsg) session.getAttribute("datas");
-			System.out.println(rm.getDescription());
-			System.out.println("_________________________");
+		if(session.getAttribute("user") != null) {
+			UserProfile up = (UserProfile) session.getAttribute("user");
+			System.out.print(up);
 		} else {
-			System.out.println("___________________________");
-			System.out.println("Null Data! :(");
-			System.out.println("___________________________");
+			
 		}
 		return annotationService.getAllAnnotations(programId, request, response);
 	}
