@@ -1,5 +1,7 @@
 package com.uxp.controller;
 
+import java.util.Collections;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -59,10 +61,11 @@ public class AnnotationController {
 		if(session.getAttribute("user") != null) {
 			UserProfile up = (UserProfile) session.getAttribute("user");
 			System.out.print(up);
+			return annotationService.getAllAnnotations(programId, request, response);
 		} else {
-			
+			return Collections.singletonMap("response", "Please Log In");
 		}
-		return annotationService.getAllAnnotations(programId, request, response);
+		
 	}
 	
 	@RequestMapping(value="/user/{userId}", method={RequestMethod.GET})
