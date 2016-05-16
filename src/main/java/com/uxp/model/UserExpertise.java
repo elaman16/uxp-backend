@@ -26,7 +26,6 @@ public class UserExpertise {
 	public UserExpertise() {}
 	
 	public UserExpertise(String userExpertise, String programId, String locId) {
-		
 		this.userExpertise = userExpertise;
 		this.useStatus = 'I';
 		this.programId = programId;

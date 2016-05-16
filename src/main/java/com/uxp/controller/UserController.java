@@ -51,7 +51,7 @@ public class UserController {
 		 if(userService.userLogin(userName, userPassword)) {
 			 UserProfile user = userService.getUserProfile(userName);
 			 session.setAttribute("user", user);
-			 return Collections.singletonMap("response", "Logged in");
+			 return userService.getUserByUserName(userName);
 		 } else {
 			 return Collections.singletonMap("response", "Invalid Username or Password");
 		 }
