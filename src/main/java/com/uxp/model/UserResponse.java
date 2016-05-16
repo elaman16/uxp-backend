@@ -10,13 +10,13 @@ public class UserResponse {
 	private String userEmail;
 	private String userEmployer;
 	private String userDesignation;
-	private String userRoleDesc;
+	private String userExpertise;
 	private String userCity;
 	private String userState;
 	
 	public UserResponse() {}
 	
-	public UserResponse(User user, UserRole userRole, UserProfile userProfile) {
+	public UserResponse(User user, UserProfile userProfile, UserExpertise ux) {
 		this.userId = user.getUserId();
 		this.userName = userProfile.getUserName();
 		this.userFirstName = userProfile.getUserFirstName();
@@ -25,9 +25,17 @@ public class UserResponse {
 		this.userEmail = userProfile.getUserEmail();
 		this.userEmployer = userProfile.getUserEmployer();
 		this.userDesignation= userProfile.getUserDesignation();
-		this.userRoleDesc = userRole.getUserRoleDescription();
+		this.userExpertise = ux.getUserExpertise();
 		this.userCity = userProfile.getUserCity();
 		this.userState = userProfile.getUserState();
+	}
+
+	public String getUserExpertise() {
+		return userExpertise;
+	}
+
+	public void setUserExpertise(String userExpertise) {
+		this.userExpertise = userExpertise;
 	}
 
 	public long getUserId() {
@@ -92,14 +100,6 @@ public class UserResponse {
 
 	public void setUserDesignation(String userDesignation) {
 		this.userDesignation = userDesignation;
-	}
-
-	public String getUserRoleDesc() {
-		return userRoleDesc;
-	}
-
-	public void setUserRoleDesc(String userRoleDesc) {
-		this.userRoleDesc = userRoleDesc;
 	}
 
 	public String getUserCity() {

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.uxp.model.UserProfile;
+import com.uxp.model.UserResponse;
 
 
 public interface UserService {
@@ -23,4 +24,5 @@ public interface UserService {
 			HttpServletRequest request);
 	public boolean userLogin(String userName, String userPass);
 	public UserProfile getUserProfile(String userName);
+	public UserResponse getUserByUserName(String userName);
 }

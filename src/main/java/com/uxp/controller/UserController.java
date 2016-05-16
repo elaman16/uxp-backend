@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -108,31 +109,14 @@ public class UserController {
 	}
 	*/
 	//******************************************GET Requests******************************888
-	/*@RequestMapping(value="/{userId}", method=RequestMethod.GET )
-	public @ResponseBody Object getUserByUserId(@PathVariable("userId") long userId, @RequestHeader("programId") String programId,HttpServletResponse response, HttpServletRequest request) {
-		UserResponse userResponse;
-		try {
-			User user = userDAO.findOne(userId);
-			UserProfile userProfile = userProfileDAO.findOne(user.getUserProfileId());
-			UserRole userRole = userRoleDAO.findOne(user.getUserRoleId());
-			userResponse = new UserResponse(user, userRole, userProfile);
-			UserActivityLog userActivityLog = new UserActivityLog(userId, "UserProfileFetched", programId, request.getRemoteAddr());
-			userActivityLog.setUpdatedBy(userId);
-			userActivityDAO.save(userActivityLog);
-		}
-		catch (Exception ex) {
-		   System.out.println("An error occured: " + ex.toString());
-		   response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		   return ex;
-	    }
-		if(userResponse.getUserName() == null) {
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			return new ResponseMsg("error", "Not Found");
+	@RequestMapping(value="/{userName}", method=RequestMethod.GET )
+	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestHeader("programId") String programId,HttpServletResponse response, HttpServletRequest request,  HttpSession session) {
+		if(session.getAttribute("user") != null) {
+			return userService.getUserByUserName(userName);
 		} else {
-			response.setStatus(HttpServletResponse.SC_OK);
-			return userResponse;
+			return Collections.singletonMap("response", "Invalid Username");
 		}
-	}*/
+	}
 	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
 	public @ResponseBody Object postUserActivityLog(@PathVariable("userId") long userId, @RequestHeader("programId") String programId, HttpServletResponse response,  HttpServletRequest request) {
 		try {

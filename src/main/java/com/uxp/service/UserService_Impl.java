@@ -25,6 +25,7 @@ import com.uxp.model.UserActivityLog;
 import com.uxp.model.UserExpertise;
 import com.uxp.model.UserPermissions;
 import com.uxp.model.UserProfile;
+import com.uxp.model.UserResponse;
 import com.uxp.model.UserRole;
 
 
@@ -48,6 +49,14 @@ public class UserService_Impl implements UserService {
 	
 	public UserProfile getUserProfile(String userName) {
 		return userProfileDAO.findOneByUserName(userName);
+	}
+	public UserResponse getUserByUserName(String userName) {
+		
+		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
+		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
+		UserExpertise ux = userExpertiseDAO.findOne(user.getUserExpertiseId());
+		UserResponse up = new UserResponse(user, userProfile, ux);
+		return up;
 	}
 	
 	public boolean userLogin(String userName, String userPass) {
