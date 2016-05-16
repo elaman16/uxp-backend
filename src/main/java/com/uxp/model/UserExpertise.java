@@ -23,6 +23,8 @@ public class UserExpertise {
 	@Column(name="updatedBy")
 	private long updatedBy;
 	
+	public UserExpertise() {}
+	
 	public UserExpertise(String userExpertise, String programId, String locId) {
 		
 		this.userExpertise = userExpertise;

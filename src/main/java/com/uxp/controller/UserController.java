@@ -114,7 +114,7 @@ public class UserController {
 		if(session.getAttribute("user") != null) {
 			return userService.getUserByUserName(userName);
 		} else {
-			return Collections.singletonMap("response", "Invalid Username");
+			return Collections.singletonMap("response", "Please Log In");
 		}
 	}
 	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
