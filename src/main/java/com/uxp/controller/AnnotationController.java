@@ -44,7 +44,6 @@ public class AnnotationController {
 			} else {
 				return Collections.singletonMap("response", "Please Log In");
 			}
-		
 	}
 	
 	@RequestMapping(value="/audio", method={RequestMethod.POST})
@@ -55,16 +54,14 @@ public class AnnotationController {
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam String programId, 
 			@RequestParam long userId,@RequestParam String hashtag, @RequestParam StringBuffer annotationMediaImage,
 			@RequestParam StringBuffer annotationMediaAudio, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		
-		if(session.getAttribute("user") != null) {
-			UserProfile up = (UserProfile) session.getAttribute("user");
-			System.out.print(up);
-			return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, pinTypeColor, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
-		} else {
-			return Collections.singletonMap("response", "Please Log In");
-		}
-		
-		
+			
+			if(session.getAttribute("user") != null) {
+				UserProfile up = (UserProfile) session.getAttribute("user");
+				System.out.print(up);
+				return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, pinTypeColor, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
+			} else {
+				return Collections.singletonMap("response", "Please Log In");
+			}		
 	}
 	
 	//*********************************GET Requests************************************************
@@ -72,6 +69,7 @@ public class AnnotationController {
 	@RequestMapping(value="/all", method={RequestMethod.GET})
 	public @ResponseBody Object getAllAnnotations(@RequestHeader String programId,  HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		if(session.getAttribute("user") != null) {
+			
 			UserProfile up = (UserProfile) session.getAttribute("user");
 			System.out.print(up);
 			return annotationService.getAllAnnotations(programId, request, response);
