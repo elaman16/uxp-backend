@@ -58,7 +58,6 @@ public class UserService_Impl implements UserService {
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
 		UserAccountSetting userAccountSetting = userAccountSettingDAO.findOne(user.getAccountSettingId());
 		if(userAccountSetting.checkForMatch(userPass)) {
-			
 			return true;
 		}
 		return false;

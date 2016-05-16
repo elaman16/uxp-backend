@@ -60,7 +60,8 @@ public class UserController {
 	 */
 	@RequestMapping(value="/logout", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public @ResponseBody void logoutUser(HttpServletRequest request, HttpServletResponse response, HttpSession session) {	
-		 session.invalidate();
+		session.removeAttribute("user"); 
+		session.invalidate();
 	}
 	/*
 	 * POST to update existing user profile
