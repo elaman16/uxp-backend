@@ -56,6 +56,13 @@ public class UserController {
 		 }
 	}
 	/*
+	 * POST to Log Out
+	 */
+	@RequestMapping(value="/logout", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
+	public @ResponseBody void logoutUser(HttpServletRequest request, HttpServletResponse response, HttpSession session) {	
+		 session.invalidate();
+	}
+	/*
 	 * POST to update existing user profile
 	 */
 	@RequestMapping(value="/{userId}/userProfile", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE )

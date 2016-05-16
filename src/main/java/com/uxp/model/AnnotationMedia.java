@@ -1,16 +1,8 @@
 package com.uxp.model;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
-import java.net.InetAddress;
-import java.util.Base64;
 import java.util.Date;
-import java.util.UUID;
 
 import javax.persistence.*;
-
-
 
 @Entity
 @Table(name="annotationMedia")
