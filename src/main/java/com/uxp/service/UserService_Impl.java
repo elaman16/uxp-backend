@@ -1,5 +1,6 @@
 package com.uxp.service;
 
+import java.util.Collections;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +35,7 @@ public class UserService_Impl implements UserService {
 	private UserDAO userDAO;
 	@Autowired
 	private UserProfileDAO userProfileDAO;
-	@Autowired 
+	@Autowired
 	private UserRoleDAO userRoleDAO;
 	@Autowired
 	private UserActivityDAO userActivityDAO;
@@ -68,41 +69,46 @@ public class UserService_Impl implements UserService {
 		   String userDesignation, String userCity, String userState, String programId, 
 		   long updatedBy, String userExpertise, String userRoleDescription, String userPermissionCode,
 		   String userPermissionDescription, HttpServletRequest request, HttpServletResponse response) {
-				long profileId;
-			    try {	      
-			      UserAccountSetting userAccountSetting = new UserAccountSetting(userPassword, programId, request.getRemoteAddr());
-			      userAccountSettingDAO.save(userAccountSetting);
-			      
-			      UserRole userRole = new UserRole(userRoleDescription, programId, request.getRemoteAddr());
-			      userRoleDAO.save(userRole);
-			      
-			      UserProfile userProfile = new UserProfile(userName, userFirstName, userLastName, userPicURL,
-					userEmail, userEmployer, userDesignation, userCity, userState,
-					programId, request.getRemoteAddr());
-			      userProfileDAO.save(userProfile);
-			      
-			      UserExpertise _userExpertise = new UserExpertise(userExpertise, programId, request.getRemoteAddr());
-			      userExpertiseDAO.save(_userExpertise);
-			      
-			      UserPermissions userPermission = new UserPermissions(userPermissionCode, userPermissionDescription, userRole.getUserRoleId(), programId, request.getRemoteAddr());
-			      userPermissionDAO.save(userPermission);
-			      
-			      User user = new User(userAccountSetting.getUserId(), userRole.getUserRoleId(), userProfile.getUserProfileId(), _userExpertise.getUserId(), userPermission.getUserPermissionId(), programId, request.getRemoteAddr());
-			      UserActivityLog userActivityLog = new UserActivityLog(user.getUserId(), "newUserCreated", programId, request.getRemoteAddr());
-			      user.setUserActivityId(userActivityLog.getActivityId());
-			      
-			      
-			      userActivityDAO.save(userActivityLog);
-			      userDAO.save(user);
-			      profileId = user.getUserId();
-			    }
-			    catch (Exception ex) {
-			      System.out.println("Error creating the user: " + ex.toString());
-			      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				  return new ResponseMsg("Error", "Could not create user");
-			    }
-			    response.setStatus(HttpServletResponse.SC_CREATED);
-			    return new ResponseMsg("Success", "User " + profileId + " Created!");
+				if(userProfileDAO.findOneByUserName(userName) == null) {
+					long profileId;
+				    try {	      
+				      UserAccountSetting userAccountSetting = new UserAccountSetting(userPassword, programId, request.getRemoteAddr());
+				      userAccountSettingDAO.save(userAccountSetting);
+				      
+				      UserRole userRole = new UserRole(userRoleDescription, programId, request.getRemoteAddr());
+				      userRoleDAO.save(userRole);
+				      
+				      UserProfile userProfile = new UserProfile(userName, userFirstName, userLastName, userPicURL,
+						userEmail, userEmployer, userDesignation, userCity, userState,
+						programId, request.getRemoteAddr());
+				      userProfileDAO.save(userProfile);
+				      
+				      UserExpertise _userExpertise = new UserExpertise(userExpertise, programId, request.getRemoteAddr());
+				      userExpertiseDAO.save(_userExpertise);
+				      
+				      UserPermissions userPermission = new UserPermissions(userPermissionCode, userPermissionDescription, userRole.getUserRoleId(), programId, request.getRemoteAddr());
+				      userPermissionDAO.save(userPermission);
+				      
+				      User user = new User(userAccountSetting.getUserId(), userRole.getUserRoleId(), userProfile.getUserProfileId(), _userExpertise.getUserId(), userPermission.getUserPermissionId(), programId, request.getRemoteAddr());
+				      UserActivityLog userActivityLog = new UserActivityLog(user.getUserId(), "newUserCreated", programId, request.getRemoteAddr());
+				      user.setUserActivityId(userActivityLog.getActivityId());
+				      
+				      
+				      userActivityDAO.save(userActivityLog);
+				      userDAO.save(user);
+				      profileId = user.getUserId();
+				    }
+				    catch (Exception ex) {
+				      System.out.println("Error creating the user: " + ex.toString());
+				      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					  return new ResponseMsg("Error", "Could not create user");
+				    }
+				    response.setStatus(HttpServletResponse.SC_CREATED);
+				    return new ResponseMsg("Success", "User " + profileId + " Created!");
+	            } else {
+	            	return Collections.singletonMap("response", "Username already in use");
+	            }
+		
 			}
 	
 	public Object updateUserProfile(long userId, String userName, String userPassword,String userFirstName,
