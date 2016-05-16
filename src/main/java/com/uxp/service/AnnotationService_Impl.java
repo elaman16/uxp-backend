@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -262,7 +263,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			AnnotationHashTag _annotationHashTag = new AnnotationHashTag(annotation.getAnnotationId(), hashtag, programId, request.getRemoteAddr(), userId);
 			AnnotationContentType _annotationContentType = new AnnotationContentType(annotationContentType, programId, request.getRemoteAddr(), userId);
 			Emoji _emoji = new Emoji(emoji, annotation.getAnnotationId(), programId, request.getRemoteAddr(), userId);
-			AudioAnnotation _audioAnnotation  = new AudioAnnotation(annotationMediaType, decodeBase64(annotationMediaImage), decodeBase64(annotationMediaAudio));
+			AnnotationMedia _audioAnnotation  = new AnnotationMedia(annotationMediaType, decodeBase64(annotationMediaImage), decodeBase64(annotationMediaAudio));
 			
 			emojiDAO.save(_emoji);
 			annotationContentTypeDAO.save(_annotationContentType);
@@ -270,7 +271,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			annotationTypeDAO.save(_annotationType);
 			pinTypeDAO.save(_pinType);
 			parentDomainDAO.save(_parentDomain);
-			audioAnnotationDAO.save(_audioAnnotation);
+			annotationMediaDAO.save(_audioAnnotation);
 			
 			annotation.setParentDomainId(_parentDomain.getParentDomainId());
 			annotation.setPinTypeId(_pinType.getPinTypeId());
@@ -285,13 +286,13 @@ public class AnnotationService_Impl implements AnnotationService {
 			userActivityLog.setUpdatedBy(userId);
 			userActivityDAO.save(userActivityLog);
 			
-			return new ResponseMsg("link", "/annotation/" + annotation.getAnnotationId());
+			return Collections.singletonMap("link", "/annotation/" + annotation.getAnnotationId());
 		} catch (Exception ex) {
 			  UserActivityLog userActivityLog = new UserActivityLog(userId, "annotationPostFail", programId, request.getRemoteAddr());
 			  userActivityLog.setUpdatedBy(userId);
 			  userActivityDAO.save(userActivityLog);
 		      System.out.println("Could not post new Annotation: " + ex.toString());
-			  return new ResponseMsg("Error", "Could not post new Annotation");
+		      return Collections.singletonMap("Error", "Could not post new Annotation");
 		 }
 	}
 }

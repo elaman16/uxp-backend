@@ -19,6 +19,7 @@ public class AnnotationResponse {
 	private String pinYCoordinate;
 	private String annotationMediaType;
 	private String annotationMedia;
+	private String annotationMediaAudio;
 	private int annotationPageHeight;
 	private int annotationPageWidth;
 	private Date timeUpdated;
@@ -42,11 +43,20 @@ public class AnnotationResponse {
 		this.pinYCoordinate = annotation.getPinYCoordinate();
 		this.annotationMediaType = media.getAnnotationMediaType();
 		this.annotationMedia = media.getAnnotationMediaData();
+		this.annotationMediaAudio = media.getAnnotationMediaAudio();
 		this.annotationPageHeight = annotation.getAnnotationPageHeight();
 		this.annotationPageWidth = annotation.getAnnotationPageWidth();
 		this.timeUpdated = annotation.getTimeUpdated();
 	}
 	
+	public String getAnnotationMediaAudio() {
+		return annotationMediaAudio;
+	}
+
+	public void setAnnotationMediaAudio(String annotationMediaAudio) {
+		this.annotationMediaAudio = annotationMediaAudio;
+	}
+
 	public String getPinTypeColor() {
 		return pinTypeColor;
 	}

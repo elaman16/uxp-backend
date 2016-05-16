@@ -24,7 +24,8 @@ public class AnnotationMedia {
 	private String annotationMediaType;
 	@Column(name="timeUpdated")
 	private Date timeUpdated;
-	
+	@Column(name="annotationMediaAudio")
+	private String annotationMediaAudio;
 	public AnnotationMedia() {}
 	
 	
@@ -34,9 +35,30 @@ public class AnnotationMedia {
 		this.annotationMediaData = mediaData;	
 		this.annotationMediaType = mediaType;
 		this.timeUpdated = new Date();
+		this.annotationMediaAudio = "";
+	}
+	
+	public AnnotationMedia(String mediaType, String mediaImage, String mediaAudio) {
+		
+		this.annotationMediaData = mediaImage;	
+		this.annotationMediaAudio = mediaAudio;
+		this.annotationMediaType = mediaType;
+		this.timeUpdated = new Date();
 	}
 	
 	
+
+	public String getAnnotationMediaAudio() {
+		return annotationMediaAudio;
+	}
+
+
+
+	public void setAnnotationMediaAudio(String annotationMediaAudio) {
+		this.annotationMediaAudio = annotationMediaAudio;
+	}
+
+
 
 	public String getAnnotationMediaType() {
 		return annotationMediaType;

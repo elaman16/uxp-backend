@@ -1,5 +1,7 @@
 package com.uxp.controller;
 
+import java.util.Collections;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -48,9 +50,9 @@ public class UserController {
 		 if(userService.userLogin(userName, userPassword)) {
 			 UserProfile user = userService.getUserProfile(userName);
 			 session.setAttribute("user", user);
-			 return new ResponseMsg("Status", "Logged in!");
+			 return Collections.singletonMap("response", "Logged in");
 		 } else {
-			 return new ResponseMsg("Status", "Invalid Creds");
+			 return Collections.singletonMap("response", "Invalid Username or Password");
 		 }
 	}
 	/*
@@ -69,7 +71,8 @@ public class UserController {
 	 */
 	@RequestMapping(value="/{userId}/userAccountSetting", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE )
 	public @ResponseBody Object postUserAccountSetting(@PathVariable("userId") long userId, @RequestParam String programId, 
-		   @RequestParam String oldPass, @RequestParam String newPass, HttpServletResponse response,  HttpServletRequest request) {
+		   @RequestParam String oldPass, @RequestParam String newPass, HttpServletResponse response,  HttpServletRequest request, HttpSession session) {
+		
 		return userService.changeUserPass(userId, programId, oldPass, newPass, response, request);
 	}
 	
