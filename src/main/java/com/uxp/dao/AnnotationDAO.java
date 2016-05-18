@@ -11,6 +11,6 @@ import com.uxp.model.Annotation;
 @Transactional
 public interface AnnotationDAO extends CrudRepository<Annotation, Long> {
 
-	List<Annotation> findAllByUpdatedBy(long userId);
+	List<Annotation> findAllByUserName(String userName);
 	
 }

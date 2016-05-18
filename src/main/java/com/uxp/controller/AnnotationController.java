@@ -83,8 +83,8 @@ public class AnnotationController {
 	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader("programId") String programId,  HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute("user") != null) {
-			UserResponse up = userService.getUserByUserName(userName);		
-			return annotationService.getUserAnnotations(up.getUserId(), programId, request, response);
+				
+			return annotationService.getUserAnnotations(userName, programId, request, response);
 		} else {
 			return Collections.singletonMap("response", "Please Log In");
 		}

@@ -20,7 +20,7 @@ public interface AnnotationService {
 	
 	Object getAllAnnotations(String programId,  HttpServletRequest request, HttpServletResponse response);
 	
-	Object getUserAnnotations(long userId, String programId, HttpServletRequest request, HttpServletResponse response);
+	Object getUserAnnotations(String userName, String programId, HttpServletRequest request, HttpServletResponse response);
 	
 	Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String pinTypeColor,
 			String pinTypeDescription, String annotationContentType, String annotationType, String parentDomain, String specificUrl, 

@@ -101,10 +101,10 @@ public class AnnotationService_Impl implements AnnotationService {
 			 }
 	}
 	
-	public Object getUserAnnotations(long userId, String programId, HttpServletRequest request, HttpServletResponse response) {
+	public Object getUserAnnotations(String userName, String programId, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			List<AnnotationResponse> annotationResponses = new ArrayList<AnnotationResponse>();
-			List<Annotation> allAnnotations = (List<Annotation>) annotationDAO.findAllByUpdatedBy(userId);
+			List<Annotation> allAnnotations = (List<Annotation>) annotationDAO.findAllByUserName(userName);
 			for(Annotation a : allAnnotations) {
 				Emoji emo = emojiDAO.findOne(a.getEmojiId());
 				AnnotationContentType annotationContent = annotationContentTypeDAO.findOne(a.getAnnotationContentTypeId());
@@ -120,12 +120,13 @@ public class AnnotationService_Impl implements AnnotationService {
 			response.setStatus(HttpServletResponse.SC_OK);
 			return annotationResponses;
 			} catch (Exception ex) {
-				  UserActivityLog userActivityLog = new UserActivityLog(userId, "annotationGetFail", programId, request.getRemoteAddr());
-				  userActivityLog.setUpdatedBy(userId);
+				  
+				  UserActivityLog userActivityLog = new UserActivityLog(0, "annotationGetFail", programId, request.getRemoteAddr());
+				  userActivityLog.setUpdatedBy(0);
 				  userActivityDAO.save(userActivityLog);
 			      System.out.println("Error fetching user annotations" + ex.toString());
 			      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				  return new ResponseMsg("Error", "Could not fetch annotations for user " + userId);
+				  return new ResponseMsg("Error", "Could not fetch annotations for user " + userName);
 			 }
 		}
 	
