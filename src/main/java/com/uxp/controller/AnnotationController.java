@@ -71,7 +71,7 @@ public class AnnotationController {
 	@RequestMapping(value="/all", method={RequestMethod.GET})
 	public @ResponseBody Object getAllAnnotations(@RequestHeader String programId,  HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
-		if(session.getAttribute("user") != null) {
+		if(session != null || request.isRequestedSessionIdValid()) {
 			return annotationService.getAllAnnotations(programId, request, response);
 		} else {
 			return Collections.singletonMap("response", "Please Log In");
