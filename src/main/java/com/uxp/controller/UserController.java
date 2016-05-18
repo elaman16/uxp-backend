@@ -48,8 +48,9 @@ public class UserController {
 	 * POST to Login
 	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
-	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response, HttpSession session) {	
-		 if(userService.userLogin(userName, userPassword)) {
+	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {	
+		HttpSession session = request.getSession(); 
+		if(userService.userLogin(userName, userPassword)) {
 			 UserProfile user = userService.getUserProfile(userName);
 			 session.setAttribute("user", user);
 			 return userService.getUserByUserName(userName);
@@ -61,8 +62,10 @@ public class UserController {
 	 * POST to Log Out
 	 */
 	@RequestMapping(value="/logout", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
-	public @ResponseBody void logoutUser(HttpServletRequest request, HttpServletResponse response, HttpSession session) {	
+	public @ResponseBody void logoutUser(HttpServletRequest request, HttpServletResponse response) {	
+		HttpSession session = request.getSession();
 		session.setAttribute("user", null);
+		session.removeAttribute("user");
 		session.invalidate();
 	}
 	/*
