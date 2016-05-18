@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.session.SessionRepository;
+import org.springframework.session.data.redis.RedisOperationsSessionRepository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +63,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/logout", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public @ResponseBody void logoutUser(HttpServletRequest request, HttpServletResponse response, HttpSession session) {	
-		session.removeAttribute("user"); 
+		session.setAttribute("user", null);
 		session.invalidate();
 	}
 	/*

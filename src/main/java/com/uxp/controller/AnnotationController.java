@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,9 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.uxp.dao.UserProfileDAO;
 import com.uxp.model.ResponseMsg;
 import com.uxp.model.UserProfile;
+import com.uxp.model.UserResponse;
 import com.uxp.service.AnnotationService;
+import com.uxp.service.UserService;
 
 @RestController
 @CrossOrigin
@@ -27,6 +31,8 @@ import com.uxp.service.AnnotationService;
 public class AnnotationController {
 	@Autowired
 	private AnnotationService annotationService;
+	@Autowired 
+	private UserService userService;
 	
 	//********************************POST Requests ***************************************
 	@RequestMapping(value="", method={RequestMethod.POST})
@@ -38,8 +44,6 @@ public class AnnotationController {
 			@RequestParam String programId, @RequestParam long userId,@RequestParam String hashtag, HttpServletRequest request, HttpServletResponse response, HttpSession session ) {
 			
 			if(session.getAttribute("user") != null) {
-				UserProfile up = (UserProfile) session.getAttribute("user");
-				System.out.print(up);
 				return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, pinTypeColor, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, request, response, session);
 			} else {
 				return Collections.singletonMap("response", "Please Log In");
@@ -56,8 +60,6 @@ public class AnnotationController {
 			@RequestParam StringBuffer annotationMediaAudio, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 			
 			if(session.getAttribute("user") != null) {
-				UserProfile up = (UserProfile) session.getAttribute("user");
-				System.out.print(up);
 				return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, pinTypeColor, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
 			} else {
 				return Collections.singletonMap("response", "Please Log In");
@@ -69,9 +71,6 @@ public class AnnotationController {
 	@RequestMapping(value="/all", method={RequestMethod.GET})
 	public @ResponseBody Object getAllAnnotations(@RequestHeader String programId,  HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		if(session.getAttribute("user") != null) {
-			
-			UserProfile up = (UserProfile) session.getAttribute("user");
-			System.out.print(up);
 			return annotationService.getAllAnnotations(programId, request, response);
 		} else {
 			return Collections.singletonMap("response", "Please Log In");
@@ -79,12 +78,11 @@ public class AnnotationController {
 		
 	}
 	
-	@RequestMapping(value="/user/{userId}", method={RequestMethod.GET})
-	public @ResponseBody Object getUserAnnotations(@RequestHeader("userId") long userId, @RequestParam String programId,  HttpServletRequest request, HttpServletResponse response, HttpSession session) {	
+	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
+	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestParam String programId,  HttpServletRequest request, HttpServletResponse response, HttpSession session) {	
 		if(session.getAttribute("user") != null) {
-			UserProfile up = (UserProfile) session.getAttribute("user");
-			System.out.print(up);
-			return annotationService.getUserAnnotations(userId, programId, request, response);
+			UserResponse up = userService.getUserByUserName(userName);		
+			return annotationService.getUserAnnotations(up.getUserId(), programId, request, response);
 		} else {
 			return Collections.singletonMap("response", "Please Log In");
 		}
