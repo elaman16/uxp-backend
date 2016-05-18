@@ -12,6 +12,7 @@ public class Annotation {
 	private long annotationId;
 	private String annotationTitle;
 	private String annotationText;
+	private String userName;
 	private long emojiId;
 	private long pinTypeId;
 	private long annotationContentTypeId;
@@ -36,7 +37,7 @@ public class Annotation {
 
 	public Annotation(String annotationTitle, String annotationText, String specificURL, String pinXCoordinate,
 			String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
-			String programId, String locId, long updatedBy) {
+			String programId, String locId, long updatedBy, String userName) {
 		super();
 		this.annotationTitle = annotationTitle;
 		this.annotationText = annotationText;
@@ -51,6 +52,19 @@ public class Annotation {
 		this.LocId = locId;
 		this.timeUpdated = new Date();
 		this.updatedBy = updatedBy;
+		this.userName = userName;
+	}
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 

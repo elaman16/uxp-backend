@@ -123,7 +123,7 @@ public class AnnotationService_Impl implements AnnotationService {
 				  UserActivityLog userActivityLog = new UserActivityLog(userId, "annotationGetFail", programId, request.getRemoteAddr());
 				  userActivityLog.setUpdatedBy(userId);
 				  userActivityDAO.save(userActivityLog);
-			      System.out.println("Error updating the user profile: " + ex.toString());
+			      System.out.println("Error fetching user annotations" + ex.toString());
 			      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				  return new ResponseMsg("Error", "Could not fetch annotations for user " + userId);
 			 }
@@ -201,7 +201,7 @@ public class AnnotationService_Impl implements AnnotationService {
 	}
 	
 	public Object postAnnotation( String annotationTitle, String annotationText, String emoji,
-		String pinType, String pinTypeColor, String pinTypeDescription,	String annotationContentType,
+		String pinType, String userName, String pinTypeDescription,	String annotationContentType,
 		String annotationType, String parentDomain, String specificUrl, String pinXCoordinate,
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
 		StringBuffer annotationMedia, String programId, long userId, String hashtag, HttpServletRequest request,
@@ -209,9 +209,9 @@ public class AnnotationService_Impl implements AnnotationService {
 		try {
 			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, 
 					pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, 
-					request.getRemoteAddr(), userId);
+					request.getRemoteAddr(), userId, userName);
 			ParentDomain _parentDomain = new ParentDomain(annotation.getAnnotationId(), parentDomain, programId, request.getRemoteAddr(), userId);
-			PinType _pinType = new PinType(pinType, pinTypeDescription, pinTypeColor, programId, request.getRemoteAddr(), userId);
+			PinType _pinType = new PinType(pinType, pinTypeDescription, programId, request.getRemoteAddr(), userId);
 			AnnotationType _annotationType = new AnnotationType(annotationType, programId, request.getRemoteAddr(), userId);
 			AnnotationHashTag _annotationHashTag = new AnnotationHashTag(annotation.getAnnotationId(), hashtag, programId, request.getRemoteAddr(), userId);
 			AnnotationContentType _annotationContentType = new AnnotationContentType(annotationContentType, programId, request.getRemoteAddr(), userId);
@@ -248,7 +248,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			  return new ResponseMsg("Error", "Could not post new Annotation");
 		 }
 	}
-	public Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String pinTypeColor,
+	public Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String userName,
 			String pinTypeDescription, String annotationContentType, String annotationType, String parentDomain, String specificUrl, 
 			String pinXCoordinate, String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth, 
 			String programId, long userId, String hashtag, StringBuffer annotationMediaImage, StringBuffer annotationMediaAudio,
@@ -256,9 +256,9 @@ public class AnnotationService_Impl implements AnnotationService {
 		try {
 			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, 
 					pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, 
-					request.getRemoteAddr(), userId);
+					request.getRemoteAddr(), userId, userName);
 			ParentDomain _parentDomain = new ParentDomain(annotation.getAnnotationId(), parentDomain, programId, request.getRemoteAddr(), userId);
-			PinType _pinType = new PinType(pinType, pinTypeDescription, pinTypeColor, programId, request.getRemoteAddr(), userId);
+			PinType _pinType = new PinType(pinType, pinTypeDescription, programId, request.getRemoteAddr(), userId);
 			AnnotationType _annotationType = new AnnotationType(annotationType, programId, request.getRemoteAddr(), userId);
 			AnnotationHashTag _annotationHashTag = new AnnotationHashTag(annotation.getAnnotationId(), hashtag, programId, request.getRemoteAddr(), userId);
 			AnnotationContentType _annotationContentType = new AnnotationContentType(annotationContentType, programId, request.getRemoteAddr(), userId);

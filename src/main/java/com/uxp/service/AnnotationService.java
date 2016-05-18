@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface AnnotationService {
 	Object postAnnotation( String annotationTitle, String annotationText, String emoji,
-		String pinType, String pinTypeColor, String pinTypeDescription,	String annotationContentType,
+		String pinType, String userName, String pinTypeDescription,	String annotationContentType,
 		String annotationType, String parentDomain, String specificUrl, String pinXCoordinate,
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
 		StringBuffer annotationMedia, String programId, long userId, String hashtag, HttpServletRequest request,

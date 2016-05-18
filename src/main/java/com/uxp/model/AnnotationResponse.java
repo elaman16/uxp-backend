@@ -12,7 +12,7 @@ public class AnnotationResponse {
 	private String annotationContentType;
 	private String annotationType;
 	private String parentDomain;
-	private String pinTypeColor;
+	private String userName;
 	private String pinTypeDescription;
 	private String specificURL;
 	private String pinXCoordinate;
@@ -33,7 +33,7 @@ public class AnnotationResponse {
 		this.annotationText = annotation.getAnnotationText();
 		this.emojiId = emoji.getEmojiType();
 		this.pinType = pintype.getPinType();
-		this.pinTypeColor = pintype.getPinTypeColor();
+		this.userName = annotation.getUserName();
 		this.pinTypeDescription = pintype.getPinTypeDescription();
 		this.annotationContentType = contentType.getAnnotationContentTypeDescription();
 		this.annotationType = annotationType.getAnnotationTypeDescription();
@@ -57,12 +57,12 @@ public class AnnotationResponse {
 		this.annotationMediaAudio = annotationMediaAudio;
 	}
 
-	public String getPinTypeColor() {
-		return pinTypeColor;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setPinTypeColor(String pinTypeColor) {
-		this.pinTypeColor = pinTypeColor;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPinTypeDescription() {
