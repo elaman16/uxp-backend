@@ -41,8 +41,8 @@ public class AnnotationController {
 			@RequestParam String annotationContentType,	@RequestParam String annotationType, @RequestParam String parentDomain, @RequestParam String specificUrl, 
 			@RequestParam String pinXCoordinate, @RequestParam String pinYCoordinate, @RequestParam String annotationMediaType,
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam StringBuffer annotationMedia,
-			@RequestParam String programId, @RequestParam long userId,@RequestParam String hashtag, HttpServletRequest request, HttpServletResponse response, HttpSession session ) {
-			
+			@RequestParam String programId, @RequestParam long userId,@RequestParam String hashtag, HttpServletRequest request, HttpServletResponse response) {
+			HttpSession session = request.getSession(false);
 			if(session.getAttribute("user") != null) {
 				return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, pinTypeColor, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, request, response, session);
 			} else {
@@ -57,8 +57,8 @@ public class AnnotationController {
 			@RequestParam String pinXCoordinate, @RequestParam String pinYCoordinate, @RequestParam String annotationMediaType,
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam String programId, 
 			@RequestParam long userId,@RequestParam String hashtag, @RequestParam StringBuffer annotationMediaImage,
-			@RequestParam StringBuffer annotationMediaAudio, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-			
+			@RequestParam StringBuffer annotationMediaAudio, HttpServletRequest request, HttpServletResponse response) {
+			HttpSession session = request.getSession(false);
 			if(session.getAttribute("user") != null) {
 				return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, pinTypeColor, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
 			} else {
@@ -69,7 +69,8 @@ public class AnnotationController {
 	//*********************************GET Requests************************************************
 	
 	@RequestMapping(value="/all", method={RequestMethod.GET})
-	public @ResponseBody Object getAllAnnotations(@RequestHeader String programId,  HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public @ResponseBody Object getAllAnnotations(@RequestHeader String programId,  HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
 		if(session.getAttribute("user") != null) {
 			return annotationService.getAllAnnotations(programId, request, response);
 		} else {
@@ -79,7 +80,8 @@ public class AnnotationController {
 	}
 	
 	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
-	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader("programId") String programId,  HttpServletRequest request, HttpServletResponse response, HttpSession session) {	
+	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader("programId") String programId,  HttpServletRequest request, HttpServletResponse response) {	
+		HttpSession session = request.getSession(false);
 		if(session.getAttribute("user") != null) {
 			UserResponse up = userService.getUserByUserName(userName);		
 			return annotationService.getUserAnnotations(up.getUserId(), programId, request, response);

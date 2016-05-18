@@ -63,7 +63,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/logout", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public @ResponseBody void logoutUser(HttpServletRequest request, HttpServletResponse response) {	
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		session.setAttribute("user", null);
 		session.removeAttribute("user");
 		session.invalidate();
@@ -76,8 +76,13 @@ public class UserController {
 			@RequestParam String userFirstName, @RequestParam String userLastName, @RequestParam String userPicURL,@RequestParam String userEmail,
 			@RequestParam String userEmployer, @RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState,
 			@RequestParam String programId, UriComponentsBuilder ucBuilder,  HttpServletResponse response,  HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(session.getAttribute("user") != null) {
+			return userService.updateUserProfile(userId, userName, userPassword, userFirstName, userLastName, userPicURL, userEmail, userEmployer, userDesignation, userCity, userState, programId, response, request);
+		} else {
+			return Collections.singletonMap("response", "Please Log In");
+		}
 		
-		return userService.updateUserProfile(userId, userName, userPassword, userFirstName, userLastName, userPicURL, userEmail, userEmployer, userDesignation, userCity, userState, programId, response, request);
 	}
 	/*
 	 * POST to change user password, old pass req'd
@@ -114,7 +119,8 @@ public class UserController {
 	*/
 	//******************************************GET Requests******************************888
 	@RequestMapping(value="/{userName}", method=RequestMethod.GET )
-	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestHeader("programId") String programId,HttpServletResponse response, HttpServletRequest request,  HttpSession session) {
+	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestHeader("programId") String programId,HttpServletResponse response, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
 		if(session.getAttribute("user") != null) {
 			return userService.getUserByUserName(userName);
 		} else {
