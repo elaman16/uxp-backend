@@ -22,7 +22,7 @@ public interface AnnotationService {
 	
 	Object getUserAnnotations(String userName, String programId, HttpServletRequest request, HttpServletResponse response);
 	
-	Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String pinTypeColor,
+	Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String userName,
 			String pinTypeDescription, String annotationContentType, String annotationType, String parentDomain, String specificUrl, 
 			String pinXCoordinate, String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth, 
 			String programId, long userId, String hashtag, StringBuffer annotationMediaImage, StringBuffer annotationMediaAudio,

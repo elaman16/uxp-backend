@@ -52,7 +52,7 @@ public class AnnotationController {
 	
 	@RequestMapping(value="/audio", method={RequestMethod.POST})
 	public @ResponseBody Object postAudioAnnotation(@RequestParam String annotationTitle, @RequestParam String annotationText,
-			@RequestParam String emoji, @RequestParam String pinType, @RequestParam String pinTypeColor, @RequestParam String pinTypeDescription,
+			@RequestParam String emoji, @RequestParam String pinType, @RequestParam String userName, @RequestParam String pinTypeDescription,
 			@RequestParam String annotationContentType,	@RequestParam String annotationType, @RequestParam String parentDomain, @RequestParam String specificUrl, 
 			@RequestParam String pinXCoordinate, @RequestParam String pinYCoordinate, @RequestParam String annotationMediaType,
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam String programId, 
@@ -60,7 +60,7 @@ public class AnnotationController {
 			@RequestParam StringBuffer annotationMediaAudio, HttpServletRequest request, HttpServletResponse response) {
 			HttpSession session = request.getSession(false);
 			if(session.getAttribute("user") != null) {
-				return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, pinTypeColor, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
+				return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
 			} else {
 				return Collections.singletonMap("response", "Please Log In");
 			}		

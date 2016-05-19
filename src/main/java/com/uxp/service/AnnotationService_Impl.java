@@ -211,33 +211,19 @@ public class AnnotationService_Impl implements AnnotationService {
 			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, 
 					pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, 
 					request.getRemoteAddr(), userId, userName);
-			System.out.println("_________");
-			System.out.println("1");
-			System.out.println("_________");
+			
 			ParentDomain _parentDomain = new ParentDomain(annotation.getAnnotationId(), parentDomain, programId, request.getRemoteAddr(), userId);
-			System.out.println("_________");
-			System.out.println("2");
-			System.out.println("_________");
+			
 			PinType _pinType = new PinType(pinType, pinTypeDescription, programId, request.getRemoteAddr(), userId);
-			System.out.println("_________");
-			System.out.println("3");
-			System.out.println("_________");
+			
 			AnnotationType _annotationType = new AnnotationType(annotationType, programId, request.getRemoteAddr(), userId);
-			System.out.println("_________");
-			System.out.println("4");
-			System.out.println("_________");
+			
 			AnnotationHashTag _annotationHashTag = new AnnotationHashTag(annotation.getAnnotationId(), hashtag, programId, request.getRemoteAddr(), userId);
-			System.out.println("_________");
-			System.out.println("5");
-			System.out.println("_________");
+			
 			AnnotationContentType _annotationContentType = new AnnotationContentType(annotationContentType, programId, request.getRemoteAddr(), userId);
-			System.out.println("_________");
-			System.out.println("6");
-			System.out.println("_________");
+			
 			Emoji _emoji = new Emoji(emoji, annotation.getAnnotationId(), programId, request.getRemoteAddr(), userId);
-			System.out.println("_________");
-			System.out.println("7");
-			System.out.println("_________");
+			
 			AnnotationMedia _annotationMedia = new AnnotationMedia(annotationMediaType, decodeBase64(annotationMedia));
 			
 			emojiDAO.save(_emoji);
