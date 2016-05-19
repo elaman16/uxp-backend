@@ -1,6 +1,7 @@
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/AnnotationResponse.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/Payment.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/dao/UserProfileDAO.java
+/home/kelly/golive/uxpass/src/main/java/com/uxp/HttpSessionConfig.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/service/UserService_Impl.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/UserProfile.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/UserExpertise.java
@@ -15,7 +16,6 @@
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/CustomerURLs.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/AnnotationContentType.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/dao/EmojiDAO.java
-/home/kelly/golive/uxpass/src/main/java/com/uxp/controller/s3Controller.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/service/AnnotationService.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/User.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/AnnotationHashTag.java
@@ -28,10 +28,12 @@
 /home/kelly/golive/uxpass/src/main/java/com/uxp/ApplicationConfig.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/Customer.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/dao/UserPermissionDAO.java
+/home/kelly/golive/uxpass/src/main/java/com/uxp/SecurityConfiguration.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/Hashtag.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/PlanPermissions.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/controller/PremiumPlanController.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/Reactions.java
+/home/kelly/golive/uxpass/src/main/java/com/uxp/model/AudioAnnotation.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/dao/UserRoleDAO.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/UserPermissions.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/controller/ReactionController.java
@@ -39,6 +41,7 @@
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/Emoji.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/controller/PinTypeController.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/AnnotationMedia.java
+/home/kelly/golive/uxpass/src/main/java/com/uxp/dao/AudioAnnotationDAO.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/UserActivityLog.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/controller/AnnotationController.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/Relationships.java
