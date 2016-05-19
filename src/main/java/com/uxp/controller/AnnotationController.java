@@ -68,7 +68,7 @@ public class AnnotationController {
 	
 	//*********************************GET Requests************************************************
 	
-	@RequestMapping(value="", method={RequestMethod.GET})
+	@RequestMapping(value="/all", method={RequestMethod.GET})
 	public @ResponseBody Object getAllAnnotations(@RequestHeader String programId,  HttpServletRequest request, HttpServletResponse response) {
 		
 		if(request.getSession(false) != null) {
