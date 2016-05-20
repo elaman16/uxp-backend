@@ -44,7 +44,7 @@ public class Application {
 	     factory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
 	        @Override
 	        public void customize(Connector connector) {
-	         ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(-1);
+	         ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(20);
 	        }
 	     });
 	     return factory;
