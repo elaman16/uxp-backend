@@ -36,7 +36,7 @@ public class UserController {
 	/*
 	 * POST to create a new user.
 	 */
-	@RequestMapping(value="", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
+	@RequestMapping(value="", method=RequestMethod.POST, consumes= MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody Object createUser(@RequestParam String userName, @RequestParam String userPassword, @RequestParam String userFirstName, 
 			@RequestParam String userLastName, @RequestParam String userPicURL,@RequestParam String userEmail, @RequestParam String userEmployer,
 			@RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState, @RequestParam String programId, 
@@ -47,7 +47,7 @@ public class UserController {
 	/*
 	 * POST to Login
 	 */
-	@RequestMapping(value="/login", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
+	@RequestMapping(value="/login", method=RequestMethod.POST, consumes= MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession(); 
 		if(userService.userLogin(userName, userPassword)) {
@@ -61,7 +61,7 @@ public class UserController {
 	/*
 	 * POST to Log Out
 	 */
-	@RequestMapping(value="/logout", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
+	@RequestMapping(value="/logout", method=RequestMethod.POST, consumes= MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody void logoutUser(HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession(false);
 		session.setAttribute("user", null);
@@ -71,7 +71,7 @@ public class UserController {
 	/*
 	 * POST to update existing user profile
 	 */
-	@RequestMapping(value="/{userId}/userProfile", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE )
+	@RequestMapping(value="/{userId}/userProfile", method=RequestMethod.POST, consumes= MediaType.MULTIPART_FORM_DATA_VALUE )
 	public @ResponseBody Object postUserProfile(@PathVariable("userId") long userId, @RequestParam String userName, @RequestParam String userPassword,
 			@RequestParam String userFirstName, @RequestParam String userLastName, @RequestParam String userPicURL,@RequestParam String userEmail,
 			@RequestParam String userEmployer, @RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState,
@@ -94,29 +94,6 @@ public class UserController {
 		return userService.changeUserPass(userId, programId, oldPass, newPass, response, request);
 	}
 	
-	/* STUBBED ENDPOINTS - Not sure if will need, at least for now.
-	@RequestMapping(value="/userExpertise", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE )
-	public ResponseEntity<Void> postUserExpertise(@RequestParam String userExpertise) {
-		
-		System.out.println(userExpertise);
-		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-	}
-	@RequestMapping(value="/userRole", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE )
-	public ResponseEntity<Void> postUserRole(@RequestParam String userRole) {
-		
-		System.out.println(userRole);
-		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-	}
-	@RequestMapping(value="/userPermission", method=RequestMethod.POST, consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE )
-	public ResponseEntity<Void> postUserPermission(@RequestParam String userPermission) {
-		
-		System.out.println(userPermission);
-		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-	}
-	*/
 	//******************************************GET Requests******************************888
 	@RequestMapping(value="/{userName}", method=RequestMethod.GET )
 	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestHeader("programId") String programId,HttpServletResponse response, HttpServletRequest request) {
