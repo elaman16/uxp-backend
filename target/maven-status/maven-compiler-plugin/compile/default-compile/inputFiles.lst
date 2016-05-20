@@ -28,7 +28,6 @@
 /home/kelly/golive/uxpass/src/main/java/com/uxp/ApplicationConfig.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/Customer.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/dao/UserPermissionDAO.java
-/home/kelly/golive/uxpass/src/main/java/com/uxp/SecurityConfiguration.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/Hashtag.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/model/PlanPermissions.java
 /home/kelly/golive/uxpass/src/main/java/com/uxp/controller/PremiumPlanController.java
