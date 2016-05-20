@@ -87,7 +87,7 @@ public class UserController {
 	/*
 	 * POST to change user password, old pass req'd
 	 */
-	@RequestMapping(value="/{userId}/userAccountSetting", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_UTF8_VALUE )
+	@RequestMapping(value="/{userId}/userAccountSetting", method=RequestMethod.POST, consumes= MediaType.MULTIPART_FORM_DATA_VALUE )
 	public @ResponseBody Object postUserAccountSetting(@PathVariable("userId") long userId, @RequestParam String programId, 
 		   @RequestParam String oldPass, @RequestParam String newPass, HttpServletResponse response,  HttpServletRequest request, HttpSession session) {
 		
