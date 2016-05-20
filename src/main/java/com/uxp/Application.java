@@ -1,12 +1,15 @@
 package com.uxp;
 
 
+import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.cloud.aws.context.config.annotation.EnableContextCredentials;
-
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
@@ -35,7 +38,7 @@ public class Application {
 			.maxAge(3600);
 			
 	}*/
-	/*@Bean
+	@Bean
 	public TomcatEmbeddedServletContainerFactory containerFactory() {
 	    TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
 	     factory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
@@ -46,7 +49,7 @@ public class Application {
 	     });
 	     return factory;
 	}
-	*/
+	
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
     }
