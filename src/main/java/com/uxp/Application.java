@@ -36,19 +36,7 @@ public class Application {
 			.maxAge(3600);
 			
 	}*/
-	@Bean
-	EmbeddedServletContainerCustomizer containerCustomizer() throws Exception {
-	    return (ConfigurableEmbeddedServletContainer container) -> {
-	        if (container instanceof TomcatEmbeddedServletContainerFactory) {
-	            TomcatEmbeddedServletContainerFactory tomcat = (TomcatEmbeddedServletContainerFactory) container;
-	            tomcat.addConnectorCustomizers(
-	                (connector) -> {
-	                    connector.setMaxPostSize(20000000); // 20 MB
-	                }
-	            );
-	        }
-	    };
-	}
+	
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
     }
