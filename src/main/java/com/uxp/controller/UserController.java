@@ -48,8 +48,8 @@ public class UserController {
 	/*
 	 * POST to Login
 	 */
-	@RequestMapping(value="/login", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
-	public @ResponseBody Object loginUser(@RequestParam("userName") String userName, @RequestParam("userPassword") String userPassword, HttpServletRequest request, HttpServletResponse response) {	
+	@RequestMapping(value="/login", method=RequestMethod.POST, produces = "application/json")
+	public @ResponseBody Object loginUser(@RequestBody String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession(); 
 		if(userService.userLogin(userName, userPassword)) {
 			 UserProfile user = userService.getUserProfile(userName);
