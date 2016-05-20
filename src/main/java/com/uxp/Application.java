@@ -1,6 +1,8 @@
 package com.uxp;
 
 
+import javax.servlet.annotation.MultipartConfig;
+
 import org.apache.catalina.connector.Connector;
 import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +24,13 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 @EnableAutoConfiguration
 @ComponentScan({"com"})
 @EnableContextCredentials(accessKey="AKIAJAEOKYIRMVE3VK5Q", secretKey="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")
+@MultipartConfig(
+	    location="/tmp", 
+	    fileSizeThreshold=0,  
+	    maxFileSize=1024*1024*20,     
+	    maxRequestSize=1024*1024*20    
+	)
+
 public class Application {
 	
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
