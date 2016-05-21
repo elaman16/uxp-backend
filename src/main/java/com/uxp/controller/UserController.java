@@ -49,7 +49,7 @@ public class UserController {
 	 * POST to Login
 	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
-	public @ResponseBody Object loginUser(@RequestBody String userName, @RequestBody String userPassword, HttpServletRequest request, HttpServletResponse response) {	
+	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession(); 
 		if(userService.userLogin(userName, userPassword)) {
 			 UserProfile user = userService.getUserProfile(userName);
