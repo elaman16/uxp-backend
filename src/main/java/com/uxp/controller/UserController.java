@@ -37,7 +37,7 @@ public class UserController {
 	/*
 	 * POST to create a new user.
 	 */
-	@RequestMapping(value="", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	@RequestMapping(value="", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody Object createUser(@RequestParam String userName, @RequestParam String userPassword, @RequestParam String userFirstName, 
 			@RequestParam String userLastName, @RequestParam String userPicURL,@RequestParam String userEmail, @RequestParam String userEmployer,
 			@RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState, @RequestParam String programId, 
@@ -48,7 +48,7 @@ public class UserController {
 	/*
 	 * POST to Login
 	 */
-	@RequestMapping(value="/login", method=RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value="/login", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody Object loginUser(@RequestBody String userName, @RequestBody String userPassword, HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession(); 
 		if(userService.userLogin(userName, userPassword)) {
@@ -62,7 +62,7 @@ public class UserController {
 	/*
 	 * POST to Log Out
 	 */
-	@RequestMapping(value="/logout", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	@RequestMapping(value="/logout", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public @ResponseBody void logoutUser(HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession(false);
 		session.setAttribute("user", null);
@@ -72,7 +72,7 @@ public class UserController {
 	/*
 	 * POST to update existing user profile
 	 */
-	@RequestMapping(value="/{userId}/userProfile", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_VALUE )
+	@RequestMapping(value="/{userId}/userProfile", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE )
 	public @ResponseBody Object postUserProfile(@PathVariable("userId") long userId, @RequestParam String userName, @RequestParam String userPassword,
 			@RequestParam String userFirstName, @RequestParam String userLastName, @RequestParam String userPicURL,@RequestParam String userEmail,
 			@RequestParam String userEmployer, @RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState,
@@ -88,7 +88,7 @@ public class UserController {
 	/*
 	 * POST to change user password, old pass req'd
 	 */
-	@RequestMapping(value="/{userId}/userAccountSetting", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_VALUE )
+	@RequestMapping(value="/{userId}/userAccountSetting", method=RequestMethod.POST, consumes= MediaType.MULTIPART_FORM_DATA_VALUE )
 	public @ResponseBody Object postUserAccountSetting(@PathVariable("userId") long userId, @RequestParam String programId, 
 		   @RequestParam String oldPass, @RequestParam String newPass, HttpServletResponse response,  HttpServletRequest request, HttpSession session) {
 		
