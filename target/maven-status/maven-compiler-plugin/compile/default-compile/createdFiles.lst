@@ -16,7 +16,6 @@ com/uxp/model/PremiumPlans.class
 com/uxp/dao/UserDAO.class
 com/uxp/dao/AudioAnnotationDAO.class
 com/uxp/model/Payment.class
-com/uxp/Application$1.class
 com/uxp/controller/PremiumPlanController.class
 com/uxp/model/PinType.class
 com/uxp/HttpSessionConfig.class

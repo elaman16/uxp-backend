@@ -1,17 +1,10 @@
 package com.uxp;
 
-
-import javax.servlet.annotation.MultipartConfig;
-
-import org.apache.catalina.connector.Connector;
-import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.cloud.aws.context.config.annotation.EnableContextCredentials;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
@@ -24,13 +17,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 @EnableAutoConfiguration
 @ComponentScan({"com"})
 @EnableContextCredentials(accessKey="AKIAJAEOKYIRMVE3VK5Q", secretKey="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")
-@MultipartConfig(
-	    location="/tmp", 
-	    fileSizeThreshold=0,  
-	    maxFileSize=1024*1024*20,     
-	    maxRequestSize=1024*1024*20    
-	)
-
 public class Application {
 	
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -47,17 +33,6 @@ public class Application {
 			.maxAge(3600);
 			
 	}*/
-	@Bean
-	public TomcatEmbeddedServletContainerFactory containerFactory() {
-	    TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-	     factory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
-	        @Override
-	        public void customize(Connector connector) {
-	         ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(2000000);
-	        }
-	     });
-	     return factory;
-	}
 	
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
