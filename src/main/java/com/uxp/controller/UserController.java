@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.session.SessionRepository;
 import org.springframework.session.data.redis.RedisOperationsSessionRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -26,6 +27,7 @@ import com.uxp.model.UserProfile;
 import com.uxp.service.UserService;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value="/user", method={RequestMethod.POST, RequestMethod.GET})
 @SessionAttributes("user")
 public class UserController {
