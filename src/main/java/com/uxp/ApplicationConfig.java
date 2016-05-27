@@ -16,11 +16,11 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 		registry
 			.addMapping("/**")
 			//.allowedOrigins("http://xyz.com")
-			.allowedMethods("GET", "POST", "PUT", "DELETE")
+			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 			.allowedHeaders("header1", "header2", "header3","header4", "header5", "header6", "header7", "header8", "header9","header10", "header11", "header12")
 			.exposedHeaders("header1", "header2", "header3","header4", "header5", "header6", "header7", "header8", "header9","header10", "header11", "header12")
 			.allowCredentials(false)
-			.maxAge(3600);
+			.maxAge(36000);
 			
 	}
 }
