@@ -42,7 +42,7 @@ public class AnnotationController {
 			@RequestParam String annotationContentType,	@RequestParam String annotationType, @RequestParam String parentDomain, @RequestParam String specificUrl, 
 			@RequestParam String pinXCoordinate, @RequestParam String pinYCoordinate, @RequestParam String annotationMediaType,
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam StringBuffer annotationMedia,
-			@RequestParam String programId, @RequestParam long userId,@RequestParam String hashtag, HttpServletRequest request, HttpServletResponse response) {
+			@RequestParam(required=false) String programId, @RequestParam long userId,@RequestParam String hashtag, HttpServletRequest request, HttpServletResponse response) {
 			HttpSession session = request.getSession(false);
 			if(session.getAttribute("user") != null) {
 				return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, request, response, session);
@@ -56,7 +56,7 @@ public class AnnotationController {
 			@RequestParam String emoji, @RequestParam String pinType, @RequestParam String userName, @RequestParam String pinTypeDescription,
 			@RequestParam String annotationContentType,	@RequestParam String annotationType, @RequestParam String parentDomain, @RequestParam String specificUrl, 
 			@RequestParam String pinXCoordinate, @RequestParam String pinYCoordinate, @RequestParam String annotationMediaType,
-			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam String programId, 
+			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam(required=false) String programId, 
 			@RequestParam long userId,@RequestParam String hashtag, @RequestParam StringBuffer annotationMediaImage,
 			@RequestParam StringBuffer annotationMediaAudio, HttpServletRequest request, HttpServletResponse response) {
 			HttpSession session = request.getSession(false);
@@ -70,7 +70,7 @@ public class AnnotationController {
 	//*********************************GET Requests************************************************
 	
 	@RequestMapping(value="/all", method={RequestMethod.GET})
-	public @ResponseBody Object getAllAnnotations(@RequestHeader String programId,  HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Object getAllAnnotations(@RequestHeader(required=false) String programId,  HttpServletRequest request, HttpServletResponse response) {
 		
 		if(request.getSession(false) != null) {
 			return annotationService.getAllAnnotations(programId, request, response);
@@ -81,7 +81,7 @@ public class AnnotationController {
 	}
 	
 	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
-	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader("programId") String programId,  HttpServletRequest request, HttpServletResponse response) {	
+	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId,  HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute("user") != null) {
 				

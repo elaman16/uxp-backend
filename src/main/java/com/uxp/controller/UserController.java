@@ -42,7 +42,7 @@ public class UserController {
 	@RequestMapping(value="", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody Object createUser(@RequestParam String userName, @RequestParam String userPassword, @RequestParam String userFirstName, 
 			@RequestParam String userLastName, @RequestParam String userPicURL,@RequestParam String userEmail, @RequestParam String userEmployer,
-			@RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState, @RequestParam String programId, 
+			@RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState, @RequestParam(required=false) String programId, 
 			@RequestParam long updatedBy, @RequestParam String userExpertise, @RequestParam String userRoleDescription,
 			@RequestParam String userPermissionCode, @RequestParam String userPermissionDescription, HttpServletRequest request, HttpServletResponse response) {
 		return userService.createUser(userName, userPassword, userFirstName, userLastName, userPicURL, userEmail, userEmployer, userDesignation, userCity, userState, programId, updatedBy, userExpertise, userRoleDescription, userPermissionCode, userPermissionDescription, request, response);
@@ -78,7 +78,7 @@ public class UserController {
 	public @ResponseBody Object postUserProfile(@PathVariable("userId") long userId, @RequestParam String userName, @RequestParam String userPassword,
 			@RequestParam String userFirstName, @RequestParam String userLastName, @RequestParam String userPicURL,@RequestParam String userEmail,
 			@RequestParam String userEmployer, @RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState,
-			@RequestParam String programId, UriComponentsBuilder ucBuilder,  HttpServletResponse response,  HttpServletRequest request) {
+			@RequestParam(required=false) String programId, UriComponentsBuilder ucBuilder,  HttpServletResponse response,  HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute("user") != null) {
 			return userService.updateUserProfile(userId, userName, userPassword, userFirstName, userLastName, userPicURL, userEmail, userEmployer, userDesignation, userCity, userState, programId, response, request);
@@ -91,7 +91,7 @@ public class UserController {
 	 * POST to change user password, old pass req'd
 	 */
 	@RequestMapping(value="/{userId}/userAccountSetting", method=RequestMethod.POST, consumes= MediaType.MULTIPART_FORM_DATA_VALUE )
-	public @ResponseBody Object postUserAccountSetting(@PathVariable("userId") long userId, @RequestParam String programId, 
+	public @ResponseBody Object postUserAccountSetting(@PathVariable("userId") long userId, @RequestParam(required=false) String programId, 
 		   @RequestParam String oldPass, @RequestParam String newPass, HttpServletResponse response,  HttpServletRequest request, HttpSession session) {
 		
 		return userService.changeUserPass(userId, programId, oldPass, newPass, response, request);
@@ -99,7 +99,7 @@ public class UserController {
 	
 	//******************************************GET Requests******************************888
 	@RequestMapping(value="/{userName}", method=RequestMethod.GET )
-	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestHeader("programId") String programId,HttpServletResponse response, HttpServletRequest request) {
+	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestParam(required=false, name="programId") String programId,HttpServletResponse response, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute("user") != null) {
 			return userService.getUserByUserName(userName);
