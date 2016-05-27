@@ -11,7 +11,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("file:public/");
     }
-    @Override
+    /*@Override
     public void addCorsMappings(CorsRegistry registry) {
 		registry
 			.addMapping("/**")
@@ -22,5 +22,5 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 			.allowCredentials(false)
 			.maxAge(36000);
 			
-	}
+	}*/
 }
