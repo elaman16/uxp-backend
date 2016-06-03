@@ -11,7 +11,7 @@ public class Annotation {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long annotationId;
 	private String annotationTitle;
-	private String annotationText;
+	private StringBuffer annotationText;
 	private String userName;
 	private long emojiId;
 	private long pinTypeId;
@@ -35,7 +35,7 @@ public class Annotation {
 	
 	
 
-	public Annotation(String annotationTitle, String annotationText, String specificURL, String pinXCoordinate,
+	public Annotation(String annotationTitle, StringBuffer annotationText, String specificURL, String pinXCoordinate,
 			String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
 			String programId, String locId, long updatedBy, String userName) {
 		super();
@@ -85,11 +85,11 @@ public class Annotation {
 		this.annotationTitle = annotationTitle;
 	}
 
-	public String getAnnotationText() {
+	public StringBuffer getAnnotationText() {
 		return annotationText;
 	}
 
-	public void setAnnotationText(String annotationText) {
+	public void setAnnotationText(StringBuffer annotationText) {
 		this.annotationText = annotationText;
 	}
 
