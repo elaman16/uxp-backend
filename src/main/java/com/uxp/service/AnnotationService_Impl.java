@@ -201,7 +201,7 @@ public class AnnotationService_Impl implements AnnotationService {
 
 	}
 	
-	public Object postAnnotation( String annotationTitle, StringBuffer annotationText, String emoji,
+	public Object postAnnotation( String annotationTitle, String annotationText, String emoji,
 		String pinType, String userName, String pinTypeDescription,	String annotationContentType,
 		String annotationType, String parentDomain, String specificUrl, String pinXCoordinate,
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
@@ -256,7 +256,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			  return new ResponseMsg("Error", "Could not post new Annotation");
 		 }
 	}
-	public Object postAudioAnnotation( String annotationTitle, StringBuffer annotationText, String emoji, String pinType, String userName,
+	public Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String userName,
 			String pinTypeDescription, String annotationContentType, String annotationType, String parentDomain, String specificUrl, 
 			String pinXCoordinate, String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth, 
 			String programId, long userId, String hashtag, StringBuffer annotationMediaImage, StringBuffer annotationMediaAudio,

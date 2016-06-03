@@ -6,7 +6,7 @@ public class AnnotationResponse {
 	
 	private long annotationId;
 	private String annotationTitle;
-	private StringBuffer annotationText;
+	private String annotationText;
 	private String emojiId;
 	private String pinType;
 	private String annotationContentType;
@@ -85,10 +85,10 @@ public class AnnotationResponse {
 	public void setAnnotationTitle(String annotationTitle) {
 		this.annotationTitle = annotationTitle;
 	}
-	public StringBuffer getAnnotationText() {
+	public String getAnnotationText() {
 		return annotationText;
 	}
-	public void setAnnotationText(StringBuffer annotationText) {
+	public void setAnnotationText(String annotationText) {
 		this.annotationText = annotationText;
 	}
 	public String getEmojiId() {

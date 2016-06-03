@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface AnnotationService {
-	Object postAnnotation( String annotationTitle, StringBuffer annotationText, String emoji,
+	Object postAnnotation( String annotationTitle, String annotationText, String emoji,
 		String pinType, String userName, String pinTypeDescription,	String annotationContentType,
 		String annotationType, String parentDomain, String specificUrl, String pinXCoordinate,
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
@@ -22,7 +22,7 @@ public interface AnnotationService {
 	
 	Object getUserAnnotations(String userName, String programId, HttpServletRequest request, HttpServletResponse response);
 	
-	Object postAudioAnnotation( String annotationTitle, StringBuffer annotationText, String emoji, String pinType, String userName,
+	Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String userName,
 			String pinTypeDescription, String annotationContentType, String annotationType, String parentDomain, String specificUrl, 
 			String pinXCoordinate, String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth, 
 			String programId, long userId, String hashtag, StringBuffer annotationMediaImage, StringBuffer annotationMediaAudio,

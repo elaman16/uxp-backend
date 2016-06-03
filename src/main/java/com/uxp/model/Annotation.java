@@ -12,7 +12,7 @@ public class Annotation {
 	private long annotationId;
 	private String annotationTitle;
 	@Column(columnDefinition = "TEXT")
-	private StringBuffer annotationText;
+	private String annotationText;
 	private String userName;
 	private long emojiId;
 	private long pinTypeId;
@@ -36,7 +36,7 @@ public class Annotation {
 	
 	
 
-	public Annotation(String annotationTitle, StringBuffer annotationText, String specificURL, String pinXCoordinate,
+	public Annotation(String annotationTitle, String annotationText, String specificURL, String pinXCoordinate,
 			String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
 			String programId, String locId, long updatedBy, String userName) {
 		super();
@@ -86,11 +86,11 @@ public class Annotation {
 		this.annotationTitle = annotationTitle;
 	}
 
-	public StringBuffer getAnnotationText() {
+	public String getAnnotationText() {
 		return annotationText;
 	}
 
-	public void setAnnotationText(StringBuffer annotationText) {
+	public void setAnnotationText(String annotationText) {
 		this.annotationText = annotationText;
 	}
 
