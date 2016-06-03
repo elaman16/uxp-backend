@@ -11,6 +11,7 @@ public class Annotation {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long annotationId;
 	private String annotationTitle;
+	@Column(columnDefinition = "TEXT")
 	private StringBuffer annotationText;
 	private String userName;
 	private long emojiId;
