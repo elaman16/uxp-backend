@@ -155,6 +155,23 @@ public class AnnotationService_Impl implements AnnotationService {
 			}
 		
 	}
+	
+	public String decodeBase64Attachment(StringBuffer attachment, String fileName) {
+		try {
+			String encoded = attachment.substring(attachment.indexOf(",") + 1);
+			UUID uid = UUID.randomUUID();
+			byte[] decoded = Base64.getMimeDecoder().decode(encoded);
+			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".ogg");
+			fos.write(decoded);
+			fos.close();
+			String url = uploadToS3(uid + fileName, "tmp/" + uid + fileName, "uxpattach");
+			return url;
+		} catch(Exception ex) {
+			  System.out.println("Error Decoding Base64 string " + ex.toString());
+		      return "";
+		    }
+	}
+	
 	public String decodeBase64OGG(StringBuffer mediaData) {
 		try {
 			String encoded = mediaData.substring(mediaData.indexOf(",") + 1);
@@ -205,8 +222,8 @@ public class AnnotationService_Impl implements AnnotationService {
 		String pinType, String userName, String pinTypeDescription,	String annotationContentType,
 		String annotationType, String parentDomain, String specificUrl, String pinXCoordinate,
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
-		StringBuffer annotationMedia, String programId, long userId, String hashtag, HttpServletRequest request,
-		HttpServletResponse response, HttpSession session ) {
+		StringBuffer annotationMedia, String programId, long userId, String hashtag,  StringBuffer attachment, 
+		String fileName, HttpServletRequest request, HttpServletResponse response, HttpSession session ) {
 		try {
 			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, 
 					pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, 
@@ -226,6 +243,8 @@ public class AnnotationService_Impl implements AnnotationService {
 			
 			AnnotationMedia _annotationMedia = new AnnotationMedia(annotationMediaType, decodeBase64(annotationMedia));
 			
+			String attachmentURI = decodeBase64Attachment(attachment, fileName);
+			
 			emojiDAO.save(_emoji);
 			annotationContentTypeDAO.save(_annotationContentType);
 			annotationHashTagDAO.save(_annotationHashTag);
@@ -240,7 +259,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			annotation.setAnnotationContentTypeId(_annotationContentType.getAnnotationContentTypeId());
 			annotation.setEmojiId(_emoji.getEmojiId());
 			annotation.setAnnotationMediaId(_annotationMedia.getAnnotationMediaId());
-			
+			annotation.setAttachmentURI(attachmentURI);
 			annotationDAO.save(annotation);
 			
 			UserActivityLog userActivityLog = new UserActivityLog(userId, "annotationPosted", programId, request.getRemoteAddr());

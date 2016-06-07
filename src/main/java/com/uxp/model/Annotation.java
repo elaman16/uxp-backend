@@ -23,6 +23,7 @@ public class Annotation {
 	private String pinXCoordinate;
 	private String pinYCoordinate;
 	private String annotationMediaType;
+	private String attachmentURI;
 	private long annotationMediaId;
 	private int annotationPageHeight;
 	private int annotationPageWidth;
@@ -54,6 +55,18 @@ public class Annotation {
 		this.timeUpdated = new Date();
 		this.updatedBy = updatedBy;
 		this.userName = userName;
+	}
+
+
+
+	public String getAttachmentURI() {
+		return attachmentURI;
+	}
+
+
+
+	public void setAttachmentURI(String attachmentURI) {
+		this.attachmentURI = attachmentURI;
 	}
 
 
