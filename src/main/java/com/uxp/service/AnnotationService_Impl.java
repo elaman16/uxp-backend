@@ -157,6 +157,9 @@ public class AnnotationService_Impl implements AnnotationService {
 	}
 	
 	public String decodeBase64Attachment(StringBuffer attachment, String fileName) {
+		if(attachment.length() < 1 || fileName.length() < 1) {
+			return "";
+		}
 		try {
 			String encoded = attachment.substring(attachment.indexOf(",") + 1);
 			UUID uid = UUID.randomUUID();
