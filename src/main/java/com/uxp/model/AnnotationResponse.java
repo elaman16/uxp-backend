@@ -19,6 +19,7 @@ public class AnnotationResponse {
 	private String pinYCoordinate;
 	private String annotationMediaType;
 	private String annotationMedia;
+	private String attachmentURI;
 	private String annotationMediaAudio;
 	private int annotationPageHeight;
 	private int annotationPageWidth;
@@ -47,8 +48,17 @@ public class AnnotationResponse {
 		this.annotationPageHeight = annotation.getAnnotationPageHeight();
 		this.annotationPageWidth = annotation.getAnnotationPageWidth();
 		this.timeUpdated = annotation.getTimeUpdated();
+		this.attachmentURI = annotation.getAttachmentURI();
 	}
 	
+	public String getAttachmentURI() {
+		return attachmentURI;
+	}
+
+	public void setAttachmentURI(String attachmentURI) {
+		this.attachmentURI = attachmentURI;
+	}
+
 	public String getAnnotationMediaAudio() {
 		return annotationMediaAudio;
 	}

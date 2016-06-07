@@ -161,7 +161,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			String encoded = attachment.substring(attachment.indexOf(",") + 1);
 			UUID uid = UUID.randomUUID();
 			byte[] decoded = Base64.getMimeDecoder().decode(encoded);
-			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".ogg");
+			FileOutputStream fos = new FileOutputStream("tmp/" + uid + fileName);
 			fos.write(decoded);
 			fos.close();
 			String url = uploadToS3(uid + fileName, "tmp/" + uid + fileName, "uxpattach");
