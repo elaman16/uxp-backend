@@ -3,6 +3,7 @@ package com.uxp.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import com.uxp.dao.CollectionDAO;
 import com.uxp.dao.UserAccountSettingDAO;
@@ -52,7 +54,7 @@ public class UserService_Impl implements UserService {
 	@Autowired
 	private CollectionDAO collectionDAO;
 	
-	public Object postNewCollection(long userId, ArrayList<Long> annotations, String exportURI) {
+	public Object postNewCollection(long userId, List<Long> annotations, String exportURI) {
 		Collection collection = new Collection(userId, annotations, exportURI);
 		collectionDAO.save(collection);
 		return Collections.singletonMap("response", "Collection Posted");

@@ -2,6 +2,7 @@ package com.uxp.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -99,7 +100,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/{userId}/collections", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Object postNewCollection(@PathVariable("userId") long userId, @RequestParam ArrayList<Long> annotations, @RequestParam String exportURI) {
+	public @ResponseBody Object postNewCollection(@PathVariable("userId") long userId, @RequestParam List<Long> annotations, @RequestParam String exportURI) {
 		
 		return userService.postNewCollection(userId, annotations, exportURI);
 		

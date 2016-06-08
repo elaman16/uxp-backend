@@ -17,12 +17,12 @@ public class Collection {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long collectionId;
 	private long userId;
-	private ArrayList<Long> annotations;
+	private List<Long> annotations;
 	private String exportURI;
 	
 	public Collection() {}
 
-	public Collection(long userId, ArrayList<Long> annotations, String exportURI) {
+	public Collection(long userId, List<Long> annotations, String exportURI) {
 		super();
 		this.userId = userId;
 		this.annotations = annotations;
@@ -45,11 +45,11 @@ public class Collection {
 		this.userId = userId;
 	}
 
-	public ArrayList<Long> getAnnotations() {
+	public List<Long> getAnnotations() {
 		return annotations;
 	}
 
-	public void setAnnotations(ArrayList<Long> annotations) {
+	public void setAnnotations(List<Long> annotations) {
 		this.annotations = annotations;
 	}
 
