@@ -99,7 +99,7 @@ public class UserController {
 		return userService.changeUserPass(userId, programId, oldPass, newPass, response, request);
 	}
 	
-	@RequestMapping(value="/{userId}/collections", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{userId}/collections", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public @ResponseBody Object postNewCollection(@PathVariable("userId") long userId, @RequestParam String annotations, @RequestParam String exportURI) {
 		
 		return userService.postNewCollection(userId, annotations, exportURI);
