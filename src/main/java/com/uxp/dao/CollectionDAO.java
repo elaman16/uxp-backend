@@ -9,5 +9,7 @@ import com.uxp.model.Collection;
 
 @Transactional
 public interface CollectionDAO extends CrudRepository<Collection, Long> {
+
+	public Object findAllByUserId(long userId);
     	
 }

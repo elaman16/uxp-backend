@@ -30,4 +30,5 @@ public interface UserService {
 	public UserProfile getUserProfile(String userName);
 	public UserResponse getUserByUserName(String userName);
 	public Object postNewCollection(long userId, String annotations, String exportURI);
+	public Object findAllCollectionsByUserId(long userId);
 }

@@ -60,6 +60,10 @@ public class UserService_Impl implements UserService {
 		return Collections.singletonMap("response", "Collection Posted");
 	}
 	
+	public Object findAllCollectionsByUserId(long userId) {
+		return collectionDAO.findAllByUserId(userId);
+	}
+	
 	public UserProfile getUserProfile(String userName) {
 		return userProfileDAO.findOneByUserName(userName);
 	}

@@ -115,6 +115,12 @@ public class UserController {
 			return Collections.singletonMap("response", "Please Log In");
 		}
 	}
+	@RequestMapping(value="/{userId}/collections", method=RequestMethod.GET)
+	public @ResponseBody Object userCollections(@PathVariable("userId") long userId) {
+		
+		return userService.findAllCollectionsByUserId(userId);
+		
+	}
 	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
 	public @ResponseBody Object postUserActivityLog(@PathVariable("userId") long userId, @RequestHeader("programId") String programId, HttpServletResponse response,  HttpServletRequest request) {
 		try {
