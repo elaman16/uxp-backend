@@ -29,5 +29,5 @@ public interface UserService {
 	public boolean userLogin(String userName, String userPass);
 	public UserProfile getUserProfile(String userName);
 	public UserResponse getUserByUserName(String userName);
-	public Object postNewCollection(long userId, List<Long> annotations, String exportURI);
+	public Object postNewCollection(long userId, String annotations, String exportURI);
 }

@@ -54,7 +54,7 @@ public class UserService_Impl implements UserService {
 	@Autowired
 	private CollectionDAO collectionDAO;
 	
-	public Object postNewCollection(long userId, List<Long> annotations, String exportURI) {
+	public Object postNewCollection(long userId, String annotations, String exportURI) {
 		Collection collection = new Collection(userId, annotations, exportURI);
 		collectionDAO.save(collection);
 		return Collections.singletonMap("response", "Collection Posted");

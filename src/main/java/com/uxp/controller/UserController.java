@@ -100,7 +100,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/{userId}/collections", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Object postNewCollection(@PathVariable("userId") long userId, @RequestParam List<Long> annotations, @RequestParam String exportURI) {
+	public @ResponseBody Object postNewCollection(@PathVariable("userId") long userId, @RequestParam String annotations, @RequestParam String exportURI) {
 		
 		return userService.postNewCollection(userId, annotations, exportURI);
 		
