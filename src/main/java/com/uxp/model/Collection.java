@@ -3,6 +3,7 @@ package com.uxp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class Collection {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long collectionId;
 	private long userId;
+	@Column(columnDefinition = "TEXT")
 	private String annotations;
 	private String exportURI;
 	
