@@ -1,5 +1,6 @@
 package com.uxp.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
@@ -97,6 +98,12 @@ public class UserController {
 		return userService.changeUserPass(userId, programId, oldPass, newPass, response, request);
 	}
 	
+	@RequestMapping(value="/{userId}/collections", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Object postNewCollection(@PathVariable("userId") long userId, @RequestParam ArrayList<Long> annotations, @RequestParam String exportURI) {
+		
+		return userService.postNewCollection(userId, annotations, exportURI);
+		
+	}
 	//******************************************GET Requests******************************888
 	@RequestMapping(value="/{userName}", method=RequestMethod.GET )
 	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestParam(required=false, name="programId") String programId,HttpServletResponse response, HttpServletRequest request) {

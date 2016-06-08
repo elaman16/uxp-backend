@@ -1,5 +1,7 @@
 package com.uxp.service;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,4 +27,5 @@ public interface UserService {
 	public boolean userLogin(String userName, String userPass);
 	public UserProfile getUserProfile(String userName);
 	public UserResponse getUserByUserName(String userName);
+	public Object postNewCollection(long userId, ArrayList<Long> annotations, String exportURI);
 }

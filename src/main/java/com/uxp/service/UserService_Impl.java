@@ -1,5 +1,6 @@
 package com.uxp.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.uxp.dao.CollectionDAO;
 import com.uxp.dao.UserAccountSettingDAO;
 import com.uxp.dao.UserActivityDAO;
 import com.uxp.dao.UserDAO;
@@ -18,6 +20,7 @@ import com.uxp.dao.UserExpertiseDAO;
 import com.uxp.dao.UserPermissionDAO;
 import com.uxp.dao.UserProfileDAO;
 import com.uxp.dao.UserRoleDAO;
+import com.uxp.model.Collection;
 import com.uxp.model.ResponseMsg;
 import com.uxp.model.User;
 import com.uxp.model.UserAccountSetting;
@@ -46,6 +49,14 @@ public class UserService_Impl implements UserService {
 	private UserExpertiseDAO userExpertiseDAO;
 	@Autowired
 	private UserPermissionDAO userPermissionDAO;
+	@Autowired
+	private CollectionDAO collectionDAO;
+	
+	public Object postNewCollection(long userId, ArrayList<Long> annotations, String exportURI) {
+		Collection collection = new Collection(userId, annotations, exportURI);
+		collectionDAO.save(collection);
+		return Collections.singletonMap("response", "Collection Posted");
+	}
 	
 	public UserProfile getUserProfile(String userName) {
 		return userProfileDAO.findOneByUserName(userName);
