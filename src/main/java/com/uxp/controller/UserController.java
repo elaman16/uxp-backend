@@ -1,5 +1,6 @@
 package com.uxp.controller;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +29,10 @@ import com.uxp.model.ResponseMsg;
 import com.uxp.model.UserProfile;
 import com.uxp.service.UserService;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.crypto.MacProvider;
+
 @RestController
 @CrossOrigin
 @RequestMapping(value="/user", method={RequestMethod.POST, RequestMethod.GET})
@@ -35,6 +40,7 @@ import com.uxp.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	Key key = MacProvider.generateKey();
 	
 	//*************************************POST REQUESTS***********************************
 	
@@ -54,11 +60,11 @@ public class UserController {
 	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {	
-		HttpSession session = request.getSession(); 
+		
 		if(userService.userLogin(userName, userPassword)) {
 			 UserProfile user = userService.getUserProfile(userName);
-			 session.setAttribute("user", user);
-			 return userService.getUserByUserName(userName);
+			 String s = Jwts.builder().setSubject(userName).signWith(SignatureAlgorithm.HS512, key).compact();
+			 return userService.getUserByUserName(userName, s);
 		 } else {
 			 return Collections.singletonMap("response", "Invalid Username or Password");
 		 }

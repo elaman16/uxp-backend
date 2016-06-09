@@ -68,11 +68,17 @@ public class UserService_Impl implements UserService {
 		return userProfileDAO.findOneByUserName(userName);
 	}
 	public UserResponse getUserByUserName(String userName) {
-		
 		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
 		UserExpertise ux = userExpertiseDAO.findOne(user.getUserExpertiseId());
 		UserResponse up = new UserResponse(user, userProfile, ux);
+		return up;
+	}
+public UserResponse getUserByUserName(String userName, String token) {
+		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
+		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
+		UserExpertise ux = userExpertiseDAO.findOne(user.getUserExpertiseId());
+		UserResponse up = new UserResponse(user, userProfile, ux, token);
 		return up;
 	}
 	

@@ -13,7 +13,7 @@ public class UserResponse {
 	private String userExpertise;
 	private String userCity;
 	private String userState;
-	
+	private String token;
 	public UserResponse() {}
 	
 	public UserResponse(User user, UserProfile userProfile, UserExpertise ux) {
@@ -28,6 +28,29 @@ public class UserResponse {
 		this.userExpertise = ux.getUserExpertise();
 		this.userCity = userProfile.getUserCity();
 		this.userState = userProfile.getUserState();
+	}
+	
+	public UserResponse(User user, UserProfile userProfile, UserExpertise ux, String token) {
+		this.userId = user.getUserId();
+		this.userName = userProfile.getUserName();
+		this.userFirstName = userProfile.getUserFirstName();
+		this.userLastName = userProfile.getUserLastName();
+		this.userPicURL = userProfile.getUserPicURL();
+		this.userEmail = userProfile.getUserEmail();
+		this.userEmployer = userProfile.getUserEmployer();
+		this.userDesignation= userProfile.getUserDesignation();
+		this.userExpertise = ux.getUserExpertise();
+		this.userCity = userProfile.getUserCity();
+		this.userState = userProfile.getUserState();
+		this.token = token;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public String getUserExpertise() {
