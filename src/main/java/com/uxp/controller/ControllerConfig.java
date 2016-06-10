@@ -8,13 +8,37 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
-@Component
+
 public class ControllerConfig {
+	private static ControllerConfig instance = null;
+	protected ControllerConfig() {}
+	
 	final Key key = MacProvider.generateKey();
+	
+	public static ControllerConfig getInstance() {
+		if(instance == null) {
+			instance = new ControllerConfig();
+		}
+		return instance;
+	}
 
 	public Key getKey() {
 		return key;
 	}
 	
-	
+	/*
+	 * 
+	public class ClassicSingleton {
+   private static ClassicSingleton instance = null;
+   protected ClassicSingleton() {
+      // Exists only to defeat instantiation.
+   }
+   public static ClassicSingleton getInstance() {
+      if(instance == null) {
+         instance = new ClassicSingleton();
+      }
+      return instance;
+   }
+}
+	 */
 }

@@ -35,13 +35,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @CrossOrigin
 @RequestMapping(value="/user", method={RequestMethod.POST, RequestMethod.GET})
 @SessionAttributes("user")
-public class UserController {
+public class UserController extends ControllerConfig {
 	@Autowired
 	private UserService userService;
-	@Autowired 
-	private ControllerConfig controllerConfig;
 	
-	private Key key = controllerConfig.getKey();
 	
 	
 	//*************************************POST REQUESTS***********************************
