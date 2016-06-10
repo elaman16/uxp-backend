@@ -41,7 +41,7 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 public class UserController {
 	@Autowired
 	private UserService userService;
-	@Value("${jwtKey}")
+	
 	Key key = MacProvider.generateKey();
 	
 	//*************************************POST REQUESTS***********************************
@@ -62,7 +62,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {	
-		System.out.print("${jwtKey}" +"|||" + key);
+		System.out.print(key);
 		if(userService.userLogin(userName, userPassword)) {
 			 UserProfile user = userService.getUserProfile(userName);
 			 String s = Jwts.builder().setSubject("uxpgll").signWith(SignatureAlgorithm.HS512, "${jwtKey}").compact();
