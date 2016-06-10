@@ -32,17 +32,18 @@ import com.uxp.service.UserService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.crypto.MacProvider;
+
+
 
 @RestController
 @CrossOrigin
 @RequestMapping(value="/user", method={RequestMethod.POST, RequestMethod.GET})
 @SessionAttributes("user")
-public class UserController {
+public class UserController extends ControllerConfig {
 	@Autowired
 	private UserService userService;
 	
-	Key key = MacProvider.generateKey();
+	
 	
 	//*************************************POST REQUESTS***********************************
 	
@@ -65,7 +66,7 @@ public class UserController {
 		System.out.print(key);
 		if(userService.userLogin(userName, userPassword)) {
 			 UserProfile user = userService.getUserProfile(userName);
-			 String s = Jwts.builder().setSubject("uxpgll").signWith(SignatureAlgorithm.HS512, "${jwtKey}").compact();
+			 String s = Jwts.builder().setSubject("uxpgll").signWith(SignatureAlgorithm.HS512, key).compact();
 			 return userService.getUserByUserName(userName, s);
 		 } else {
 			 return Collections.singletonMap("response", "Invalid Username or Password");
