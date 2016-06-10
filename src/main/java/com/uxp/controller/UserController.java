@@ -38,7 +38,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class UserController {
 	@Autowired
 	private UserService userService;
-	@Autowired ControllerConfig controllerConfig;
+	@Autowired 
+	private ControllerConfig controllerConfig;
+	
 	private Key key = controllerConfig.getKey();
 	
 	

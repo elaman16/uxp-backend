@@ -37,7 +37,8 @@ public class AnnotationController {
 	private AnnotationService annotationService;
 	@Autowired 
 	private UserService userService;
-	@Autowired ControllerConfig controllerConfig;
+	@Autowired 
+	private ControllerConfig controllerConfig;
 	private Key key = controllerConfig.getKey();
 
 	
