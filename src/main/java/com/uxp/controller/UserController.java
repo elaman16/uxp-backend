@@ -3,6 +3,7 @@ package com.uxp.controller;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,8 +66,9 @@ public class UserController extends ControllerConfig {
 	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {	
 		System.out.print(key);
 		if(userService.userLogin(userName, userPassword)) {
-			 UserProfile user = userService.getUserProfile(userName);
-			 String s = Jwts.builder().setSubject("uxpgll").signWith(SignatureAlgorithm.HS512, key).compact();
+			 long now = new Date().getTime();
+			 long expires = now + 86400000;
+			 String s = Jwts.builder().setSubject(userName).setIssuer("UxP-Gll").setExpiration(new Date(expires)).signWith(SignatureAlgorithm.HS512, key).compact();
 			 return userService.getUserByUserName(userName, s);
 		 } else {
 			 return Collections.singletonMap("response", "Invalid Username or Password");
@@ -111,11 +113,13 @@ public class UserController extends ControllerConfig {
 	}
 	//******************************************GET Requests******************************888
 	@RequestMapping(value="/{userName}", method=RequestMethod.GET )
-	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestParam(required=false, name="programId") String programId,HttpServletResponse response, HttpServletRequest request) {
+	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestParam(required=false, name="programId") String programId, @RequestHeader(name="Authorization") String token, HttpServletResponse response, HttpServletRequest request) {
 		
-		
+		if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject().equals(userName)) {
 			return userService.getUserByUserName(userName);
-		
+		} else {
+			return Collections.singletonMap("error", "Not Authorized");
+		}
 	}
 	@RequestMapping(value="/{userId}/collections", method=RequestMethod.GET)
 	public @ResponseBody Object userCollections(@PathVariable("userId") long userId) {

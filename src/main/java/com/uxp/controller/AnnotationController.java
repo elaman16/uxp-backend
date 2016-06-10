@@ -1,6 +1,6 @@
 package com.uxp.controller;
 
-import java.util.Collections;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.uxp.dao.UserProfileDAO;
-import com.uxp.model.ResponseMsg;
-import com.uxp.model.UserProfile;
-import com.uxp.model.UserResponse;
+
 import com.uxp.service.AnnotationService;
 import com.uxp.service.UserService;
 
@@ -80,7 +77,7 @@ public class AnnotationController extends ControllerConfig {
 	}
 	
 	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
-	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="Authorization") String token, @RequestHeader(name="programId", required=false) String programId,  HttpServletRequest request, HttpServletResponse response) {	
+	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId,  HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession(false);
 		
 			return annotationService.getUserAnnotations(userName, programId, request, response);
