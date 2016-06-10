@@ -1,6 +1,7 @@
 package com.uxp.controller;
 
 
+import java.security.Key;
 import java.util.Collections;
 import java.util.Date;
 
@@ -34,10 +35,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @CrossOrigin
 @RequestMapping(value="/user", method={RequestMethod.POST, RequestMethod.GET})
 @SessionAttributes("user")
-public class UserController extends ControllerConfig {
+public class UserController {
 	@Autowired
 	private UserService userService;
-	
+	@Autowired ControllerConfig controllerConfig;
+	private Key key = controllerConfig.getKey();
 	
 	
 	//*************************************POST REQUESTS***********************************

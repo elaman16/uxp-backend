@@ -2,6 +2,7 @@ package com.uxp.controller;
 
 
 
+import java.security.Key;
 import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,12 +32,13 @@ import io.jsonwebtoken.SigningKeyResolver;
 @CrossOrigin
 @RequestMapping(value="/annotations", method={RequestMethod.POST, RequestMethod.GET})
 @SessionAttributes("user")
-public class AnnotationController extends ControllerConfig {
+public class AnnotationController {
 	@Autowired
 	private AnnotationService annotationService;
 	@Autowired 
 	private UserService userService;
-	
+	@Autowired ControllerConfig controllerConfig;
+	private Key key = controllerConfig.getKey();
 
 	
 	//********************************POST Requests ***************************************
