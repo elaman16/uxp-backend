@@ -32,13 +32,13 @@ import io.jsonwebtoken.SigningKeyResolver;
 @CrossOrigin
 @RequestMapping(value="/annotations", method={RequestMethod.POST, RequestMethod.GET})
 @SessionAttributes("user")
-public class AnnotationController extends ControllerConfig{
+public class AnnotationController {
 	@Autowired
 	private AnnotationService annotationService;
 	@Autowired 
 	private UserService userService;
 	
-
+	private Key key = ControllerConfig.key;
 	
 	//********************************POST Requests ***************************************
 	@RequestMapping(value="", method={RequestMethod.POST}, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces="application/json")
