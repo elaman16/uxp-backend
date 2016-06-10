@@ -13,11 +13,12 @@ public class ControllerConfig {
 	private static ControllerConfig instance = null;
 	protected ControllerConfig() {}
 	
-	final Key key = MacProvider.generateKey();
+	static Key key;
 	
 	public static ControllerConfig getInstance() {
 		if(instance == null) {
 			instance = new ControllerConfig();
+			key = MacProvider.generateKey();
 		}
 		return instance;
 	}
