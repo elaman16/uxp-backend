@@ -12,7 +12,7 @@ public interface AnnotationService {
 		String annotationType, String parentDomain, String specificUrl, String pinXCoordinate,
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
 		StringBuffer annotationMedia, String programId, long userId, String hashtag, StringBuffer attachment, String fileName, HttpServletRequest request,
-		HttpServletResponse response, HttpSession session );
+		HttpServletResponse response);
 	
 	String uploadToS3(String fileName, String fileLocation, String bucket);
 	

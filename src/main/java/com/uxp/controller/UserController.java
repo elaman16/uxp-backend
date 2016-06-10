@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.session.SessionRepository;
 import org.springframework.session.data.redis.RedisOperationsSessionRepository;
@@ -40,6 +41,7 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Value("${jwtKey}")
 	Key key = MacProvider.generateKey();
 	
 	//*************************************POST REQUESTS***********************************
@@ -60,10 +62,10 @@ public class UserController {
 	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {	
-		
+		System.out.print("${jwtKey}" +"|||" + key);
 		if(userService.userLogin(userName, userPassword)) {
 			 UserProfile user = userService.getUserProfile(userName);
-			 String s = Jwts.builder().setSubject(userName).signWith(SignatureAlgorithm.HS512, key).compact();
+			 String s = Jwts.builder().setSubject("uxpgll").signWith(SignatureAlgorithm.HS512, "${jwtKey}").compact();
 			 return userService.getUserByUserName(userName, s);
 		 } else {
 			 return Collections.singletonMap("response", "Invalid Username or Password");

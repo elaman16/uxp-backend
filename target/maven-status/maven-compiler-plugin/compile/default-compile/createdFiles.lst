@@ -49,7 +49,6 @@ com/uxp/dao/UserPermissionDAO.class
 com/uxp/model/UserActivityLog.class
 com/uxp/model/Emoji.class
 com/uxp/dao/UserProfileDAO.class
-com/uxp/controller/AnnotationController.class
 com/uxp/model/UserRelationships.class
 com/uxp/dao/AnnotationDAO.class
 com/uxp/HttpSessionConfig$SessionInit.class

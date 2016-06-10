@@ -226,7 +226,7 @@ public class AnnotationService_Impl implements AnnotationService {
 		String annotationType, String parentDomain, String specificUrl, String pinXCoordinate,
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
 		StringBuffer annotationMedia, String programId, long userId, String hashtag,  StringBuffer attachment, 
-		String fileName, HttpServletRequest request, HttpServletResponse response, HttpSession session ) {
+		String fileName, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, 
 					pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, 

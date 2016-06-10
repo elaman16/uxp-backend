@@ -25,6 +25,9 @@ import com.uxp.model.UserResponse;
 import com.uxp.service.AnnotationService;
 import com.uxp.service.UserService;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SigningKeyResolver;
+
 @RestController
 @CrossOrigin
 @RequestMapping(value="/annotations", method={RequestMethod.POST, RequestMethod.GET})
@@ -35,6 +38,8 @@ public class AnnotationController {
 	@Autowired 
 	private UserService userService;
 	
+
+	
 	//********************************POST Requests ***************************************
 	@RequestMapping(value="", method={RequestMethod.POST}, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces="application/json")
 	public @ResponseBody Object postAnnotation(@RequestParam String annotationTitle, @RequestParam String annotationText,
@@ -44,13 +49,10 @@ public class AnnotationController {
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam StringBuffer annotationMedia,
 			@RequestParam(required=false) String programId, @RequestParam long userId,@RequestParam String hashtag, @RequestParam(required=false, defaultValue="") StringBuffer attachment,
 			@RequestParam(required=false,  defaultValue="") String fileName, HttpServletRequest request, HttpServletResponse response) {
+		
+		//assert Jwts.parser().setSigningKey(key).parseClaimsJws(jwtString).getBody().getSubject().equals("uxpgll");
+				return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, attachment, fileName, request, response);
 			
-			HttpSession session = request.getSession(false);
-			if(session.getAttribute("user") != null) {
-				return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, attachment, fileName, request, response, session);
-			} else {
-				return Collections.singletonMap("response", "Please Log In");
-			}
 	}
 	
 	@RequestMapping(value="/audio", method={RequestMethod.POST}, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
@@ -61,12 +63,9 @@ public class AnnotationController {
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam(required=false) String programId, 
 			@RequestParam long userId,@RequestParam String hashtag, @RequestParam StringBuffer annotationMediaImage,
 			@RequestParam StringBuffer annotationMediaAudio, HttpServletRequest request, HttpServletResponse response) {
-			HttpSession session = request.getSession(false);
-			if(session.getAttribute("user") != null) {
+			
 				return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
-			} else {
-				return Collections.singletonMap("response", "Please Log In");
-			}		
+			
 	}
 	
 	//*********************************GET Requests************************************************
@@ -81,7 +80,7 @@ public class AnnotationController {
 	}
 	
 	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
-	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId,  HttpServletRequest request, HttpServletResponse response) {	
+	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="Authorization") String token, @RequestHeader(name="programId", required=false) String programId,  HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession(false);
 		
 			return annotationService.getUserAnnotations(userName, programId, request, response);
