@@ -3,8 +3,11 @@ package com.uxp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.cloud.aws.context.config.annotation.EnableContextCredentials;
-
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
@@ -22,17 +25,19 @@ public class Application {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("file:///home/kelly/golive/uxpass/public/");
     }
-	/*public void addCorsMappings(CorsRegistry registry) {
-		registry
-			.addMapping("/**")
-			//.allowedOrigins("http://xyz.com")
-			.allowedMethods("GET", "POST", "PUT", "DELETE")
-			.allowedHeaders("header1", "header2", "header3","header4", "header5", "header6", "header7", "header8", "header9","header10", "header11", "header12")
-			.exposedHeaders("header1", "header2", "header3","header4", "header5", "header6", "header7", "header8", "header9","header10", "header11", "header12")
-			.allowCredentials(false)
-			.maxAge(3600);
-			
-	}*/
+	@Bean
+	EmbeddedServletContainerCustomizer containerCustomizer() throws Exception {
+	    return (ConfigurableEmbeddedServletContainer container) -> {
+	        if (container instanceof TomcatEmbeddedServletContainerFactory) {
+	            TomcatEmbeddedServletContainerFactory tomcat = (TomcatEmbeddedServletContainerFactory) container;
+	            tomcat.addConnectorCustomizers(
+	                (connector) -> {
+	                    connector.setMaxPostSize(20000000); // 20 MB
+	                }
+	            );
+	        }
+	    };
+	}
 	
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
