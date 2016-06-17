@@ -18,9 +18,9 @@ public interface AnnotationService {
 	
 	String decodeBase64JPEG(StringBuffer mediaData);
 	
-	Object getAllAnnotations(String programId, int page, HttpServletRequest request, HttpServletResponse response);
+	Object getAllAnnotations(String programId, Integer page, HttpServletRequest request, HttpServletResponse response);
 	
-	Object getUserAnnotations(String userName, int page, String programId, HttpServletRequest request, HttpServletResponse response);
+	Object getUserAnnotations(String userName, Integer page, String programId, HttpServletRequest request, HttpServletResponse response);
 	
 	Object postAudioAnnotation( String annotationTitle, String annotationText, String emoji, String pinType, String userName,
 			String pinTypeDescription, String annotationContentType, String annotationType, String parentDomain, String specificUrl, 

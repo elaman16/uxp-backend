@@ -76,7 +76,7 @@ public class AnnotationController {
 	//*********************************GET Requests************************************************
 	
 	@RequestMapping(value="/all", method={RequestMethod.GET})
-	public @ResponseBody Object getAllAnnotations(@RequestHeader(required=false) String programId, @RequestHeader(name="page", required=false) int page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
+	public @ResponseBody Object getAllAnnotations(@RequestHeader(required=false) String programId, @RequestHeader(name="page", required=false) Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 				if(page < 0) {
 					page = 0;
@@ -89,7 +89,7 @@ public class AnnotationController {
 	}
 	
 	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
-	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", required=false) int page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
+	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", required=false) Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
 		
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 				if(page < 0) {
