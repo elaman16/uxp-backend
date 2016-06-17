@@ -15,10 +15,10 @@ public interface AnnotationDAO extends CrudRepository<Annotation, Long> {
 
 	List<Annotation> findAllByUserName(String userName);
 	
-	@Query(value = "SELECT * FROM annotation WHERE user_name = :userName LIMIT :page, 10 ORDER BY annotation_id DESC", nativeQuery = true)
+	@Query(value = "SELECT * FROM annotation WHERE user_name = :userName ORDER BY annotation_id DESC LIMIT :page, 10", nativeQuery = true)
 	List<Annotation> userAnnotationsPaged(@Param("userName") String userName, @Param("page") Integer page);
 	
-	@Query(value = "SELECT * FROM annotation LIMIT ?1, 10 ORDER BY annotation_id DESC", nativeQuery = true)
+	@Query(value = "SELECT * FROM annotation ORDER BY annotation_id DESC LIMIT ?1, 10", nativeQuery = true)
 	List<Annotation> allAnnotationsPaged(Integer page);
 	
 }
