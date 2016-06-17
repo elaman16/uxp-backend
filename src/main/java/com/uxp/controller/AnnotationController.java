@@ -26,6 +26,7 @@ import com.uxp.service.AnnotationService;
 import com.uxp.service.UserService;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.SigningKeyResolver;
 
 @RestController
@@ -49,11 +50,15 @@ public class AnnotationController {
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam StringBuffer annotationMedia,
 			@RequestParam(required=false) String programId, @RequestParam long userId,@RequestParam String hashtag, @RequestParam(required=false, defaultValue="") StringBuffer attachment,
 			@RequestParam(required=false,  defaultValue="") String fileName, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
+			try {	
 				if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 					return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, attachment, fileName, request, response);
 				} else {
 					return Collections.singletonMap("error", "Not Authorized");
-				}			
+				}
+			} catch(SignatureException e) {
+				return Collections.singletonMap("error", "Not Authorized");
+			}
 	}
 	
 	@RequestMapping(value="/audio", method={RequestMethod.POST}, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
@@ -64,33 +69,42 @@ public class AnnotationController {
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam(required=false) String programId, 
 			@RequestParam long userId,@RequestParam String hashtag, @RequestParam StringBuffer annotationMediaImage,
 			@RequestParam StringBuffer annotationMediaAudio, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
-				if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-					return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
-				} else {
+				try {	
+					if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+						return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
+					} else {
+						return Collections.singletonMap("error", "Not Authorized");
+					}
+				} catch(SignatureException e) {
 					return Collections.singletonMap("error", "Not Authorized");
 				}
-				
 			
 	}
 	
 	//*********************************GET Requests************************************************
 	
 	@RequestMapping(value="/all", method={RequestMethod.GET})
-	public @ResponseBody Object getAllAnnotations(@RequestHeader(required=false) String programId, @RequestHeader(name="page", required=false) Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
-			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-				if(page < 0) {
-					page = 0;
+	public @ResponseBody Object getAllAnnotations(@RequestHeader(required=false) String programId, @RequestHeader(name="page", defaultValue="0") Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
+			try {
+				if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+					if(page < 0) {
+						page = 0;
+					}
+					page = page * 10;
+					return annotationService.getAllAnnotations(programId, page, request, response);
+				} else {
+					return Collections.singletonMap("error", "Not Authorized");
 				}
-				page = page * 10;
-				return annotationService.getAllAnnotations(programId, page, request, response);
-			} else {
+			} catch(SignatureException e) {
 				return Collections.singletonMap("error", "Not Authorized");
-			}		
+			}
+			
+			
 	}
 	
 	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
-	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", required=false) Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
-		
+	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", defaultValue="0") Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
+		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 				if(page < 0) {
 					page = 0;
@@ -100,6 +114,9 @@ public class AnnotationController {
 			} else {
 				return Collections.singletonMap("error", "Not Authorized");
 			}
+		} catch(SignatureException e) {
+			return Collections.singletonMap("error", "Not Authorized");
+		}
 			
 		
 	}
