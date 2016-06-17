@@ -142,8 +142,7 @@ public UserResponse getUserByUserName(String userName, String token) {
 		
 			}
 	
-	public Object updateUserProfile(long userId, String userName, String userPassword,String userFirstName,
-			String userLastName, String userPicURL, String userEmail, String userEmployer, String userDesignation,
+	public Object updateUserProfile(long userId, String userFirstName, String userLastName, String userPicURL, String userEmployer, String userDesignation,
 			String userCity, String userState, String programId, HttpServletResponse response, 
 			HttpServletRequest request) {
 		try {
@@ -152,19 +151,15 @@ public UserResponse getUserByUserName(String userName, String token) {
 			userActivityLog.setUpdatedBy(userId);
 			userActivityDAO.save(userActivityLog);
 			UserProfile storedProfile = userProfileDAO.findOne(foundUser.getUserProfileId());
-			storedProfile.setUserName(userName);
 			storedProfile.setUserFirstName(userFirstName);
 			storedProfile.setUserLastName(userLastName);
 			storedProfile.setUserPicURL(userPicURL);
-			storedProfile.setUserEmail(userEmail);
 			storedProfile.setUserEmployer(userEmployer);
 			storedProfile.setUserDesignation(userDesignation);
 			storedProfile.setUserCity(userCity);
 			storedProfile.setUserState(userState);
-			storedProfile.setProgramId(programId);
 			storedProfile.setLocId(request.getRemoteAddr());
 			storedProfile.setTimeUpdated(new Date());
-			storedProfile.setUpdatedBy(10);
 			userProfileDAO.save(storedProfile);
 		} catch (Exception ex) {
 		      System.out.println("Error updating the user profile: " + ex.toString());

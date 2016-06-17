@@ -81,7 +81,7 @@ public class UserController {
 			@RequestParam(required=false) String programId, UriComponentsBuilder ucBuilder,  HttpServletResponse response,  HttpServletRequest request, @RequestHeader(name="Authorization") String token) {
 			try {
 				if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-					return userService.updateUserProfile(userId, userName, userPassword, userFirstName, userLastName, userPicURL, userEmail, userEmployer, userDesignation, userCity, userState, programId, response, request);
+					return userService.updateUserProfile(userId, userFirstName, userLastName, userPicURL, userEmployer, userDesignation, userCity, userState, programId, response, request);
 				} else {
 					return Collections.singletonMap("error", "Not Authorized");
 				}
