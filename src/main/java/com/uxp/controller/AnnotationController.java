@@ -76,19 +76,27 @@ public class AnnotationController {
 	//*********************************GET Requests************************************************
 	
 	@RequestMapping(value="/all", method={RequestMethod.GET})
-	public @ResponseBody Object getAllAnnotations(@RequestHeader(required=false) String programId,  HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
+	public @ResponseBody Object getAllAnnotations(@RequestHeader(required=false) String programId, @RequestHeader(name="page", required=false) int page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-				return annotationService.getAllAnnotations(programId, request, response);
+				if(page < 0) {
+					page = 0;
+				}
+				page = page * 10;
+				return annotationService.getAllAnnotations(programId, page, request, response);
 			} else {
 				return Collections.singletonMap("error", "Not Authorized");
 			}		
 	}
 	
 	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
-	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId,  HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
+	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", required=false) int page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
 		
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-				return annotationService.getUserAnnotations(userName, programId, request, response);
+				if(page < 0) {
+					page = 0;
+				}
+				page = page * 10;
+				return annotationService.getUserAnnotations(userName, page, programId, request, response);
 			} else {
 				return Collections.singletonMap("error", "Not Authorized");
 			}

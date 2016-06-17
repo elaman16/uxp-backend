@@ -73,10 +73,10 @@ public class AnnotationService_Impl implements AnnotationService {
 	@Autowired
 	private EmojiDAO emojiDAO;
 	
-	public Object getAllAnnotations(String programId,  HttpServletRequest request, HttpServletResponse response) {
+	public Object getAllAnnotations(String programId, int page, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			List<AnnotationResponse> annotationResponses = new ArrayList<AnnotationResponse>();
-			List<Annotation> allAnnotations = (List<Annotation>) annotationDAO.findAll();
+			List<Annotation> allAnnotations = (List<Annotation>) annotationDAO.allAnnotationsPaged(page);
 			for(Annotation a : allAnnotations) {
 				Emoji emo = emojiDAO.findOne(a.getEmojiId());
 				AnnotationContentType annotationContent = annotationContentTypeDAO.findOne(a.getAnnotationContentTypeId());
@@ -101,10 +101,10 @@ public class AnnotationService_Impl implements AnnotationService {
 			 }
 	}
 	
-	public Object getUserAnnotations(String userName, String programId, HttpServletRequest request, HttpServletResponse response) {
+	public Object getUserAnnotations(String userName, int page, String programId, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			List<AnnotationResponse> annotationResponses = new ArrayList<AnnotationResponse>();
-			List<Annotation> allAnnotations = (List<Annotation>) annotationDAO.findAllByUserName(userName);
+			List<Annotation> allAnnotations = (List<Annotation>) annotationDAO.userAnnotationsPaged(userName, page);
 			for(Annotation a : allAnnotations) {
 				Emoji emo = emojiDAO.findOne(a.getEmojiId());
 				AnnotationContentType annotationContent = annotationContentTypeDAO.findOne(a.getAnnotationContentTypeId());
