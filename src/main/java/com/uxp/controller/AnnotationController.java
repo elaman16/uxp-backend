@@ -26,6 +26,7 @@ import com.uxp.service.AnnotationService;
 import com.uxp.service.UserService;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.SigningKeyResolver;
 
@@ -58,6 +59,8 @@ public class AnnotationController {
 				}
 			} catch(SignatureException e) {
 				return Collections.singletonMap("error", "Not Authorized");
+			} catch(MalformedJwtException m) {
+				return Collections.singletonMap("error", "Bad token");
 			}
 	}
 	
@@ -77,6 +80,8 @@ public class AnnotationController {
 					}
 				} catch(SignatureException e) {
 					return Collections.singletonMap("error", "Not Authorized");
+				} catch(MalformedJwtException m) {
+					return Collections.singletonMap("error", "Bad token");
 				}
 			
 	}
@@ -97,6 +102,8 @@ public class AnnotationController {
 				}
 			} catch(SignatureException e) {
 				return Collections.singletonMap("error", "Not Authorized");
+			} catch(MalformedJwtException m) {
+				return Collections.singletonMap("error", "Bad token");
 			}
 			
 			
@@ -116,6 +123,8 @@ public class AnnotationController {
 			}
 		} catch(SignatureException e) {
 			return Collections.singletonMap("error", "Not Authorized");
+		} catch(MalformedJwtException m) {
+			return Collections.singletonMap("error", "Bad token");
 		}
 			
 		

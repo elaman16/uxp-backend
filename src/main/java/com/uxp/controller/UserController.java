@@ -27,7 +27,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.uxp.service.UserService;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 
 
 
@@ -77,11 +79,16 @@ public class UserController {
 			@RequestParam String userFirstName, @RequestParam String userLastName, @RequestParam String userPicURL,@RequestParam String userEmail,
 			@RequestParam String userEmployer, @RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState,
 			@RequestParam(required=false) String programId, UriComponentsBuilder ucBuilder,  HttpServletResponse response,  HttpServletRequest request, @RequestHeader(name="Authorization") String token) {
-			
-			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-				return userService.updateUserProfile(userId, userName, userPassword, userFirstName, userLastName, userPicURL, userEmail, userEmployer, userDesignation, userCity, userState, programId, response, request);
-			} else {
+			try {
+				if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+					return userService.updateUserProfile(userId, userName, userPassword, userFirstName, userLastName, userPicURL, userEmail, userEmployer, userDesignation, userCity, userState, programId, response, request);
+				} else {
+					return Collections.singletonMap("error", "Not Authorized");
+				}
+			} catch(SignatureException e) {
 				return Collections.singletonMap("error", "Not Authorized");
+			} catch(MalformedJwtException m) {
+				return Collections.singletonMap("error", "Bad token");
 			}
 		
 			
@@ -94,39 +101,60 @@ public class UserController {
 	@RequestMapping(value="/{userId}/userAccountSetting", method=RequestMethod.POST, consumes= MediaType.MULTIPART_FORM_DATA_VALUE )
 	public @ResponseBody Object postUserAccountSetting(@PathVariable("userId") long userId, @RequestParam(required=false) String programId, 
 		   @RequestParam String oldPass, @RequestParam String newPass, HttpServletResponse response,  HttpServletRequest request, HttpSession session, @RequestHeader(name="Authorization") String token) {
-		if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-			return userService.changeUserPass(userId, programId, oldPass, newPass, response, request);
-		} else {
+		try {
+			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+				return userService.changeUserPass(userId, programId, oldPass, newPass, response, request);
+			} else {
+				return Collections.singletonMap("error", "Not Authorized");
+			}
+		} catch(SignatureException e) {
 			return Collections.singletonMap("error", "Not Authorized");
+		} catch(MalformedJwtException m) {
+			return Collections.singletonMap("error", "Bad token");
 		}
-		
 	}
 	
 	@RequestMapping(value="/{userId}/collections", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public @ResponseBody Object postNewCollection(@PathVariable("userId") long userId, @RequestParam String annotations, @RequestParam String exportURI, @RequestHeader(name="Authorization") String token) {
-		if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-			return userService.postNewCollection(userId, annotations, exportURI);
-		} else {
+		try {
+			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+				return userService.postNewCollection(userId, annotations, exportURI);
+			} else {
+				return Collections.singletonMap("error", "Not Authorized");
+			}
+		} catch(SignatureException e) {
 			return Collections.singletonMap("error", "Not Authorized");
+		} catch(MalformedJwtException m) {
+			return Collections.singletonMap("error", "Bad token");
 		}
-		
 	}
 	//******************************************GET Requests******************************888
 	@RequestMapping(value="/{userName}", method=RequestMethod.GET )
 	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestParam(required=false, name="programId") String programId, @RequestHeader(name="Authorization") String token, HttpServletResponse response, HttpServletRequest request) {
-		
-		if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-			return userService.getUserByUserName(userName);
-		} else {
+		try {
+			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+				return userService.getUserByUserName(userName);
+			} else {
+				return Collections.singletonMap("error", "Not Authorized");
+			}
+		} catch(SignatureException e) {
 			return Collections.singletonMap("error", "Not Authorized");
+		} catch(MalformedJwtException m) {
+			return Collections.singletonMap("error", "Bad token");
 		}
 	}
 	@RequestMapping(value="/{userId}/collections", method=RequestMethod.GET)
 	public @ResponseBody Object userCollections(@PathVariable("userId") long userId, @RequestHeader(name="Authorization") String token) {
-		if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-			return userService.findAllCollectionsByUserId(userId);
-		} else {
+		try {
+			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+				return userService.findAllCollectionsByUserId(userId);
+			} else {
+				return Collections.singletonMap("error", "Not Authorized");
+			}
+		} catch(SignatureException e) {
 			return Collections.singletonMap("error", "Not Authorized");
+		} catch(MalformedJwtException m) {
+			return Collections.singletonMap("error", "Bad token");
 		}
 	}
 	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
