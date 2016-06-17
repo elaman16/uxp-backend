@@ -14,7 +14,7 @@ public interface AnnotationDAO extends CrudRepository<Annotation, Long> {
 
 	List<Annotation> findAllByUserName(String userName);
 	
-	@Query(value = "SELECT user-name FROM annotation WHERE user-name = ?1 LIMIT ?2, 10", nativeQuery = true)
+	@Query(value = "SELECT user_name FROM annotation WHERE user_name = ?1 LIMIT ?2, 10", nativeQuery = true)
 	List<Annotation> userAnnotationsPaged(String userName, Integer page);
 	
 	@Query(value = "SELECT * FROM annotation LIMIT ?1, 10", nativeQuery = true)
