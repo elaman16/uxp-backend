@@ -32,14 +32,16 @@ public class Annotation {
 	private String LocId;
 	private Date timeUpdated;
 	private long updatedBy;
-	
+	private String recommendation;
+	private String severity;
+	private String violation;
 	public Annotation() {}
 	
 	
 
 	public Annotation(String annotationTitle, String annotationText, String specificURL, String pinXCoordinate,
 			String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
-			String programId, String locId, long updatedBy, String userName) {
+			String programId, String locId, long updatedBy, String userName, String recommendation, String severity, String violation) {
 		super();
 		this.annotationTitle = annotationTitle;
 		this.annotationText = annotationText;
@@ -55,6 +57,45 @@ public class Annotation {
 		this.timeUpdated = new Date();
 		this.updatedBy = updatedBy;
 		this.userName = userName;
+		this.recommendation = recommendation;
+		this.severity = severity;
+		this.violation = violation;
+	}
+
+
+
+	public String getRecommendation() {
+		return recommendation;
+	}
+
+
+
+	public void setRecommendation(String recommendation) {
+		this.recommendation = recommendation;
+	}
+
+
+
+	public String getSeverity() {
+		return severity;
+	}
+
+
+
+	public void setSeverity(String severity) {
+		this.severity = severity;
+	}
+
+
+
+	public String getViolation() {
+		return violation;
+	}
+
+
+
+	public void setViolation(String violation) {
+		this.violation = violation;
 	}
 
 

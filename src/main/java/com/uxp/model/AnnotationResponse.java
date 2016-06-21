@@ -23,6 +23,9 @@ public class AnnotationResponse {
 	private String annotationMediaAudio;
 	private int annotationPageHeight;
 	private int annotationPageWidth;
+	private String recommendation;
+	private String severity;
+	private String violation;
 	private Date timeUpdated;
 	
 	public AnnotationResponse() {}
@@ -49,8 +52,35 @@ public class AnnotationResponse {
 		this.annotationPageWidth = annotation.getAnnotationPageWidth();
 		this.timeUpdated = annotation.getTimeUpdated();
 		this.attachmentURI = annotation.getAttachmentURI();
+		this.recommendation = annotation.getRecommendation();
+		this.severity = annotation.getSeverity();
+		this.violation = annotation.getViolation();
 	}
 	
+	public String getRecommendation() {
+		return recommendation;
+	}
+
+	public void setRecommendation(String recommendation) {
+		this.recommendation = recommendation;
+	}
+
+	public String getSeverity() {
+		return severity;
+	}
+
+	public void setSeverity(String severity) {
+		this.severity = severity;
+	}
+
+	public String getViolation() {
+		return violation;
+	}
+
+	public void setViolation(String violation) {
+		this.violation = violation;
+	}
+
 	public String getAttachmentURI() {
 		return attachmentURI;
 	}

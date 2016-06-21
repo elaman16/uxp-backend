@@ -50,10 +50,11 @@ public class AnnotationController {
 			@RequestParam String pinXCoordinate, @RequestParam String pinYCoordinate, @RequestParam String annotationMediaType,
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam StringBuffer annotationMedia,
 			@RequestParam(required=false) String programId, @RequestParam long userId,@RequestParam String hashtag, @RequestParam(required=false, defaultValue="") StringBuffer attachment,
-			@RequestParam(required=false,  defaultValue="") String fileName, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
+			@RequestParam(required=false,  defaultValue="") String fileName, @RequestParam(defaultValue="") String recommendation, @RequestParam(defaultValue="") String severity,
+			@RequestParam(defaultValue="") String violation, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
 			try {	
 				if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-					return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, attachment, fileName, request, response);
+					return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, attachment, fileName, recommendation, severity, violation, request, response);
 				} else {
 					return Collections.singletonMap("error", "Not Authorized");
 				}
@@ -71,10 +72,11 @@ public class AnnotationController {
 			@RequestParam String pinXCoordinate, @RequestParam String pinYCoordinate, @RequestParam String annotationMediaType,
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam(required=false) String programId, 
 			@RequestParam long userId,@RequestParam String hashtag, @RequestParam StringBuffer annotationMediaImage,
-			@RequestParam StringBuffer annotationMediaAudio, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
+			@RequestParam StringBuffer annotationMediaAudio, @RequestParam(defaultValue="") String recommendation, @RequestParam(defaultValue="") String severity,
+			@RequestParam(defaultValue="") String violation, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
 				try {	
 					if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-						return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, request, response);
+						return annotationService.postAudioAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, userId, hashtag, annotationMediaImage, annotationMediaAudio, recommendation, severity, violation, request, response);
 					} else {
 						return Collections.singletonMap("error", "Not Authorized");
 					}
