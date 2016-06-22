@@ -35,13 +35,15 @@ public class Annotation {
 	private String recommendation;
 	private String severity;
 	private String violation;
+	private String userVideo;
+	
 	public Annotation() {}
 	
 	
 
 	public Annotation(String annotationTitle, String annotationText, String specificURL, String pinXCoordinate,
 			String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
-			String programId, String locId, long updatedBy, String userName, String recommendation, String severity, String violation) {
+			String programId, String locId, long updatedBy, String userName, String recommendation, String severity, String violation, String userVideo) {
 		super();
 		this.annotationTitle = annotationTitle;
 		this.annotationText = annotationText;
@@ -60,8 +62,17 @@ public class Annotation {
 		this.recommendation = recommendation;
 		this.severity = severity;
 		this.violation = violation;
+		this.userVideo = userVideo;
+	}
+	public String getUserVideo() {
+		return userVideo;
 	}
 
+
+
+	public void setUserVideo(String userVideo) {
+		this.userVideo = userVideo;
+	}
 
 
 	public String getRecommendation() {

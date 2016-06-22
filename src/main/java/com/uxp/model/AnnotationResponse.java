@@ -26,6 +26,7 @@ public class AnnotationResponse {
 	private String recommendation;
 	private String severity;
 	private String violation;
+	private String userVideo;
 	private Date timeUpdated;
 	
 	public AnnotationResponse() {}
@@ -55,8 +56,17 @@ public class AnnotationResponse {
 		this.recommendation = annotation.getRecommendation();
 		this.severity = annotation.getSeverity();
 		this.violation = annotation.getViolation();
+		this.userVideo = annotation.getUserVideo();
 	}
 	
+	public String getUserVideo() {
+		return userVideo;
+	}
+
+	public void setUserVideo(String userVideo) {
+		this.userVideo = userVideo;
+	}
+
 	public String getRecommendation() {
 		return recommendation;
 	}

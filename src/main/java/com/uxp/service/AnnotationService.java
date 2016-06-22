@@ -11,7 +11,7 @@ public interface AnnotationService {
 		String pinType, String userName, String pinTypeDescription,	String annotationContentType,
 		String annotationType, String parentDomain, String specificUrl, String pinXCoordinate,
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
-		StringBuffer annotationMedia, String programId, long userId, String hashtag, StringBuffer attachment, String fileName, String recommendation, String severity, String violation, HttpServletRequest request,
+		StringBuffer annotationMedia, String programId, long userId, String hashtag, StringBuffer attachment, String fileName, String recommendation, String severity, String violation, StringBuffer userVideo, HttpServletRequest request,
 		HttpServletResponse response);
 	
 	String uploadToS3(String fileName, String fileLocation, String bucket);
