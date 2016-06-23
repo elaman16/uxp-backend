@@ -45,7 +45,7 @@ import com.uxp.model.ParentDomain;
 import com.uxp.model.PinType;
 import com.uxp.model.ResponseMsg;
 import com.uxp.model.UserActivityLog;
-//propagation = Propagation.SUPPORTS, readOnly = false
+
 @Service("annotationService")
 @Transactional()
 @SessionAttributes("datas")
