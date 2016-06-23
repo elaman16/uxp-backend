@@ -54,6 +54,14 @@ public class UserService_Impl implements UserService {
 	@Autowired
 	private CollectionDAO collectionDAO;
 	
+	public Object checkUserNameAvailable(String userName) {
+		if(userProfileDAO.findOneByUserName(userName) == null) {
+			return Collections.singletonMap("status", "available");
+		} else {
+			return Collections.singletonMap("status", "used");
+		}
+	}
+	
 	public Object postNewCollection(long userId, String annotations, String exportURI) {
 		Collection collection = new Collection(userId, annotations, exportURI);
 		collectionDAO.save(collection);

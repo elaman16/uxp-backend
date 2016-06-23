@@ -22,6 +22,8 @@ public interface UserService {
 	public Object changeUserPass(long userId, String programId, String oldPass, String newPass,
 			HttpServletResponse response,  HttpServletRequest request);
 	
+	public Object checkUserNameAvailable(String userName);
+	
 	public Object updateUserProfile(long userId, String userFirstName, String userLastName, String userPicURL, String userEmployer, String userDesignation,
 			String userCity, String userState, String programId, HttpServletResponse response, 
 			HttpServletRequest request);

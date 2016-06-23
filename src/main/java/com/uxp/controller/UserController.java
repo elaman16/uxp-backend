@@ -156,6 +156,15 @@ public class UserController {
 			return Collections.singletonMap("error", "Bad token");
 		}
 	}
+	@RequestMapping(value="/available/{userName}", method=RequestMethod.GET)
+	public @ResponseBody Object checkUserNameAvailable(@PathVariable("userName") String userName) {
+		try {
+			return userService.checkUserNameAvailable(userName);
+		} catch(Exception e) {
+			System.out.println("Thats an error.");
+			return Collections.singletonMap("status", "error");
+		}
+	}
 	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
 	public @ResponseBody Object postUserActivityLog(@PathVariable("userId") long userId, @RequestHeader("programId") String programId, HttpServletResponse response,  HttpServletRequest request) {
 		try {
