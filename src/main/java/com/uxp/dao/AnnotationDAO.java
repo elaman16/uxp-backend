@@ -18,7 +18,7 @@ public interface AnnotationDAO extends CrudRepository<Annotation, Long> {
 	@Query(value = "SELECT * FROM annotation WHERE user_name = :userName AND use_status <> 'D' ORDER BY annotation_id DESC LIMIT :page, 10", nativeQuery = true)
 	List<Annotation> userAnnotationsPaged(@Param("userName") String userName, @Param("page") Integer page);
 	
-	@Query(value = "SELECT * FROM annotation ORDER BY annotation_id DESC LIMIT ?1, 10", nativeQuery = true)
+	@Query(value = "SELECT * FROM annotation WHERE use_status <> 'D' ORDER BY annotation_id DESC LIMIT ?1, 10", nativeQuery = true)
 	List<Annotation> allAnnotationsPaged(Integer page);
 	
 }

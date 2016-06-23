@@ -53,7 +53,7 @@ public class Annotation {
 		this.annotationMediaType = annotationMediaType;
 		this.annotationPageHeight = annotationPageHeight;
 		this.annotationPageWidth = annotationPageWidth;
-		this.useStatus = 'I';
+		this.useStatus = 'V';
 		this.programId = programId;
 		this.LocId = locId;
 		this.timeUpdated = new Date();

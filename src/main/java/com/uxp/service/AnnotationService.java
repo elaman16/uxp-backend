@@ -16,6 +16,8 @@ public interface AnnotationService {
 	
 	String uploadToS3(String fileName, String fileLocation, String bucket);
 	
+	Object markAnnotationDeleted(long annotationId, String userName);
+	
 	String decodeBase64JPEG(StringBuffer mediaData);
 	
 	Object getAllAnnotations(String programId, Integer page, HttpServletRequest request, HttpServletResponse response);

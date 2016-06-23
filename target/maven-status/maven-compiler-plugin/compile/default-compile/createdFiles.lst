@@ -1,4 +1,3 @@
-com/uxp/service/AnnotationService_Impl.class
 com/uxp/service/UserService.class
 com/uxp/controller/ReactionController.class
 com/uxp/model/AnnotationHashTag.class
@@ -42,7 +41,6 @@ com/uxp/dao/EmojiDAO.class
 com/uxp/controller/UserController.class
 com/uxp/model/Hashtag.class
 com/uxp/dao/AnnotationTypeDAO.class
-com/uxp/service/AnnotationService.class
 com/uxp/model/ReactionType.class
 com/uxp/model/UserResponse.class
 com/uxp/dao/UserPermissionDAO.class

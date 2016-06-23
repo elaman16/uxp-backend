@@ -73,6 +73,16 @@ public class AnnotationService_Impl implements AnnotationService {
 	@Autowired
 	private EmojiDAO emojiDAO;
 	
+	public Object markAnnotationDeleted(long annotationId, String userName) {
+		Annotation annotation = annotationDAO.findOne(annotationId);
+		if(annotation.getUserName() == userName) {
+			annotation.setUseStatus('D');
+			return Collections.singletonMap("status", "Annotation #" + annotationId + "has been marked deleted");
+		} else {
+			return Collections.singletonMap("error", "You must be logged in and the creator of an annotation to delete it");
+		}
+	}
+	
 	public Object getAllAnnotations(String programId, Integer page, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			List<AnnotationResponse> annotationResponses = new ArrayList<AnnotationResponse>();

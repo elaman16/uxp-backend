@@ -88,6 +88,23 @@ public class AnnotationController {
 			
 	}
 	
+	@RequestMapping(value="/delete/{annotationId}", method={RequestMethod.POST}, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public @ResponseBody Object markAnnotationDeleted(@RequestHeader(name="Authorization") String token, @PathVariable Long annotationId) {
+		
+		try {
+			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+				String userName = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
+				return annotationService.markAnnotationDeleted(annotationId, userName);
+			} else {
+				return Collections.singletonMap("error", "Not Authorized");
+			}
+		} catch(SignatureException e) {
+			return Collections.singletonMap("error", "Not Authorized");
+		} catch(MalformedJwtException m) {
+			return Collections.singletonMap("error", "Bad token");
+		}
+	}
+	
 	//*********************************GET Requests************************************************
 	
 	@RequestMapping(value="/all", method={RequestMethod.GET})
