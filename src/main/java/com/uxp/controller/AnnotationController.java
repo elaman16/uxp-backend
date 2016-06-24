@@ -94,6 +94,7 @@ public class AnnotationController {
 		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 				String userName = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
+				System.out.println("-------" + userName);
 				return annotationService.markAnnotationDeleted(annotationId, userName);
 			} else {
 				return Collections.singletonMap("error", "Not Authorized");

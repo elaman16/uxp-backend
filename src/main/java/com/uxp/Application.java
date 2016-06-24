@@ -32,7 +32,7 @@ public class Application {
 	            TomcatEmbeddedServletContainerFactory tomcat = (TomcatEmbeddedServletContainerFactory) container;
 	            tomcat.addConnectorCustomizers(
 	                (connector) -> {
-	                    connector.setMaxPostSize(20000000); // 20 MB
+	                    connector.setMaxPostSize(50000000); // 50 MB
 	                }
 	            );
 	        }
