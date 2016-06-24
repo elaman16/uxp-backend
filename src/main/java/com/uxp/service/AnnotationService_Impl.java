@@ -210,6 +210,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".webm");
 			fos.write(decoded);
 			fos.close();
+			
 			String url = uploadToS3(uid + ".webm", "tmp/" + uid + ".webm", "uxpwebm");
 			System.gc();
 			return url;
