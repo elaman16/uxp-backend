@@ -173,7 +173,7 @@ public class AnnotationService_Impl implements AnnotationService {
 		try {
 			String encoded = attachment.substring(attachment.indexOf(",") + 1);
 			UUID uid = UUID.randomUUID();
-			byte[] decoded = Base64.getMimeDecoder().decode(encoded);
+			byte[] decoded = Base64.getDecoder().decode(encoded);
 			FileOutputStream fos = new FileOutputStream("tmp/" + uid + fileName);
 			fos.write(decoded);
 			fos.close();
@@ -190,7 +190,7 @@ public class AnnotationService_Impl implements AnnotationService {
 		try {
 			String encoded = mediaData.substring(mediaData.indexOf(",") + 1);
 			UUID uid = UUID.randomUUID();
-			byte[] decoded = Base64.getMimeDecoder().decode(encoded);
+			byte[] decoded = Base64.getDecoder().decode(encoded);
 			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".ogg");
 			fos.write(decoded);
 			fos.close();
@@ -207,7 +207,7 @@ public class AnnotationService_Impl implements AnnotationService {
 		try {
 			String encoded = mediaData.substring(mediaData.indexOf(",") + 1);
 			UUID uid = UUID.randomUUID();
-			byte[] decoded = Base64.getMimeDecoder().decode(encoded);
+			byte[] decoded = Base64.getDecoder().decode(encoded);
 			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".webm");
 			fos.write(decoded);
 			fos.close();
@@ -224,7 +224,7 @@ public class AnnotationService_Impl implements AnnotationService {
 		try {
 			String encoded = mediaData.substring(mediaData.indexOf(",") + 1);
 			UUID uid = UUID.randomUUID();
-			byte[] decoded = Base64.getMimeDecoder().decode(encoded);
+			byte[] decoded = Base64.getDecoder().decode(encoded);
 			FileOutputStream fos = new FileOutputStream("tmp/" + uid + ".jpeg");
 			fos.write(decoded);
 			fos.close();
