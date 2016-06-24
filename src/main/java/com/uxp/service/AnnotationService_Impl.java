@@ -178,6 +178,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			fos.write(decoded);
 			fos.close();
 			String url = uploadToS3(uid + fileName, "tmp/" + uid + fileName, "uxpattach");
+			System.gc();
 			return url;
 		} catch(Exception ex) {
 			  System.out.println("Error Decoding Base64 string " + ex.toString());
@@ -194,6 +195,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			fos.write(decoded);
 			fos.close();
 			String url = uploadToS3(uid + ".ogg", "tmp/" + uid + ".ogg", "uxpogg");
+			System.gc();
 			return url;
 		} catch(Exception ex) {
 		      return "Error Decoding Base64 string " + ex.toString();
@@ -209,6 +211,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			fos.write(decoded);
 			fos.close();
 			String url = uploadToS3(uid + ".webm", "tmp/" + uid + ".webm", "uxpwebm");
+			System.gc();
 			return url;
 		} catch(Exception ex) {
 		      return "Error Decoding Base64 string " + ex.toString();
@@ -224,6 +227,7 @@ public class AnnotationService_Impl implements AnnotationService {
 			fos.write(decoded);
 			fos.close();
 			String url = uploadToS3(uid + ".jpeg", "tmp/" + uid + ".jpeg", "uxpjpeg");
+			System.gc();
 			return url;
 		} catch(Exception ex) {
 		      return "Error Decoding Base64 string " + ex.toString();
