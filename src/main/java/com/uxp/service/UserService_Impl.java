@@ -63,6 +63,7 @@ public class UserService_Impl implements UserService {
 	}
 	
 	public Object checkEmailAvailable(String email) {
+		System.out.println("EMAIL:  " + email);
 		if(userProfileDAO.findOneByUserEmail(email) == null) {
 			return Collections.singletonMap("status", "available");
 		} else {
