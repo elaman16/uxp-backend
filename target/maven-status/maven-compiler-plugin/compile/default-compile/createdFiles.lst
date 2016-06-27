@@ -35,7 +35,6 @@ com/uxp/dao/UserExpertiseDAO.class
 com/uxp/controller/UserRelationshipController.class
 com/uxp/dao/PinTypeDAO.class
 com/uxp/model/User.class
-com/uxp/service/UserService_Impl.class
 com/uxp/model/AudioAnnotation.class
 com/uxp/dao/EmojiDAO.class
 com/uxp/controller/UserController.class

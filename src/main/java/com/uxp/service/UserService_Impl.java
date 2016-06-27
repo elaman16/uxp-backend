@@ -58,13 +58,13 @@ public class UserService_Impl implements UserService {
 		if(userProfileDAO.findOneByUserName(userName) == null) {
 			return Collections.singletonMap("status", "available");
 		} else {
-			return Collections.singletonMap("status", "used");
+			return Collections.singletonMap("status", "in use");
 		}
 	}
 	
 	public Object checkEmailAvailable(String email) {
 		System.out.println("EMAIL:  " + email);
-		if(userProfileDAO.findOneByUserEmail(email) == null) {
+		if(userProfileDAO.findAllByUserEmail(email) == null) {
 			return Collections.singletonMap("status", "available");
 		} else {
 			return Collections.singletonMap("status", "in use");
