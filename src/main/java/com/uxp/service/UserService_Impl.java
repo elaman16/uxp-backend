@@ -72,14 +72,14 @@ public class UserService_Impl implements UserService {
 		}
 	}
 	
-	public Object postNewCollection(long userId, String annotations, String exportURI) {
-		Collection collection = new Collection(userId, annotations, exportURI);
+	public Object postNewCollection(String userName, String annotations, String exportURI) {
+		Collection collection = new Collection(userName, annotations, exportURI);
 		collectionDAO.save(collection);
 		return Collections.singletonMap("response", "Collection Posted");
 	}
 	
-	public Object findAllCollectionsByUserId(long userId) {
-		return collectionDAO.findAllByUserId(userId);
+	public Object findAllCollectionsByUserName(String userName) {
+		return collectionDAO.findAllByUserName(userName);
 	}
 	
 	public UserProfile getUserProfile(String userName) {

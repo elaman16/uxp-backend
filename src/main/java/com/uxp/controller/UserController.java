@@ -113,11 +113,11 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value="/{userId}/collections", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public @ResponseBody Object postNewCollection(@PathVariable("userId") long userId, @RequestParam String annotations, @RequestParam String exportURI, @RequestHeader(name="Authorization") String token) {
+	@RequestMapping(value="/{userName}/collections", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public @ResponseBody Object postNewCollection(@PathVariable("userName") String userName, @RequestParam String annotations, @RequestParam String exportURI, @RequestHeader(name="Authorization") String token) {
 		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-				return userService.postNewCollection(userId, annotations, exportURI);
+				return userService.postNewCollection(userName, annotations, exportURI);
 			} else {
 				return Collections.singletonMap("error", "Not Authorized");
 			}
@@ -161,11 +161,11 @@ public class UserController {
 			return Collections.singletonMap("error", "Bad token");
 		}
 	}
-	@RequestMapping(value="/{userId}/collections", method=RequestMethod.GET)
-	public @ResponseBody Object userCollections(@PathVariable("userId") long userId, @RequestHeader(name="Authorization") String token) {
+	@RequestMapping(value="/{userName}/collections", method=RequestMethod.GET)
+	public @ResponseBody Object userCollections(@PathVariable("userName") String userName, @RequestHeader(name="Authorization") String token) {
 		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-				return userService.findAllCollectionsByUserId(userId);
+				return userService.findAllCollectionsByUserName(userName);
 			} else {
 				return Collections.singletonMap("error", "Not Authorized");
 			}

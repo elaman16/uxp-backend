@@ -17,16 +17,16 @@ public class Collection {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long collectionId;
-	private long userId;
+	private String userName;
 	@Column(columnDefinition = "TEXT")
 	private String annotations;
 	private String exportURI;
 	
 	public Collection() {}
 
-	public Collection(long userId, String annotations, String exportURI) {
+	public Collection(String userName, String annotations, String exportURI) {
 		super();
-		this.userId = userId;
+		this.userName = userName;
 		this.annotations = annotations;
 		this.exportURI = exportURI;
 	}
@@ -39,12 +39,14 @@ public class Collection {
 		this.collectionId = collectionId;
 	}
 
-	public long getUserId() {
-		return userId;
+	
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getAnnotations() {
@@ -69,9 +71,11 @@ public class Collection {
 
 	@Override
 	public String toString() {
-		return "Collection [collectionId=" + collectionId + ", userId=" + userId + ", annotations=" + annotations
+		return "Collection [collectionId=" + collectionId + ", userName=" + userName + ", annotations=" + annotations
 				+ ", exportURI=" + exportURI + "]";
 	}
+
+	
 	
 	
 	
