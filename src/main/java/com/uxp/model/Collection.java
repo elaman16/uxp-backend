@@ -17,6 +17,7 @@ public class Collection {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long collectionId;
+	private long userId;
 	private String userName;
 	@Column(columnDefinition = "TEXT")
 	private String annotations;
@@ -29,6 +30,15 @@ public class Collection {
 		this.userName = userName;
 		this.annotations = annotations;
 		this.exportURI = exportURI;
+		this.userId = 0;
+	}
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public long getCollectionId() {
