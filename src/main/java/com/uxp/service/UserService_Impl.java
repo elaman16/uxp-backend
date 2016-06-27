@@ -65,7 +65,7 @@ public class UserService_Impl implements UserService {
 	public Object checkEmailAvailable(String email) {
 		System.out.println("EMAIL:  " + email);
 		List<UserProfile> found = userProfileDAO.findAllByUserEmail(email);
-		if(found == null) {
+		if(found.isEmpty()) {
 			return Collections.singletonMap("status", "available");
 		} else {
 			return Collections.singletonMap("status", "in use");
