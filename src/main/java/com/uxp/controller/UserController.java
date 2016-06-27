@@ -127,6 +127,25 @@ public class UserController {
 			return Collections.singletonMap("error", "Bad token");
 		}
 	}
+	
+	@RequestMapping(value="/available/user", method=RequestMethod.POST)
+	public @ResponseBody Object checkUserNameAvailable(@RequestParam String userName) {
+		try {
+			return userService.checkUserNameAvailable(userName);
+		} catch(Exception e) {
+			System.out.println("Thats an error.  " + e.toString());
+			return Collections.singletonMap("status", "error");
+		}
+	}
+	@RequestMapping(value="/available/email", method=RequestMethod.POST)
+	public @ResponseBody Object checkEmailAvailable(@RequestParam String email) {
+		try {
+			return userService.checkEmailAvailable(email);
+		} catch (Exception e) {
+			System.out.println("Thats an error.  " + e.toString());
+			return Collections.singletonMap("status", "error");
+		}
+	}
 	//******************************************GET Requests******************************888
 	@RequestMapping(value="/{userName}", method=RequestMethod.GET )
 	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestParam(required=false, name="programId") String programId, @RequestHeader(name="Authorization") String token, HttpServletResponse response, HttpServletRequest request) {
@@ -156,24 +175,7 @@ public class UserController {
 			return Collections.singletonMap("error", "Bad token");
 		}
 	}
-	@RequestMapping(value="/available/{userName}", method=RequestMethod.GET)
-	public @ResponseBody Object checkUserNameAvailable(@PathVariable("userName") String userName) {
-		try {
-			return userService.checkUserNameAvailable(userName);
-		} catch(Exception e) {
-			System.out.println("Thats an error.");
-			return Collections.singletonMap("status", "error");
-		}
-	}
-	@RequestMapping(value="/available/email/{email}", method=RequestMethod.GET)
-	public @ResponseBody Object checkEmailAvailable(@PathVariable("email") String email) {
-		try {
-			return userService.checkEmailAvailable(email);
-		} catch (Exception e) {
-			System.out.println("Thats an error.");
-			return Collections.singletonMap("status", "error");
-		}
-	}
+	
 	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
 	public @ResponseBody Object postUserActivityLog(@PathVariable("userId") long userId, @RequestHeader("programId") String programId, HttpServletResponse response,  HttpServletRequest request) {
 		try {
