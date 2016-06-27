@@ -22,6 +22,7 @@ public class Collection {
 	@Column(columnDefinition = "TEXT")
 	private String annotations;
 	private String exportURI;
+	@Column(name="file_name")
 	private String fileName;
 	
 	public Collection() {}
