@@ -24,6 +24,8 @@ public interface UserService {
 	
 	public Object checkUserNameAvailable(String userName);
 	
+	public Object checkEmailAvailable(String email);
+	
 	public Object updateUserProfile(long userId, String userFirstName, String userLastName, String userPicURL, String userEmployer, String userDesignation,
 			String userCity, String userState, String programId, HttpServletResponse response, 
 			HttpServletRequest request);

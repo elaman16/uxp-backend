@@ -62,6 +62,14 @@ public class UserService_Impl implements UserService {
 		}
 	}
 	
+	public Object checkEmailAvailable(String email) {
+		if(userProfileDAO.findOneByUserEmail(email) == null) {
+			return Collections.singletonMap("status", "available");
+		} else {
+			return Collections.singletonMap("status", "in use");
+		}
+	}
+	
 	public Object postNewCollection(long userId, String annotations, String exportURI) {
 		Collection collection = new Collection(userId, annotations, exportURI);
 		collectionDAO.save(collection);

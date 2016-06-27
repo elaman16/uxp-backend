@@ -165,6 +165,15 @@ public class UserController {
 			return Collections.singletonMap("status", "error");
 		}
 	}
+	@RequestMapping(value="/available/email/{email}", method=RequestMethod.GET)
+	public @ResponseBody Object checkEmailAvailable(@PathVariable("email") String email) {
+		try {
+			return userService.checkEmailAvailable(email);
+		} catch (Exception e) {
+			System.out.println("Thats an error.");
+			return Collections.singletonMap("status", "error");
+		}
+	}
 	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
 	public @ResponseBody Object postUserActivityLog(@PathVariable("userId") long userId, @RequestHeader("programId") String programId, HttpServletResponse response,  HttpServletRequest request) {
 		try {
