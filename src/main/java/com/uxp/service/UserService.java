@@ -33,6 +33,6 @@ public interface UserService {
 	public UserProfile getUserProfile(String userName);
 	public UserResponse getUserByUserName(String userName);
 	public UserResponse getUserByUserName(String userName, String token);
-	public Object postNewCollection(String userName, String annotations, String exportURI);
+	public Object postNewCollection(String userName, String annotations, String exportURI, String fileName);
 	public List<Collection> findAllCollectionsByUserName(String userName);
 }

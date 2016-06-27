@@ -22,15 +22,25 @@ public class Collection {
 	@Column(columnDefinition = "TEXT")
 	private String annotations;
 	private String exportURI;
+	private String fileName;
 	
 	public Collection() {}
 
-	public Collection(String userName, String annotations, String exportURI) {
+	public Collection(String userName, String annotations, String exportURI, String fileName) {
 		super();
 		this.userName = userName;
 		this.annotations = annotations;
 		this.exportURI = exportURI;
+		this.fileName = fileName;
 		this.userId = 0;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public long getUserId() {

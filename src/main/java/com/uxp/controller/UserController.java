@@ -114,10 +114,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/{userName}/collections", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public @ResponseBody Object postNewCollection(@PathVariable("userName") String userName, @RequestParam String annotations, @RequestParam String exportURI, @RequestHeader(name="Authorization") String token) {
+	public @ResponseBody Object postNewCollection(@PathVariable("userName") String userName, @RequestParam String annotations, @RequestParam String exportURI, @RequestParam String fileName, @RequestHeader(name="Authorization") String token) {
 		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-				return userService.postNewCollection(userName, annotations, exportURI);
+				return userService.postNewCollection(userName, annotations, exportURI, fileName);
 			} else {
 				return Collections.singletonMap("error", "Not Authorized");
 			}
