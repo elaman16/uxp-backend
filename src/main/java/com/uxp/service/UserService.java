@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+import com.uxp.model.Collection;
 import com.uxp.model.UserProfile;
 import com.uxp.model.UserResponse;
 
@@ -34,5 +34,5 @@ public interface UserService {
 	public UserResponse getUserByUserName(String userName);
 	public UserResponse getUserByUserName(String userName, String token);
 	public Object postNewCollection(String userName, String annotations, String exportURI);
-	public Object findAllCollectionsByUserName(String userName);
+	public List<Collection> findAllCollectionsByUserName(String userName);
 }

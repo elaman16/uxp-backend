@@ -78,7 +78,7 @@ public class UserService_Impl implements UserService {
 		return Collections.singletonMap("response", "Collection Posted");
 	}
 	
-	public Object findAllCollectionsByUserName(String userName) {
+	public List<Collection> findAllCollectionsByUserName(String userName) {
 		return collectionDAO.findAllByUserName(userName);
 	}
 	
