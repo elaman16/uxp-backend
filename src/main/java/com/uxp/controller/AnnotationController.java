@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-
+import com.uxp.model.User;
 import com.uxp.service.AnnotationService;
 import com.uxp.service.UserService;
 
@@ -134,7 +134,8 @@ public class AnnotationController {
 	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", defaultValue="0") Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
 		System.out.println("HEAD FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getHeader().toString());
 		System.out.println("BODY FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().toString());
-		
+		User user = (User) Jwts.parser().setSigningKey(key).parseClaimsJws(token).getHeader().get("user");
+		System.out.println("From encoded user class: " + user.getUserId());
 		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 				if(page < 0) {
