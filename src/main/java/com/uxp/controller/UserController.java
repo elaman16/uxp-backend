@@ -161,7 +161,7 @@ public class UserController {
 		}
 	}
 	//******************************************GET Requests******************************888
-	@RequestMapping(value="/invitations", method=RequestMethod.GET)
+	@RequestMapping(value="/invitations/list", method=RequestMethod.GET)
 	public @ResponseBody Object getAllInvitationRequests() {
 		return userService.getInvitationRequests();
 	}
