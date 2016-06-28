@@ -75,8 +75,8 @@ public class AnnotationService_Impl implements AnnotationService {
 	
 	public Object markAnnotationDeleted(long annotationId, String userName) {
 		Annotation annotation = annotationDAO.findOne(annotationId);
-		System.out.println("************" + annotation.getUserName() + " **************" + userName);
-		if(annotation.getUserName() == userName) {
+		String annoName = annotation.getUserName();
+		if(annoName == userName) {
 			annotation.setUseStatus('D');
 			return Collections.singletonMap("status", "Annotation #" + annotationId + "has been marked deleted");
 		} else {
