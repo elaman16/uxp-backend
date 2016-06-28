@@ -72,6 +72,14 @@ public class UserService_Impl implements UserService {
 		}
 	}
 	
+	public Object getInvitationRequests() {
+		try {
+			return invitationDAO.findAll();
+		} catch (Exception e) {
+			return Collections.singletonMap("error", "Could not list invitation requests");
+		}
+	}
+	
 	public Object checkUserNameAvailable(String userName) {
 		if(userProfileDAO.findOneByUserName(userName) == null) {
 			return Collections.singletonMap("status", "available");

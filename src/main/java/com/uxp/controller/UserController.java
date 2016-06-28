@@ -161,6 +161,11 @@ public class UserController {
 		}
 	}
 	//******************************************GET Requests******************************888
+	@RequestMapping(value="/invitations", method=RequestMethod.GET)
+	public @ResponseBody Object getAllInvitationRequests() {
+		return userService.getInvitationRequests();
+	}
+	
 	@RequestMapping(value="/{userName}", method=RequestMethod.GET )
 	public @ResponseBody Object getUserByUserName(@PathVariable("userName") String userName, @RequestParam(required=false, name="programId") String programId, @RequestHeader(name="Authorization") String token, HttpServletResponse response, HttpServletRequest request) {
 		try {

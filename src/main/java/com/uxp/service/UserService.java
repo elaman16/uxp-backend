@@ -38,4 +38,5 @@ public interface UserService {
 	public List<Collection> findAllCollectionsByUserName(String userName);
 	public Object findCollectionById(long collectionId);
 	public Object logInvitationRequest(String email, String name, String company);
+	public Object getInvitationRequests();
 }
