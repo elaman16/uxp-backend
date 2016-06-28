@@ -5,6 +5,8 @@ package com.uxp.controller;
 import java.security.Key;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -135,8 +137,8 @@ public class AnnotationController {
 	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", defaultValue="0") Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
 		System.out.println("HEAD FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getHeader().toString());
 		System.out.println("BODY FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().toString());
-		User user = User.class.cast(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getHeader().get("user"));
-		System.out.println("From encoded user class: " + user.getUserId());
+		LinkedHashMap user = (LinkedHashMap) Jwts.parser().setSigningKey(key).parseClaimsJws(token).getHeader().get("user");
+		System.out.println("From encoded user class: " + user.get("userId"));
 		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 				if(page < 0) {
