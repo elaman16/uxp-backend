@@ -59,7 +59,7 @@ public class UserService_Impl implements UserService {
 	private InvitationDAO invitationDAO;
 	
 	public Object logInvitationRequest(String email, String name, String company) {
-		if(invitationDAO.findAllByEmail(email) == null) {
+		if(!invitationDAO.findAllByEmail(email).isEmpty()) {
 			try {
 				InvitationRequest ir = new InvitationRequest(email, name, company);
 				invitationDAO.save(ir);
