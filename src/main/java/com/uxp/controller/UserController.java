@@ -23,7 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
+import com.uxp.model.User;
+import com.uxp.model.UserProfile;
 import com.uxp.service.UserService;
 
 import io.jsonwebtoken.Jwts;
@@ -61,11 +62,13 @@ public class UserController {
 	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {	
-		System.out.print(key);
-		if(userService.userLogin(userName, userPassword)) {
+		
+		User user = userService.userLogin(userName, userPassword);
+		if(user != null) {
 			 long now = new Date().getTime();
 			 long expires = now + 86400000;
-			 String s = Jwts.builder().setSubject(userName).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("userProfile", userService.getUserByUserName(userName)).signWith(SignatureAlgorithm.HS512, key).compact();
+			 
+			 String s = Jwts.builder().setSubject(userName).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", user).signWith(SignatureAlgorithm.HS512, key).compact();
 			 return userService.getUserByUserName(userName, s);
 		 } else {
 			 return Collections.singletonMap("response", "Invalid Username or Password");

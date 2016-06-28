@@ -105,17 +105,17 @@ public class UserService_Impl implements UserService {
 		return up;
 	}
 	
-	public boolean userLogin(String userName, String userPass) {
+	public User userLogin(String userName, String userPass) {
 		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
 			if(userProfile == null) {
-				return false;
+				return null;
 			}
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
 		UserAccountSetting userAccountSetting = userAccountSettingDAO.findOne(user.getAccountSettingId());
 		if(userAccountSetting.checkForMatch(userPass)) {
-			return true;
+			return user;
 		}
-		return false;
+		return null;
 	}
 	
 	public Object createUser(String userName, String userPassword, String userFirstName, 
