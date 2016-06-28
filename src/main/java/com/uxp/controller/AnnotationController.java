@@ -53,7 +53,7 @@ public class AnnotationController {
 			@RequestParam(required=false,  defaultValue="") String fileName, @RequestParam(defaultValue="") String recommendation, @RequestParam(defaultValue="") String severity,
 			@RequestParam(defaultValue="") String violation, @RequestParam(defaultValue="") StringBuffer userVideo, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
 			try {
-				System.out.println("USERNAME FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject());
+				System.out.println("USERNAME FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().toString());
 				if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 					return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, attachment, fileName, recommendation, severity, violation, userVideo, request, response);
 				} else {
@@ -132,6 +132,7 @@ public class AnnotationController {
 	
 	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
 	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", defaultValue="0") Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
+		System.out.println("USERNAME FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().toString());
 		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 				if(page < 0) {
