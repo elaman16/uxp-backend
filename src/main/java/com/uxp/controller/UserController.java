@@ -175,6 +175,20 @@ public class UserController {
 			return Collections.singletonMap("error", "Bad token");
 		}
 	}
+	@RequestMapping(value="/collections/{collectionId}", method=RequestMethod.GET)
+	public @ResponseBody Object getCollection(@PathVariable("collectionId") long collectionId, @RequestHeader(name="Authorization") String token) {
+		try {
+			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+				return userService.findCollectionById(collectionId);
+			} else {
+				return Collections.singletonMap("error", "Not Authorized");
+			}
+		} catch(SignatureException e) {
+			return Collections.singletonMap("error", "Not Authorized");
+		} catch(MalformedJwtException m) {
+			return Collections.singletonMap("error", "Bad token");
+		}
+	}
 	
 	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
 	public @ResponseBody Object postUserActivityLog(@PathVariable("userId") long userId, @RequestHeader("programId") String programId, HttpServletResponse response,  HttpServletRequest request) {

@@ -83,6 +83,10 @@ public class UserService_Impl implements UserService {
 		return collectionDAO.findAllByUserName(userName);
 	}
 	
+	public Object findCollectionById(long collectionId) {
+		return collectionDAO.findOne(collectionId);
+	}
+	
 	public UserProfile getUserProfile(String userName) {
 		return userProfileDAO.findOneByUserName(userName);
 	}
@@ -93,7 +97,7 @@ public class UserService_Impl implements UserService {
 		UserResponse up = new UserResponse(user, userProfile, ux);
 		return up;
 	}
-public UserResponse getUserByUserName(String userName, String token) {
+	public UserResponse getUserByUserName(String userName, String token) {
 		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
 		UserExpertise ux = userExpertiseDAO.findOne(user.getUserExpertiseId());
