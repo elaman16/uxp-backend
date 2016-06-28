@@ -37,4 +37,5 @@ public interface UserService {
 	public Object postNewCollection(String userName, String annotations, String exportURI, String fileName);
 	public List<Collection> findAllCollectionsByUserName(String userName);
 	public Object findCollectionById(long collectionId);
+	public Object logInvitationRequest(String email, String name, String company);
 }

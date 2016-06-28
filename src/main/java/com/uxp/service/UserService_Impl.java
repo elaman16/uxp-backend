@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.uxp.dao.CollectionDAO;
+import com.uxp.dao.InvitationDAO;
 import com.uxp.dao.UserAccountSettingDAO;
 import com.uxp.dao.UserActivityDAO;
 import com.uxp.dao.UserDAO;
@@ -23,6 +24,7 @@ import com.uxp.dao.UserPermissionDAO;
 import com.uxp.dao.UserProfileDAO;
 import com.uxp.dao.UserRoleDAO;
 import com.uxp.model.Collection;
+import com.uxp.model.InvitationRequest;
 import com.uxp.model.ResponseMsg;
 import com.uxp.model.User;
 import com.uxp.model.UserAccountSetting;
@@ -53,6 +55,22 @@ public class UserService_Impl implements UserService {
 	private UserPermissionDAO userPermissionDAO;
 	@Autowired
 	private CollectionDAO collectionDAO;
+	@Autowired 
+	private InvitationDAO invitationDAO;
+	
+	public Object logInvitationRequest(String email, String name, String company) {
+		if(invitationDAO.findAllByEmail(email) == null) {
+			try {
+				InvitationRequest ir = new InvitationRequest(email, name, company);
+				invitationDAO.save(ir);
+				return Collections.singletonMap("status", "posted");
+			} catch(Exception e) {
+				return Collections.singletonMap("error", "Could not save request");
+			}
+		} else {
+			return Collections.singletonMap("error", "email has already requested an invitation.");
+		}
+	}
 	
 	public Object checkUserNameAvailable(String userName) {
 		if(userProfileDAO.findOneByUserName(userName) == null) {

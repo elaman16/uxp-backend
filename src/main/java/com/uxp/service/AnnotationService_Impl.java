@@ -76,11 +76,10 @@ public class AnnotationService_Impl implements AnnotationService {
 	public Object markAnnotationDeleted(long annotationId, String userName) {
 		Annotation annotation = annotationDAO.findOne(annotationId);
 		String annoName = annotation.getUserName();
-		System.out.println(annoName+userName+(annoName == userName));
 		if(annoName.equals(userName)) {
 			annotation.setUseStatus('D');
 			annotationDAO.save(annotation);
-			return Collections.singletonMap("status", "Annotation #" + annotationId + "has been marked deleted");
+			return Collections.singletonMap("status", "Annotation #" + annotationId + " has been marked deleted");
 		} else {
 			return Collections.singletonMap("error", "You must be logged in and the creator of an annotation to delete it");
 		}

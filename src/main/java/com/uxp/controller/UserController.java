@@ -115,7 +115,7 @@ public class UserController {
 			return Collections.singletonMap("error", "Bad token");
 		}
 	}
-	
+	// POST a new collection of annotations
 	@RequestMapping(value="/{userName}/collections", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public @ResponseBody Object postNewCollection(@PathVariable("userName") String userName, @RequestParam String annotations, @RequestParam String exportURI, @RequestParam String fileName, @RequestHeader(name="Authorization") String token) {
 		try {
@@ -130,7 +130,7 @@ public class UserController {
 			return Collections.singletonMap("error", "Bad token");
 		}
 	}
-	
+	// POST to check if a username is available
 	@RequestMapping(value="/available/user", method=RequestMethod.POST)
 	public @ResponseBody Object checkUserNameAvailable(@RequestParam String userName) {
 		try {
@@ -140,6 +140,7 @@ public class UserController {
 			return Collections.singletonMap("status", "error");
 		}
 	}
+	//POST to check if an email is available
 	@RequestMapping(value="/available/email", method=RequestMethod.POST)
 	public @ResponseBody Object checkEmailAvailable(@RequestParam String email) {
 		try {
@@ -147,6 +148,16 @@ public class UserController {
 		} catch (Exception e) {
 			System.out.println("Thats an error.  " + e.toString());
 			return Collections.singletonMap("status", "error");
+		}
+	}
+	
+	@RequestMapping(value="/invitations", method=RequestMethod.POST)
+	public @ResponseBody Object logInvitationRequest(@RequestParam String email, @RequestParam String name, @RequestParam String company) {
+		try {
+			return userService.logInvitationRequest(email, name, company);
+		} catch(Exception e) {
+			System.out.println(e.toString());
+			return Collections.singletonMap("error", "Could not save request, an error occured");
 		}
 	}
 	//******************************************GET Requests******************************888
