@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table(name="annotation")
+@Table
 public class InvitationRequest {
 	private static final long serialVersionUID = 1L;
 	@Id
