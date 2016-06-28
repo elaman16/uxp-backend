@@ -65,7 +65,7 @@ public class UserController {
 		if(userService.userLogin(userName, userPassword)) {
 			 long now = new Date().getTime();
 			 long expires = now + 86400000;
-			 String s = Jwts.builder().setSubject(userName).setIssuer("UxP-Gll").setExpiration(new Date(expires)).signWith(SignatureAlgorithm.HS512, key).compact();
+			 String s = Jwts.builder().setSubject(userName).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("userProfile", userService.getUserByUserName(userName)).signWith(SignatureAlgorithm.HS512, key).compact();
 			 return userService.getUserByUserName(userName, s);
 		 } else {
 			 return Collections.singletonMap("response", "Invalid Username or Password");
