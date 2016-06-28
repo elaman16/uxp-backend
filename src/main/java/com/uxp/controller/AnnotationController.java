@@ -132,7 +132,9 @@ public class AnnotationController {
 	
 	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
 	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", defaultValue="0") Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
-		System.out.println("USERNAME FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().toString());
+		System.out.println("HEAD FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getHeader().toString());
+		System.out.println("BODY FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().toString());
+		
 		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 				if(page < 0) {
