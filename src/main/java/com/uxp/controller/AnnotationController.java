@@ -136,7 +136,7 @@ public class AnnotationController {
 	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", defaultValue="0") Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	
 		//System.out.println("HEAD FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getHeader().toString());
 		//System.out.println("BODY FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().toString());
-		LinkedHashMap user = (LinkedHashMap) Jwts.parser().setSigningKey(key).parseClaimsJws(token).getHeader().get("user");
+		//LinkedHashMap user = (LinkedHashMap) Jwts.parser().setSigningKey(key).parseClaimsJws(token).getHeader().get("user");
 		//System.out.println("From encoded user class: " + user.get("userId"));
 		try {
 			
