@@ -78,7 +78,7 @@ public class UserController {
 	 * POST to update existing user profile
 	 */
 	@RequestMapping(value="/{userId}/userProfile", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE )
-	public @ResponseBody Object postUserProfile(@PathVariable("userId") long userId, @RequestParam String userFirstName, @RequestParam String userLastName, @RequestParam String userPicURL,
+	public @ResponseBody Object postUserProfile(@PathVariable("userId") long userId, @RequestParam String userFirstName, @RequestParam String userLastName, @RequestParam(defaultValue="") String userPicURL,
 			@RequestParam String userEmployer, @RequestParam String userDesignation, @RequestParam String userCity, @RequestParam String userState,
 			@RequestParam(required=false) String programId, UriComponentsBuilder ucBuilder,  HttpServletResponse response,  HttpServletRequest request, @RequestHeader(name="Authorization") String token) {
 			try {
