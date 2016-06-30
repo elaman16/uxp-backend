@@ -204,7 +204,9 @@ public class UserService_Impl implements UserService {
 			UserProfile storedProfile = userProfileDAO.findOne(foundUser.getUserProfileId());
 			storedProfile.setUserFirstName(userFirstName);
 			storedProfile.setUserLastName(userLastName);
-			storedProfile.setUserPicURL(annoServ.decodeBase64JPEG(userPicURL));
+			if(userPicURL.length() > 1) {
+				storedProfile.setUserPicURL(annoServ.decodeBase64JPEG(userPicURL));
+			}
 			storedProfile.setUserEmployer(userEmployer);
 			storedProfile.setUserDesignation(userDesignation);
 			storedProfile.setUserCity(userCity);
