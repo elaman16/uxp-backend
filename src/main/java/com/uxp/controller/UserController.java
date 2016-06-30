@@ -60,7 +60,7 @@ public class UserController {
 	/*
 	 * POST to Login
 	 */
-	@RequestMapping(value="/googleLogin", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+	@RequestMapping(value="/googleLogin", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public @ResponseBody Object verifyGoogleToken(@RequestParam String googleToken) {
 		try {
 			return userService.verifyGoogleToken(googleToken);
