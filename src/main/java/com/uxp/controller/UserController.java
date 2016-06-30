@@ -60,6 +60,16 @@ public class UserController {
 	/*
 	 * POST to Login
 	 */
+	@RequestMapping(value="/googleLogin", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+	public @ResponseBody Object verifyGoogleToken(@RequestParam String googleToken) {
+		try {
+			return userService.verifyGoogleToken(googleToken);
+		} catch(Exception e) {
+			System.out.println(e.toString());
+			return Collections.singletonMap("error", "token could not be validated");
+		}
+	}
+	
 	@RequestMapping(value="/login", method=RequestMethod.POST, consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces = "application/json")
 	public @ResponseBody Object loginUser(@RequestParam String userName, @RequestParam String userPassword, HttpServletRequest request, HttpServletResponse response) {	
 		

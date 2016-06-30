@@ -1,5 +1,8 @@
 package com.uxp.service;
 
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -59,6 +62,26 @@ public class UserService_Impl implements UserService {
 	private InvitationDAO invitationDAO;
 	@Autowired 
 	private AnnotationService annoServ;
+	
+	public Object verifyGoogleToken(String googleToken) {
+		try {
+			URL url = new URL("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + googleToken);
+			 HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+			 httpCon.setDoOutput(true);
+			 httpCon.setRequestMethod("POST");
+			 OutputStreamWriter out = new OutputStreamWriter(
+			 httpCon.getOutputStream());
+			 System.out.println(httpCon.getResponseCode());
+			 System.out.println(httpCon.getResponseMessage());
+			 System.out.println(httpCon.getContent());
+			 Object resp = httpCon.getContent();
+			 out.close();
+			 return resp;
+		} catch (Exception e) {
+			System.out.println("Thats an error: " + e.toString());
+			return Collections.singletonMap("error", "could not verify google token");
+		}
+	}
 	
 	public Object logInvitationRequest(String email, String name, String company) {
 		if(invitationDAO.findAllByEmail(email).isEmpty()) {
