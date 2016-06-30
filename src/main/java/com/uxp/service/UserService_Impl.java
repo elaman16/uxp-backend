@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,9 +76,9 @@ public class UserService_Impl implements UserService {
 			 System.out.println(httpCon.getResponseCode());
 			 System.out.println(httpCon.getResponseMessage());
 			 InputStream is = httpCon.getInputStream();
-			 System.out.println(is.toString());
+			 String myString = IOUtils.toString(is, "UTF-8");
 			 out.close();
-			 return true;
+			 return httpCon.getResponseMessage();
 		} catch (Exception e) {
 			System.out.println("Thats an error: " + e.toString());
 			return Collections.singletonMap("error", "could not verify google token");
