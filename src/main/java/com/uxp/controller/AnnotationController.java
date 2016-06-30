@@ -54,11 +54,11 @@ public class AnnotationController {
 			@RequestParam int annotationPageHeight, @RequestParam int annotationPageWidth, @RequestParam StringBuffer annotationMedia,
 			@RequestParam(required=false) String programId, @RequestParam long userId,@RequestParam String hashtag, @RequestParam(required=false, defaultValue="") StringBuffer attachment,
 			@RequestParam(required=false,  defaultValue="") String fileName, @RequestParam(defaultValue="") String recommendation, @RequestParam(defaultValue="") String severity,
-			@RequestParam(defaultValue="") String violation, @RequestParam(defaultValue="") StringBuffer userVideo, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
+			@RequestParam(defaultValue="") String eventAnalytics, @RequestParam(defaultValue="") String timelineAnalytics, @RequestParam(defaultValue="") String clickAnalytics, @RequestParam(defaultValue="") String violation, @RequestParam(defaultValue="") StringBuffer userVideo, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
 			try {
 				System.out.println("USERNAME FROM TOKEN: " + Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().toString());
 				if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
-					return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, attachment, fileName, recommendation, severity, violation, userVideo, request, response);
+					return annotationService.postAnnotation(annotationTitle, annotationText, emoji, pinType, userName, pinTypeDescription, annotationContentType, annotationType, parentDomain, specificUrl, pinXCoordinate, pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, annotationMedia, programId, userId, hashtag, attachment, fileName, recommendation, severity, violation, userVideo, eventAnalytics, timelineAnalytics, clickAnalytics, request, response);
 				} else {
 					return Collections.singletonMap("error", "Not Authorized");
 				}

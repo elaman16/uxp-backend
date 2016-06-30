@@ -245,11 +245,11 @@ public class AnnotationService_Impl implements AnnotationService {
 		String annotationType, String parentDomain, String specificUrl, String pinXCoordinate,
 		String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
 		StringBuffer annotationMedia, String programId, long userId, String hashtag,  StringBuffer attachment, 
-		String fileName, String recommendation, String severity, String violation, StringBuffer userVideo, HttpServletRequest request, HttpServletResponse response) {
+		String fileName, String recommendation, String severity, String violation, StringBuffer userVideo, String eventAnalytics, String timelineAnalytics, String clickAnalytics, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, 
 					pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, 
-					request.getRemoteAddr(), userId, userName, recommendation, severity, violation, decodeBase64WEBM(userVideo));
+					request.getRemoteAddr(), userId, userName, recommendation, severity, violation, decodeBase64WEBM(userVideo), eventAnalytics, timelineAnalytics, clickAnalytics);
 			
 			ParentDomain _parentDomain = new ParentDomain(annotation.getAnnotationId(), parentDomain, programId, request.getRemoteAddr(), userId);
 			
@@ -305,7 +305,7 @@ public class AnnotationService_Impl implements AnnotationService {
 		try {
 			Annotation annotation = new Annotation(annotationTitle, annotationText, specificUrl, pinXCoordinate, 
 					pinYCoordinate, annotationMediaType, annotationPageHeight, annotationPageWidth, programId, 
-					request.getRemoteAddr(), userId, userName, recommendation, severity, violation, "");
+					request.getRemoteAddr(), userId, userName, recommendation, severity, violation, "", "", "", "");
 			ParentDomain _parentDomain = new ParentDomain(annotation.getAnnotationId(), parentDomain, programId, request.getRemoteAddr(), userId);
 			PinType _pinType = new PinType(pinType, pinTypeDescription, programId, request.getRemoteAddr(), userId);
 			AnnotationType _annotationType = new AnnotationType(annotationType, programId, request.getRemoteAddr(), userId);

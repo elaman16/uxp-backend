@@ -36,6 +36,9 @@ public class Annotation {
 	private String severity;
 	private String violation;
 	private String userVideo;
+	private String eventAnalytics;
+	private String timelineAnalytics;
+	private String clickAnalytics;
 	
 	public Annotation() {}
 	
@@ -43,7 +46,7 @@ public class Annotation {
 
 	public Annotation(String annotationTitle, String annotationText, String specificURL, String pinXCoordinate,
 			String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth,
-			String programId, String locId, long updatedBy, String userName, String recommendation, String severity, String violation, String userVideo) {
+			String programId, String locId, long updatedBy, String userName, String recommendation, String severity, String violation, String userVideo, String eventAnalytics, String timelineAnalytics, String clickAnalytics) {
 		super();
 		this.annotationTitle = annotationTitle;
 		this.annotationText = annotationText;
@@ -62,8 +65,47 @@ public class Annotation {
 		this.recommendation = recommendation;
 		this.severity = severity;
 		this.violation = violation;
+		this.eventAnalytics = eventAnalytics;
+		this.timelineAnalytics = eventAnalytics;
+		this.clickAnalytics = clickAnalytics;
 		this.userVideo = userVideo;
 	}
+	public String getEventAnalytics() {
+		return eventAnalytics;
+	}
+
+
+
+	public void setEventAnalytics(String eventAnalytics) {
+		this.eventAnalytics = eventAnalytics;
+	}
+
+
+
+	public String getTimelineAnalytics() {
+		return timelineAnalytics;
+	}
+
+
+
+	public void setTimelineAnalytics(String timelineAnalytics) {
+		this.timelineAnalytics = timelineAnalytics;
+	}
+
+
+
+	public String getClickAnalytics() {
+		return clickAnalytics;
+	}
+
+
+
+	public void setClickAnalytics(String clickAnalytics) {
+		this.clickAnalytics = clickAnalytics;
+	}
+
+
+
 	public String getUserVideo() {
 		return userVideo;
 	}
