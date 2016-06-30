@@ -1,5 +1,6 @@
 package com.uxp.service;
 
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -73,10 +74,10 @@ public class UserService_Impl implements UserService {
 			 httpCon.getOutputStream());
 			 System.out.println(httpCon.getResponseCode());
 			 System.out.println(httpCon.getResponseMessage());
-			 System.out.println(httpCon.getContent());
-			 Object resp = httpCon.getContent();
+			 InputStream is = httpCon.getInputStream();
+			 System.out.println(is.toString());
 			 out.close();
-			 return resp;
+			 return true;
 		} catch (Exception e) {
 			System.out.println("Thats an error: " + e.toString());
 			return Collections.singletonMap("error", "could not verify google token");
