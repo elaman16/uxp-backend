@@ -27,7 +27,7 @@ public interface UserService {
 	
 	public Object checkEmailAvailable(String email);
 	
-	public Object updateUserProfile(long userId, String userFirstName, String userLastName, String userPicURL, String userEmployer, String userDesignation,
+	public Object updateUserProfile(long userId, String userFirstName, String userLastName, StringBuffer userPicURL, String userEmployer, String userDesignation,
 			String userCity, String userState, String programId, HttpServletResponse response, 
 			HttpServletRequest request);
 	public User userLogin(String userName, String userPass);

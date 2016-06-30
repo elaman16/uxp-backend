@@ -57,6 +57,8 @@ public class UserService_Impl implements UserService {
 	private CollectionDAO collectionDAO;
 	@Autowired 
 	private InvitationDAO invitationDAO;
+	@Autowired 
+	private AnnotationService annoServ;
 	
 	public Object logInvitationRequest(String email, String name, String company) {
 		if(invitationDAO.findAllByEmail(email).isEmpty()) {
@@ -191,7 +193,7 @@ public class UserService_Impl implements UserService {
 		
 			}
 	
-	public Object updateUserProfile(long userId, String userFirstName, String userLastName, String userPicURL, String userEmployer, String userDesignation,
+	public Object updateUserProfile(long userId, String userFirstName, String userLastName, StringBuffer userPicURL, String userEmployer, String userDesignation,
 			String userCity, String userState, String programId, HttpServletResponse response, 
 			HttpServletRequest request) {
 		try {
@@ -202,7 +204,7 @@ public class UserService_Impl implements UserService {
 			UserProfile storedProfile = userProfileDAO.findOne(foundUser.getUserProfileId());
 			storedProfile.setUserFirstName(userFirstName);
 			storedProfile.setUserLastName(userLastName);
-			storedProfile.setUserPicURL(userPicURL);
+			storedProfile.setUserPicURL(annoServ.decodeBase64JPEG(userPicURL));
 			storedProfile.setUserEmployer(userEmployer);
 			storedProfile.setUserDesignation(userDesignation);
 			storedProfile.setUserCity(userCity);
