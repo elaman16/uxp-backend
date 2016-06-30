@@ -183,7 +183,7 @@ public class UserController {
 	@RequestMapping(value="/{userName}/collections", method=RequestMethod.GET)
 	public @ResponseBody Object userCollections(@PathVariable("userName") String userName, @RequestHeader(name="Authorization") String token) {
 		try {
-			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().get("sub").toString() == userName) {
 				return userService.findAllCollectionsByUserName(userName);
 			} else {
 				return Collections.singletonMap("error", "Not Authorized");
