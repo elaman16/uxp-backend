@@ -122,6 +122,7 @@ public class UserService_Impl implements UserService {
 			 OutputStreamWriter out = new OutputStreamWriter(
 			 httpCon.getOutputStream());
 			 String resp = readInputStreamToString(httpCon);
+			 System.out.println(resp);
 			 resp = resp.substring(1, resp.length()-1);
 			 String[] keyValuePairs = resp.split(",");              //split the string to creat key-value pairs
 			 Map<String,String> map = new HashMap<>();               
