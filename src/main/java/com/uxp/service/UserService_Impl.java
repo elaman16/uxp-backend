@@ -11,7 +11,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -101,7 +104,16 @@ public class UserService_Impl implements UserService {
 	    return result;
 	}
 	
-	public Object verifyGoogleToken(String googleToken) {
+	public UserProfile getUserByEmail(String email) {
+		try {
+			return userProfileDAO.findOneByUserEmail(email);
+		} catch(Exception e) {
+			System.out.println(e.toString());
+			return null;
+		}
+	}
+	
+	public String verifyGoogleToken(String googleToken) {
 		try {
 			URL url = new URL("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + googleToken);
 			 HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
@@ -110,12 +122,22 @@ public class UserService_Impl implements UserService {
 			 OutputStreamWriter out = new OutputStreamWriter(
 			 httpCon.getOutputStream());
 			 String resp = readInputStreamToString(httpCon);
-			 System.out.println(resp);
+			 resp = resp.substring(1, resp.length()-1);
+			 String[] keyValuePairs = resp.split(",");              //split the string to creat key-value pairs
+			 Map<String,String> map = new HashMap<>();               
+
+			 for(String pair : keyValuePairs)                        //iterate over the pairs
+			 {
+			     String[] entry = pair.split("=");                   //split the pairs to get key and value 
+			     map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
+			 }
+			 String email = map.get("email");
+			 
 			 out.close();
-			 return httpCon.getResponseMessage();
+			 return email;
 		} catch (Exception e) {
 			System.out.println("Thats an error: " + e.toString());
-			return Collections.singletonMap("error", "could not verify google token");
+			return "could not verify google token";
 		}
 	}
 	

@@ -13,4 +13,5 @@ import com.uxp.model.UserProfile;
 public interface UserProfileDAO extends CrudRepository<UserProfile, Long> {
 	public UserProfile findOneByUserName(String userName);
 	public List<UserProfile> findAllByUserEmail(String email);
+	public UserProfile findOneByUserEmail(String email);
 }

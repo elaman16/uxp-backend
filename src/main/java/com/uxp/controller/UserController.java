@@ -63,7 +63,16 @@ public class UserController {
 	@RequestMapping(value="/googleLogin", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public @ResponseBody Object verifyGoogleToken(@RequestParam String googleToken) {
 		try {
-			return userService.verifyGoogleToken(googleToken);
+			String email = userService.verifyGoogleToken(googleToken);
+			if(email.length() > 0) {
+				long now = new Date().getTime();
+				 long expires = now + 86400000;
+				UserProfile up = userService.getUserByEmail(email);
+				 String s = Jwts.builder().setSubject(up.getUserName()).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", up).signWith(SignatureAlgorithm.HS512, key).compact();
+				 return userService.getUserByUserName(up.getUserName(), s);
+			} else {
+				return Collections.singletonMap("error", "could not do .. it");
+			}
 		} catch(Exception e) {
 			System.out.println(e.toString());
 			return Collections.singletonMap("error", "token could not be validated");
