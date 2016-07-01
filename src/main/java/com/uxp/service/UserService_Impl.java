@@ -132,7 +132,7 @@ public class UserService_Impl implements UserService {
 			     map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
 			 }
 			 String email = map.get("email");
-			 
+			 System.out.println(email);
 			 out.close();
 			 return email;
 		} catch (Exception e) {
