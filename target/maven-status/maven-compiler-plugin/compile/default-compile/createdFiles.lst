@@ -1,7 +1,0 @@
-com/uxp/model/UserRole.class
-com/uxp/model/PinType.class
-com/uxp/model/UserAccountSetting.class
-com/uxp/dao/PinTypeDAO.class
-com/uxp/dao/UserAccountSettingDAO.class
-com/uxp/model/AnnotationContentType.class
-com/uxp/model/ResponseMsg.class

@@ -1,6 +1,10 @@
 package com.uxp.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -65,6 +69,38 @@ public class UserService_Impl implements UserService {
 	@Autowired 
 	private AnnotationService annoServ;
 	
+	private String readInputStreamToString(HttpURLConnection connection) {
+	    String result = null;
+	    StringBuffer sb = new StringBuffer();
+	    InputStream is = null;
+
+	    try {
+	        is = new BufferedInputStream(connection.getInputStream());
+	        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+	        String inputLine = "";
+	        while ((inputLine = br.readLine()) != null) {
+	            sb.append(inputLine);
+	        }
+	        result = sb.toString();
+	    }
+	    catch (Exception e) {
+	       
+	        result = null;
+	    }
+	    finally {
+	        if (is != null) {
+	            try { 
+	                is.close(); 
+	            } 
+	            catch (IOException e) {
+	                 Collections.singletonMap("error", "could not close the stream");
+	            }
+	        }   
+	    }
+
+	    return result;
+	}
+	
 	public Object verifyGoogleToken(String googleToken) {
 		try {
 			URL url = new URL("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + googleToken);
@@ -73,10 +109,8 @@ public class UserService_Impl implements UserService {
 			 httpCon.setRequestMethod("POST");
 			 OutputStreamWriter out = new OutputStreamWriter(
 			 httpCon.getOutputStream());
-			 System.out.println(httpCon.getResponseCode());
-			 System.out.println(httpCon.getResponseMessage());
-			 InputStream is = httpCon.getInputStream();
-			 String myString = IOUtils.toString(is, "UTF-8");
+			 String resp = readInputStreamToString(httpCon);
+			 System.out.println(resp);
 			 out.close();
 			 return httpCon.getResponseMessage();
 		} catch (Exception e) {
