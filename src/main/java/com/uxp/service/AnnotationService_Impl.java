@@ -73,6 +73,31 @@ public class AnnotationService_Impl implements AnnotationService {
 	@Autowired
 	private EmojiDAO emojiDAO;
 	
+	public Object searchUserAnnotations(String term, String userName) {
+		try {
+		List<AnnotationResponse> annotationResponses = new ArrayList<AnnotationResponse>();
+		List<Annotation> allAnnotations = (List<Annotation>) annotationDAO.searchUserAnnotations(term, userName);
+		for(Annotation a : allAnnotations) {
+			Emoji emo = emojiDAO.findOne(a.getEmojiId());
+			AnnotationContentType annotationContent = annotationContentTypeDAO.findOne(a.getAnnotationContentTypeId());
+			AnnotationHashTag annotationHashTag = annotationHashTagDAO.findOneByAnnotationId(a.getAnnotationId());
+			AnnotationType annotationType = annotationTypeDAO.findOne(a.getAnnotationTypeId());
+			PinType pinType = pinTypeDAO.findOne(a.getPinTypeId());
+			ParentDomain parentDomain = parentDomainDAO.findOne(a.getParentDomainId());
+			AnnotationMedia annotationMedia = annotationMediaDAO.findOne(a.getAnnotationMediaId());
+			
+			AnnotationResponse resp = new AnnotationResponse(a, annotationMedia, parentDomain, pinType, annotationType, annotationHashTag, annotationContent, emo);
+			annotationResponses.add(resp);
+		}
+		
+		return annotationResponses;
+		} catch (Exception ex) {
+		      System.out.println("Error updating the user profile: " + ex.toString());
+		      
+			  return new ResponseMsg("Error", "Could not fetch annotations");
+		 }
+	}
+	
 	public Object markAnnotationDeleted(long annotationId, String userName) {
 		Annotation annotation = annotationDAO.findOne(annotationId);
 		String annoName = annotation.getUserName();

@@ -131,6 +131,21 @@ public class AnnotationController {
 			
 			
 	}
+	@RequestMapping(value="/search/{term}", method=RequestMethod.GET)
+	public @ResponseBody Object searchUserAnnotations(@PathVariable("term") String term, @RequestHeader(name="Authorization") String token) {
+		try {
+			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+				String userName = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().get("sub").toString();
+				return annotationService.searchUserAnnotations(term, userName);
+			} else {
+				return Collections.singletonMap("error", "Not Authorized");
+			}
+		} catch(SignatureException e) {
+			return Collections.singletonMap("error", "Not Authorized");
+		} catch(MalformedJwtException m) {
+			return Collections.singletonMap("error", "Bad token");
+		}
+	}
 	
 	@RequestMapping(value="/user/{userName}", method={RequestMethod.GET})
 	public @ResponseBody Object getUserAnnotations(@PathVariable("userName") String userName, @RequestHeader(name="programId", required=false) String programId, @RequestHeader(name="page", defaultValue="0") Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {	

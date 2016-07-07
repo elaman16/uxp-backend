@@ -20,6 +20,8 @@ public interface AnnotationService {
 	
 	String decodeBase64JPEG(StringBuffer mediaData);
 	
+	public Object searchUserAnnotations(String term, String userName);
+	
 	Object getAllAnnotations(String programId, Integer page, HttpServletRequest request, HttpServletResponse response);
 	
 	Object getUserAnnotations(String userName, Integer page, String programId, HttpServletRequest request, HttpServletResponse response);
