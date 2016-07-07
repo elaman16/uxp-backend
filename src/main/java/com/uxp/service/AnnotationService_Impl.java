@@ -92,7 +92,7 @@ public class AnnotationService_Impl implements AnnotationService {
 		
 		return annotationResponses;
 		} catch (Exception ex) {
-		      System.out.println("Error updating the user profile: " + ex.toString());
+		      System.out.println("An error occured " + ex.toString());
 		      
 			  return new ResponseMsg("Error", "Could not fetch annotations");
 		 }
