@@ -122,14 +122,14 @@ public class UserService_Impl implements UserService {
 			 OutputStreamWriter out = new OutputStreamWriter(
 			 httpCon.getOutputStream());
 			 String resp = readInputStreamToString(httpCon);
-			 System.out.println(resp);
+			 System.out.println("GOOGLE RESP: " + resp);
 			 resp = resp.substring(1, resp.length()-1);
 			 String[] keyValuePairs = resp.split(",");              //split the string to creat key-value pairs
 			 Map<String,String> map = new HashMap<>();               
 
 			 for(String pair : keyValuePairs)                        //iterate over the pairs
 			 {
-			     String[] entry = pair.split("=");                   //split the pairs to get key and value 
+			     String[] entry = pair.split(":");                   //split the pairs to get key and value 
 			     map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
 			 }
 			 String email = map.get("email");
