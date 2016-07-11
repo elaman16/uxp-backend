@@ -66,9 +66,12 @@ public class UserController {
 			String email = userService.verifyGoogleToken(googleToken);
 			System.out.println("Response from google: email - " + email);
 			if(email.length() > 0) {
-				long now = new Date().getTime();
+				 long now = new Date().getTime();
 				 long expires = now + 86400000;
-				UserProfile up = userService.getUserByEmail(email);
+				 UserProfile up = userService.getUserByEmail(email);
+				 if(up.equals(null)) {
+					 return Collections.singletonMap("error", "no account found for email: " + email);
+				 }
 				 String s = Jwts.builder().setSubject(up.getUserName()).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", up).signWith(SignatureAlgorithm.HS512, key).compact();
 				 return userService.getUserByUserName(up.getUserName(), s);
 			} else {
