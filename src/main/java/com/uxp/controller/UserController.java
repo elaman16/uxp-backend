@@ -64,6 +64,7 @@ public class UserController {
 	public @ResponseBody Object verifyGoogleToken(@RequestParam String googleToken) {
 		try {
 			String email = userService.verifyGoogleToken(googleToken);
+			System.out.println("Response from google: email - " + email);
 			if(email.length() > 0) {
 				long now = new Date().getTime();
 				 long expires = now + 86400000;
@@ -71,7 +72,7 @@ public class UserController {
 				 String s = Jwts.builder().setSubject(up.getUserName()).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", up).signWith(SignatureAlgorithm.HS512, key).compact();
 				 return userService.getUserByUserName(up.getUserName(), s);
 			} else {
-				return Collections.singletonMap("error", "could not do .. it");
+				return Collections.singletonMap("error", "bad response from google");
 			}
 		} catch(Exception e) {
 			System.out.println(e.toString());
@@ -208,7 +209,7 @@ public class UserController {
 				return Collections.singletonMap("error", "Not Authorized");
 			}
 		} catch(SignatureException e) {
-			return Collections.singletonMap("error", "Not Authorized");
+			return Collections.singletonMap("error", "Bad Signature");
 		} catch(MalformedJwtException m) {
 			return Collections.singletonMap("error", "Bad token");
 		}
