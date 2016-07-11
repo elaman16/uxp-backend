@@ -69,8 +69,8 @@ public class UserController {
 				 long now = new Date().getTime();
 				 long expires = now + 86400000;
 				 UserProfile up = userService.getUserByEmail(email);
-				 System.out.println(up.toString());
-				 if(up.getUserEmail().equals("")) {
+				 System.out.println("USER FOUND: " + up.toString());
+				 if(up.equals(null)) {
 					 return Collections.singletonMap("error", "no account found for email: " + email);
 				 }
 				 String s = Jwts.builder().setSubject(up.getUserName()).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", up).signWith(SignatureAlgorithm.HS512, key).compact();
