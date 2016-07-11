@@ -131,7 +131,7 @@ public class UserService_Impl implements UserService {
 			 {
 			     String[] entry = pair.split(":");                   //split the pairs to get key and value 
 			     System.out.println(entry[0] + " " + entry[1]);
-			     map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
+			     map.put(entry[0].trim().replaceAll("^\"|\"$", ""), entry[1].trim().replaceAll("^\"|\"$", ""));          //add them to the hashmap and trim whitespaces
 			 }
 			 String email = map.get("email");
 			 System.out.println("MAP CREATED: " + map.toString());
