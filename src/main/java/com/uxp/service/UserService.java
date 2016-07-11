@@ -23,6 +23,10 @@ public interface UserService {
 	public Object changeUserPass(long userId, String programId, String oldPass, String newPass,
 			HttpServletResponse response,  HttpServletRequest request);
 	
+	public Object logSuggestion(String suggestionType, String suggestion);
+	
+	public Object changeUserExpertise(String userName, String userExpertise);
+	
 	public Object checkUserNameAvailable(String userName);
 	
 	public Object checkEmailAvailable(String email);

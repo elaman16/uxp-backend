@@ -156,6 +156,21 @@ public class UserController {
 			return Collections.singletonMap("error", "Bad token");
 		}
 	}
+	
+	//POST to change users 'userExpertise'
+	@RequestMapping(value="/{userId}/expertise", method=RequestMethod.POST)
+	public @ResponseBody Object changeUserExpertise(@PathVariable("userId") String userId, @RequestHeader(name="Authorization") String token, @RequestParam String userExpertise) {
+		try {			
+			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().get("sub").toString() != null) {
+				String tokenUser = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().get("sub").toString();
+				return userService.changeUserExpertise(tokenUser, userExpertise);
+			} else {
+				return Collections.singletonMap("error", "Could not updated user expertise"); 
+			}
+		} catch(Exception e) {
+			return Collections.singletonMap("error", "Could not updated user expertise");
+		}
+	}
 	// POST to check if a username is available
 	@RequestMapping(value="/available/user", method=RequestMethod.POST)
 	public @ResponseBody Object checkUserNameAvailable(@RequestParam String userName) {
@@ -184,6 +199,16 @@ public class UserController {
 		} catch(Exception e) {
 			System.out.println(e.toString());
 			return Collections.singletonMap("error", "Could not save request, an error occured");
+		}
+	}
+	
+	@RequestMapping(value="/suggestions", method=RequestMethod.POST)
+	public Object logSuggestion(@RequestParam String suggestionType, @RequestParam String suggestion) {
+		try {
+			return userService.logSuggestion(suggestionType, suggestion);
+		} catch(Exception e) {
+			System.out.println("ERROR: "+ e.toString());
+			return Collections.singletonMap("error", "could not save suggestion");
 		}
 	}
 	//******************************************GET Requests******************************888

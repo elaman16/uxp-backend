@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.uxp.dao.CollectionDAO;
 import com.uxp.dao.InvitationDAO;
+import com.uxp.dao.SuggestionDAO;
 import com.uxp.dao.UserAccountSettingDAO;
 import com.uxp.dao.UserActivityDAO;
 import com.uxp.dao.UserDAO;
@@ -38,6 +39,7 @@ import com.uxp.dao.UserRoleDAO;
 import com.uxp.model.Collection;
 import com.uxp.model.InvitationRequest;
 import com.uxp.model.ResponseMsg;
+import com.uxp.model.Suggestion;
 import com.uxp.model.User;
 import com.uxp.model.UserAccountSetting;
 import com.uxp.model.UserActivityLog;
@@ -71,6 +73,23 @@ public class UserService_Impl implements UserService {
 	private InvitationDAO invitationDAO;
 	@Autowired 
 	private AnnotationService annoServ;
+	@Autowired
+	private SuggestionDAO suggestionDAO;
+	
+	public Object logSuggestion(String suggestionType, String suggestion) {
+		Suggestion sug = new Suggestion(suggestionType, suggestion);
+		suggestionDAO.save(sug);
+		return Collections.singletonMap("status", "Suggestion saved!");
+	}
+	
+	public Object changeUserExpertise(String userName, String userExpertise) {
+		UserProfile u = userProfileDAO.findOneByUserName(userName);
+		User r = userDAO.findOneByUserProfileId(u.getUserProfileId());
+		UserExpertise x = userExpertiseDAO.findOne(r.getUserExpertiseId());
+		x.setUserExpertise(userExpertise);
+		userExpertiseDAO.save(x);
+		return Collections.singletonMap("status", "User Expertise updated!");
+	}
 	
 	private String readInputStreamToString(HttpURLConnection connection) {
 	    String result = null;
@@ -287,7 +306,7 @@ public class UserService_Impl implements UserService {
 			UserProfile storedProfile = userProfileDAO.findOne(foundUser.getUserProfileId());
 			storedProfile.setUserFirstName(userFirstName);
 			storedProfile.setUserLastName(userLastName);
-			if(userPicURL.length() > 1) {
+			if(userPicURL.length() > 1 && !userPicURL.equals(storedProfile.getUserPicURL())) {
 				storedProfile.setUserPicURL(annoServ.decodeBase64JPEG(userPicURL));
 			}
 			storedProfile.setUserEmployer(userEmployer);
