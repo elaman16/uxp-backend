@@ -68,13 +68,15 @@ public class UserController {
 			if(email.length() > 0) {
 				 long now = new Date().getTime();
 				 long expires = now + 86400000;
-				 UserProfile up = userService.getUserByEmail(email);
-				 System.out.println("USER FOUND: " + up.toString());
-				 if(up.equals(null)) {
-					 return Collections.singletonMap("error", "no account found for email: " + email);
+				 try {
+					 UserProfile up = userService.getUserByEmail(email);
+					 System.out.println("USER FOUND: " + up.toString());
+					 String s = Jwts.builder().setSubject(up.getUserName()).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", up).signWith(SignatureAlgorithm.HS512, key).compact();
+					 return userService.getUserByUserName(up.getUserName(), s);
+				 } catch (Exception e) {
+					 return Collections.singletonMap("error", "no account found for email: " + email); 
 				 }
-				 String s = Jwts.builder().setSubject(up.getUserName()).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", up).signWith(SignatureAlgorithm.HS512, key).compact();
-				 return userService.getUserByUserName(up.getUserName(), s);
+				 
 			} else {
 				return Collections.singletonMap("error", "bad response from google");
 			}
