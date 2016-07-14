@@ -96,7 +96,12 @@ public class UserController {
 			 if(user.getUseStatus() == 'B') {
 				 return Collections.singletonMap("error", "This account has been disabled");
 			 }
-			 String s = Jwts.builder().setSubject(userName).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", user).signWith(SignatureAlgorithm.HS512, key).compact();
+			 String s;
+			 if(user.getUseStatus() == 'A') {
+				 s = Jwts.builder().setSubject(userName).setIssuer("UxP-Admin").setExpiration(new Date(expires)).setHeaderParam("user", user).signWith(SignatureAlgorithm.HS512, key).compact();
+			 } else {
+				 s = Jwts.builder().setSubject(userName).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", user).signWith(SignatureAlgorithm.HS512, key).compact();
+			 }
 			 return userService.getUserByUserName(userName, s);
 		 } else {
 			 return Collections.singletonMap("response", "Invalid Username or Password");
