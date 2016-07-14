@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.uxp.dao.UserDAO;
 import com.uxp.model.User;
 
-@Service("annotationService")
+@Service("adminService")
 @Transactional()
 public class AdminService_Impl implements AdminService {
 	@Autowired
