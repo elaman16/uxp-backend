@@ -98,7 +98,7 @@ public class UserController {
 			 }
 			 String s;
 			 if(user.getUseStatus() == 'A') {
-				 s = Jwts.builder().setSubject(userName).setIssuer("UxP-Admin").setExpiration(new Date(expires)).setHeaderParam("user", user).signWith(SignatureAlgorithm.HS512, key).compact();
+				 s = Jwts.builder().setSubject(userName).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", user).signWith(SignatureAlgorithm.HS512, key).compact();
 			 } else {
 				 s = Jwts.builder().setSubject(userName).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", user).signWith(SignatureAlgorithm.HS512, key).compact();
 			 }

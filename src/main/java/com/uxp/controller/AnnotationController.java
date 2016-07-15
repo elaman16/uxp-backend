@@ -114,7 +114,7 @@ public class AnnotationController {
 	@RequestMapping(value="/all", method={RequestMethod.GET})
 	public @ResponseBody Object getAllAnnotations(@RequestHeader(required=false) String programId, @RequestHeader(name="page", defaultValue="0") Integer page, HttpServletRequest request, HttpServletResponse response, @RequestHeader(name="Authorization") String token) {
 			try {
-				if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Admin")) {
+				if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 					if(page < 0) {
 						page = 0;
 					}
