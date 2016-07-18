@@ -256,8 +256,8 @@ public class UserController {
 	public @ResponseBody Object getCollection(@PathVariable("collectionId") long collectionId, @RequestHeader(name="Authorization") String token) {
 		
 		//making collections public for now, should revert back later
-		return userService.findCollectionById(collectionId);
-		/*
+		//return userService.findCollectionById(collectionId);
+		
 		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 				return userService.findCollectionById(collectionId);
@@ -268,7 +268,7 @@ public class UserController {
 			return Collections.singletonMap("error", "Not Authorized");
 		} catch(MalformedJwtException m) {
 			return Collections.singletonMap("error", "Bad token");
-		} */
+		} 
 	}
 	
 	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
