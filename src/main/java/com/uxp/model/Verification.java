@@ -18,7 +18,7 @@ public class Verification {
 	private long verifyId;
 	private long userId;
 	@Column(columnDefinition = "VARCHAR")
-	private UUID uuid;
+	private String uuid;
 	private boolean verified;
 	
 	public Verification() {}
@@ -26,7 +26,7 @@ public class Verification {
 	public Verification(long userId) {
 		super();
 		this.userId = userId;
-		this.uuid = UUID.randomUUID();
+		this.uuid = UUID.randomUUID().toString();
 		this.verified = false;
 	}
 
