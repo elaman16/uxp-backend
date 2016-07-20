@@ -51,5 +51,5 @@ public interface UserService {
 
 	public boolean checkUserVerifiedEmail(User user);
 
-	public Object verifyUserEmail(UUID uuid);
+	public Object verifyUserEmail(String uuid);
 }

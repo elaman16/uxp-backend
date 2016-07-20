@@ -12,7 +12,7 @@ public interface VerificationDAO extends CrudRepository<Verification, Long> {
 
 	Verification findOneByUserId(long userId);
 
-	Verification findOneByUuid(UUID uuid);
+	Verification findOneByUuid(String uuid);
 
 	
 	

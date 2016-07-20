@@ -256,7 +256,7 @@ public class UserService_Impl implements UserService {
 		}
 		return null;
 	}
-	public Object verifyUserEmail(UUID uuid) {
+	public Object verifyUserEmail(String uuid) {
 		try {
 		Verification verification = verificationDAO.findOneByUuid(uuid);
 		verification.setVerified(true);

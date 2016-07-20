@@ -113,7 +113,7 @@ public class UserController {
 		 }
 	}
 	@RequestMapping(value="/verify/{uuid}", method=RequestMethod.POST)
-	public @ResponseBody Object verifyUserEmail(@PathVariable("uuid") UUID uuid) {
+	public @ResponseBody Object verifyUserEmail(@PathVariable("uuid") String uuid) {
 		
 		return userService.verifyUserEmail(uuid);
 		
