@@ -268,11 +268,16 @@ public class UserService_Impl implements UserService {
 		}
 	}
 	public boolean checkUserVerifiedEmail(User user) {
+		try{
 		Verification verification = verificationDAO.findOneByUserId(user.getUserId());
 		if(verification.isVerified()) {
 			return true;
 		}
 		return false;
+		} catch(Exception e) {
+			System.out.println("error verifying user email " + e.toString());
+			return false;
+		}
 	}
 	public Object createUser(String userName, String userPassword, String userFirstName, 
 		   String userLastName, String userPicURL, String userEmail, String userEmployer,
