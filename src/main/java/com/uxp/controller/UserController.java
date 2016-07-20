@@ -4,7 +4,7 @@ package com.uxp.controller;
 import java.security.Key;
 import java.util.Collections;
 import java.util.Date;
-
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -111,6 +111,12 @@ public class UserController {
 			 
 			 return Collections.singletonMap("response", "Invalid Username or Password");
 		 }
+	}
+	@RequestMapping(value="/verify/{uuid}", method=RequestMethod.POST)
+	public @ResponseBody Object verifyUserEmail(@PathVariable("uuid") UUID uuid) {
+		
+		return userService.verifyUserEmail(uuid);
+		
 	}
 	/*
 	 * POST to update existing user profile

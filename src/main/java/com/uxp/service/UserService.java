@@ -2,6 +2,7 @@ package com.uxp.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,4 +50,6 @@ public interface UserService {
 	public UserProfile getUserByEmail(String email);
 
 	public boolean checkUserVerifiedEmail(User user);
+
+	public Object verifyUserEmail(UUID uuid);
 }

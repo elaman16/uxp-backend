@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -254,6 +255,17 @@ public class UserService_Impl implements UserService {
 				return user;
 		}
 		return null;
+	}
+	public Object verifyUserEmail(UUID uuid) {
+		try {
+		Verification verification = verificationDAO.findOneByUuid(uuid);
+		verification.setVerified(true);
+		verificationDAO.save(verification);
+		return Collections.singletonMap("success", "Email verified");
+		} catch (Exception e) {
+			System.out.println("Could not updated verification " + e.toString());
+			return Collections.singletonMap("error", "Email verification failed");
+		}
 	}
 	public boolean checkUserVerifiedEmail(User user) {
 		Verification verification = verificationDAO.findOneByUserId(user.getUserId());
