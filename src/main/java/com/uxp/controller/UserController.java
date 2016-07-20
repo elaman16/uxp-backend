@@ -25,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.uxp.model.User;
 import com.uxp.model.UserProfile;
+import com.uxp.model.Verification;
 import com.uxp.service.UserService;
 
 import io.jsonwebtoken.Jwts;
@@ -97,6 +98,9 @@ public class UserController {
 				 return Collections.singletonMap("error", "This account has been disabled");
 			 }
 			 String s;
+			 if(!userService.checkUserVerifiedEmail(user)) {
+				 return Collections.singletonMap("error", "Email verification is not complete.");
+			 }
 			 if(user.getUseStatus() == 'A') {
 				 s = Jwts.builder().setSubject(userName).setIssuer("UxP-Gll").setExpiration(new Date(expires)).setHeaderParam("user", user).signWith(SignatureAlgorithm.HS512, key).compact();
 			 } else {
@@ -104,6 +108,7 @@ public class UserController {
 			 }
 			 return userService.getUserByUserName(userName, s);
 		 } else {
+			 
 			 return Collections.singletonMap("response", "Invalid Username or Password");
 		 }
 	}
@@ -270,7 +275,22 @@ public class UserController {
 			return Collections.singletonMap("error", "Bad token");
 		} 
 	}
-	
+	@RequestMapping(value="/collections/search/{term}", method=RequestMethod.GET)
+	public @ResponseBody Object getCollection(@PathVariable("term") String term, @RequestHeader(name="Authorization") String token) {
+		
+		try {
+			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
+				String tokenUser = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().get("sub").toString();
+				return userService.searchUserCollections(term, tokenUser);
+			} else {
+				return Collections.singletonMap("error", "Not Authorized");
+			}
+		} catch(SignatureException e) {
+			return Collections.singletonMap("error", "Not Authorized");
+		} catch(MalformedJwtException m) {
+			return Collections.singletonMap("error", "Bad token");
+		} 
+	}
 	/*@RequestMapping(value="/{userId}/userActivityLog", method=RequestMethod.GET)
 	public @ResponseBody Object postUserActivityLog(@PathVariable("userId") long userId, @RequestHeader("programId") String programId, HttpServletResponse response,  HttpServletRequest request) {
 		try {

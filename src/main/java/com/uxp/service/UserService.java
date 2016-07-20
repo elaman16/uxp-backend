@@ -14,6 +14,8 @@ import com.uxp.model.UserResponse;
 
 
 public interface UserService {
+	public List<Collection> searchUserCollections(String term, String userName);
+	
 	public Object createUser(String userName, String userPassword, String userFirstName, 
 		   String userLastName, String userPicURL, String userEmail, String userEmployer,
 		   String userDesignation, String userCity, String userState, String programId, 
@@ -45,4 +47,6 @@ public interface UserService {
 	public Object getInvitationRequests();
 	public String verifyGoogleToken(String googleToken);
 	public UserProfile getUserByEmail(String email);
+
+	public boolean checkUserVerifiedEmail(User user);
 }

@@ -36,6 +36,7 @@ import com.uxp.dao.UserExpertiseDAO;
 import com.uxp.dao.UserPermissionDAO;
 import com.uxp.dao.UserProfileDAO;
 import com.uxp.dao.UserRoleDAO;
+import com.uxp.dao.VerificationDAO;
 import com.uxp.model.Collection;
 import com.uxp.model.InvitationRequest;
 import com.uxp.model.ResponseMsg;
@@ -48,6 +49,7 @@ import com.uxp.model.UserPermissions;
 import com.uxp.model.UserProfile;
 import com.uxp.model.UserResponse;
 import com.uxp.model.UserRole;
+import com.uxp.model.Verification;
 
 
 @Service
@@ -75,6 +77,12 @@ public class UserService_Impl implements UserService {
 	private AnnotationService annoServ;
 	@Autowired
 	private SuggestionDAO suggestionDAO;
+	@Autowired 
+	VerificationDAO verificationDAO;
+	
+	public List<Collection> searchUserCollections(String term, String userName) {
+		return collectionDAO.searchUserCollections(term, userName);
+	}
 	
 	public Object logSuggestion(String suggestionType, String suggestion) {
 		Suggestion sug = new Suggestion(suggestionType, suggestion);
@@ -243,11 +251,17 @@ public class UserService_Impl implements UserService {
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
 		UserAccountSetting userAccountSetting = userAccountSettingDAO.findOne(user.getAccountSettingId());
 		if(userAccountSetting.checkForMatch(userPass)) {
-			return user;
+				return user;
 		}
 		return null;
 	}
-	
+	public boolean checkUserVerifiedEmail(User user) {
+		Verification verification = verificationDAO.findOneByUserId(user.getUserId());
+		if(verification.isVerified()) {
+			return true;
+		}
+		return false;
+	}
 	public Object createUser(String userName, String userPassword, String userFirstName, 
 		   String userLastName, String userPicURL, String userEmail, String userEmployer,
 		   String userDesignation, String userCity, String userState, String programId, 
@@ -255,7 +269,8 @@ public class UserService_Impl implements UserService {
 		   String userPermissionDescription, HttpServletRequest request, HttpServletResponse response) {
 				if(userProfileDAO.findOneByUserName(userName) == null) {
 					long profileId;
-				    try {	      
+				    try {	 
+				      
 				      UserAccountSetting userAccountSetting = new UserAccountSetting(userPassword, programId, request.getRemoteAddr());
 				      userAccountSettingDAO.save(userAccountSetting);
 				      
@@ -276,7 +291,8 @@ public class UserService_Impl implements UserService {
 				      User user = new User(userAccountSetting.getUserId(), userRole.getUserRoleId(), userProfile.getUserProfileId(), _userExpertise.getUserId(), userPermission.getUserPermissionId(), programId, request.getRemoteAddr());
 				      UserActivityLog userActivityLog = new UserActivityLog(user.getUserId(), "newUserCreated", programId, request.getRemoteAddr());
 				      user.setUserActivityId(userActivityLog.getActivityId());
-				      
+				      Verification verification = new Verification(user.getUserId());
+				      verificationDAO.save(verification);
 				      
 				      userActivityDAO.save(userActivityLog);
 				      userDAO.save(user);
