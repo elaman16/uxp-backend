@@ -17,7 +17,6 @@ public class Verification {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long verifyId;
 	private long userId;
-	@Column(columnDefinition = "VARCHAR")
 	private String uuid;
 	private boolean verified;
 	
@@ -25,8 +24,9 @@ public class Verification {
 
 	public Verification(long userId) {
 		super();
+		String suuid = UUID.randomUUID().toString();
 		this.userId = userId;
-		this.uuid = UUID.randomUUID().toString();
+		this.uuid = suuid;
 		this.verified = false;
 	}
 
@@ -45,12 +45,13 @@ public class Verification {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+	
 
-	public UUID getUuid() {
+	public String getUuid() {
 		return uuid;
 	}
 
-	public void setUuid(UUID uuid) {
+	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
 
