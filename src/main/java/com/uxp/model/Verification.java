@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="email-verification")
+@Table(name="verification")
 public class Verification {
 	private static final long serialVersionUID = 1L;
 	@Id
