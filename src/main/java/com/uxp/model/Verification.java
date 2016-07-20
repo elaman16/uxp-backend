@@ -2,6 +2,7 @@ package com.uxp.model;
 
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class Verification {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long verifyId;
 	private long userId;
+	@Column(columnDefinition = "VARCHAR")
 	private UUID uuid;
 	private boolean verified;
 	
