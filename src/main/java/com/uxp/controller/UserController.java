@@ -98,7 +98,7 @@ public class UserController {
 				 return Collections.singletonMap("error", "This account has been disabled");
 			 }
 			 String s;
-			 if(!userService.checkUserVerifiedEmail(user)) {
+			 if(userService.checkUserVerifiedEmail(user) == false) {
 				 return Collections.singletonMap("error", "Email verification is not complete.");
 			 }
 			 if(user.getUseStatus() == 'A') {

@@ -308,11 +308,12 @@ public class UserService_Impl implements UserService {
 				      User user = new User(userAccountSetting.getUserId(), userRole.getUserRoleId(), userProfile.getUserProfileId(), _userExpertise.getUserId(), userPermission.getUserPermissionId(), programId, request.getRemoteAddr());
 				      UserActivityLog userActivityLog = new UserActivityLog(user.getUserId(), "newUserCreated", programId, request.getRemoteAddr());
 				      user.setUserActivityId(userActivityLog.getActivityId());
-				      Verification verification = new Verification(user.getUserId());
-				      verificationDAO.save(verification);
+				      
 				      
 				      userActivityDAO.save(userActivityLog);
 				      userDAO.save(user);
+				      Verification verification = new Verification(user.getUserId());
+				      verificationDAO.save(verification);
 				      profileId = user.getUserId();
 				    }
 				    catch (Exception ex) {
