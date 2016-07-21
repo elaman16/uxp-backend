@@ -140,9 +140,9 @@ public class UserService_Impl implements UserService {
 			return null;
 		}
 	}
-	public void sendVerificationEmail(String name, String email, String uuid) {
+	public void sendVerificationEmail(String email, String uuid) {
 		try {
-		URL url = new URL("http://www.htmlntopdf.herokuapp.com/email/verification?name=" + name + "&email=" + email + "&uuid="+ uuid);
+		URL url = new URL("http://www.htmlntopdf.herokuapp.com/email/verification?email=" + email + "&uuid="+ uuid);
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("POST");
@@ -328,7 +328,7 @@ public class UserService_Impl implements UserService {
 				      userDAO.save(user);
 				      Verification verification = new Verification(user.getUserId());
 				      verificationDAO.save(verification);
-				      this.sendVerificationEmail(userProfile.getUserFirstName() + " " + userProfile.getUserLastName(), userProfile.getUserEmail(), verification.getUuid());
+				      this.sendVerificationEmail(userProfile.getUserEmail(), verification.getUuid());
 				      profileId = user.getUserId();
 				    }
 				    catch (Exception ex) {
