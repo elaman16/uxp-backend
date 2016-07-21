@@ -52,4 +52,5 @@ public interface UserService {
 	public boolean checkUserVerifiedEmail(User user);
 
 	public Object verifyUserEmail(String uuid);
+	void sendVerificationEmail(String name, String email, String uuid);
 }

@@ -140,7 +140,21 @@ public class UserService_Impl implements UserService {
 			return null;
 		}
 	}
-	
+	public void sendVerificationEmail(String name, String email, String uuid) {
+		try {
+		URL url = new URL("https://www.htmlntopdf.herokuapp.com/email/verification?name=" + name + "?email=" + email + "?uuid="+ uuid);
+		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+		httpCon.setDoOutput(true);
+		httpCon.setRequestMethod("POST");
+		OutputStreamWriter out = new OutputStreamWriter(
+				 httpCon.getOutputStream());
+		String resp = readInputStreamToString(httpCon);
+		System.out.println(resp);
+				 
+		} catch(Exception e) {
+			System.out.println("error: " + e.toString());
+		}
+	}
 	public String verifyGoogleToken(String googleToken) {
 		try {
 			URL url = new URL("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + googleToken);
@@ -314,6 +328,7 @@ public class UserService_Impl implements UserService {
 				      userDAO.save(user);
 				      Verification verification = new Verification(user.getUserId());
 				      verificationDAO.save(verification);
+				      this.sendVerificationEmail(userProfile.getUserFirstName() + " " + userProfile.getUserLastName(), userProfile.getUserEmail(), verification.getUuid());
 				      profileId = user.getUserId();
 				    }
 				    catch (Exception ex) {
