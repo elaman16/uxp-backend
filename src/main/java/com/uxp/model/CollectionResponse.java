@@ -35,7 +35,7 @@ public class CollectionResponse {
 		this.userName = collection.getUserName();
 		this.exportURI = collection.getExportURI();
 		this.fileName = collection.getFileName();
-		this.annotations = new Gson().toJson(annotations.toString());
+		this.annotations = new Gson().toJson(annotations);
 	}
 
 	public long getCollectionId() {
