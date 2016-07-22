@@ -20,7 +20,6 @@ public class Collection {
 	private long userId;
 	private String userName;
 	@Column(columnDefinition = "TEXT")
-	private String annotations;
 	private String exportURI;
 	@Column(name="file_name")
 	private String fileName;
@@ -30,7 +29,6 @@ public class Collection {
 	public Collection(String userName, String annotations, String exportURI, String fileName) {
 		super();
 		this.userName = userName;
-		this.annotations = annotations;
 		this.exportURI = exportURI;
 		this.fileName = fileName;
 		this.userId = 0;
@@ -70,13 +68,6 @@ public class Collection {
 		this.userName = userName;
 	}
 
-	public String getAnnotations() {
-		return annotations;
-	}
-
-	public void setAnnotations(String annotations) {
-		this.annotations = annotations;
-	}
 
 	public String getExportURI() {
 		return exportURI;
@@ -92,8 +83,8 @@ public class Collection {
 
 	@Override
 	public String toString() {
-		return "Collection [collectionId=" + collectionId + ", userName=" + userName + ", annotations=" + annotations
-				+ ", exportURI=" + exportURI + "]";
+		return "Collection [collectionId=" + collectionId + ", userId=" + userId + ", userName=" + userName
+				+ ", exportURI=" + exportURI + ", fileName=" + fileName + "]";
 	}
 
 	

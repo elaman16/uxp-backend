@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.uxp.dao.CollectionAnnotationDAO;
 import com.uxp.dao.CollectionDAO;
 import com.uxp.dao.InvitationDAO;
 import com.uxp.dao.SuggestionDAO;
@@ -39,6 +39,7 @@ import com.uxp.dao.UserProfileDAO;
 import com.uxp.dao.UserRoleDAO;
 import com.uxp.dao.VerificationDAO;
 import com.uxp.model.Collection;
+import com.uxp.model.CollectionAnnotation;
 import com.uxp.model.InvitationRequest;
 import com.uxp.model.ResponseMsg;
 import com.uxp.model.Suggestion;
@@ -80,6 +81,8 @@ public class UserService_Impl implements UserService {
 	private SuggestionDAO suggestionDAO;
 	@Autowired 
 	VerificationDAO verificationDAO;
+	@Autowired
+	CollectionAnnotationDAO caDAO;
 	
 	public List<Collection> searchUserCollections(String term, String userName) {
 		return collectionDAO.searchUserCollections(term, userName);
@@ -142,6 +145,7 @@ public class UserService_Impl implements UserService {
 	}
 	public void sendVerificationEmail(String email, String uuid) {
 		try {
+		System.out.println("Email: " + email + " uuid: " + uuid);
 		URL url = new URL("https://htmlntopdf.herokuapp.com/email/verification?email=" + email + "&uuid="+ uuid);
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);
@@ -229,6 +233,15 @@ public class UserService_Impl implements UserService {
 		
 		Collection collection = new Collection(userName, annotations, exportURI, fileName);
 		collectionDAO.save(collection);
+		
+		 System.out.println(annotations);
+		 annotations = annotations.substring(1, annotations.length()-1);
+		 String[] ids = annotations.split(",");           
+		 for(String id : ids)                       
+		 {
+		   CollectionAnnotation ca = new CollectionAnnotation(collection.getCollectionId(), id);
+		   caDAO.save(ca);
+		 }
 		return Collections.singletonMap("response", "Collection Posted");
 	}
 	
