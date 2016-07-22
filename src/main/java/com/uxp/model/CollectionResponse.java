@@ -29,7 +29,7 @@ public class CollectionResponse {
 	
 	public CollectionResponse() {}
 	
-	public CollectionResponse(Collection collection, ArrayList<Annotation> annotations) {
+	public CollectionResponse(Collection collection, ArrayList<AnnotationResponse> annotations) {
 		this.collectionId = collection.getCollectionId();
 		this.userId = collection.getUserId();
 		this.userName = collection.getUserName();

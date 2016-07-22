@@ -40,6 +40,7 @@ import com.uxp.dao.UserProfileDAO;
 import com.uxp.dao.UserRoleDAO;
 import com.uxp.dao.VerificationDAO;
 import com.uxp.model.Annotation;
+import com.uxp.model.AnnotationResponse;
 import com.uxp.model.Collection;
 import com.uxp.model.CollectionAnnotation;
 import com.uxp.model.CollectionResponse;
@@ -256,12 +257,14 @@ public class UserService_Impl implements UserService {
 	
 	public Object findCollectionById(long collectionId) {
 		Collection collection = collectionDAO.findOne(collectionId);
-		ArrayList<Annotation> annotations = new ArrayList<Annotation>();
+		ArrayList<AnnotationResponse> annotations = new ArrayList<AnnotationResponse>();
 		ArrayList<CollectionAnnotation> annos = caDAO.findAllByCollectionId(collectionId);
 		for(CollectionAnnotation anno : annos) {
 			long id = Long.parseLong(anno.getAnnotationId());
 			Annotation annotation = annotationDAO.findOne(id);
-			annotations.add(annotation);
+			AnnotationResponse ar = annoServ.responseFromAnnotation(annotation);
+			
+			annotations.add(ar);
 		}
 		return new CollectionResponse(collection, annotations);
 	}

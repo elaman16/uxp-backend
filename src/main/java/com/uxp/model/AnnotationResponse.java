@@ -59,6 +59,34 @@ public class AnnotationResponse {
 		this.userVideo = annotation.getUserVideo();
 	}
 	
+public AnnotationResponse(Annotation annotation, AnnotationMedia media, ParentDomain parentDomain, PinType pintype, AnnotationType annotationType, AnnotationContentType contentType, Emoji emoji) {
+		
+		this.annotationId = annotation.getAnnotationId();
+		this.annotationTitle = annotation.getAnnotationTitle();
+		this.annotationText = annotation.getAnnotationText();
+		this.emojiId = emoji.getEmojiType();
+		this.pinType = pintype.getPinType();
+		this.userName = annotation.getUserName();
+		this.pinTypeDescription = pintype.getPinTypeDescription();
+		this.annotationContentType = contentType.getAnnotationContentTypeDescription();
+		this.annotationType = annotationType.getAnnotationTypeDescription();
+		this.parentDomain = parentDomain.getParentDomainName();
+		this.specificURL = annotation.getSpecificURL();
+		this.pinXCoordinate = annotation.getPinXCoordinate();
+		this.pinYCoordinate = annotation.getPinYCoordinate();
+		this.annotationMediaType = media.getAnnotationMediaType();
+		this.annotationMedia = media.getAnnotationMediaData();
+		this.annotationMediaAudio = media.getAnnotationMediaAudio();
+		this.annotationPageHeight = annotation.getAnnotationPageHeight();
+		this.annotationPageWidth = annotation.getAnnotationPageWidth();
+		this.timeUpdated = annotation.getTimeUpdated();
+		this.attachmentURI = annotation.getAttachmentURI();
+		this.recommendation = annotation.getRecommendation();
+		this.severity = annotation.getSeverity();
+		this.violation = annotation.getViolation();
+		this.userVideo = annotation.getUserVideo();
+	}
+	
 	public String getUserVideo() {
 		return userVideo;
 	}

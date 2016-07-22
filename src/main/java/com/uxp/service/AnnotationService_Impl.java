@@ -73,6 +73,17 @@ public class AnnotationService_Impl implements AnnotationService {
 	@Autowired
 	private EmojiDAO emojiDAO;
 	
+	
+	public AnnotationResponse responseFromAnnotation(Annotation annotation) {
+		AnnotationMedia am = annotationMediaDAO.findOne(annotation.getAnnotationMediaId());
+		ParentDomain pd = parentDomainDAO.findOne(annotation.getParentDomainId());
+		PinType pt = pinTypeDAO.findOne(annotation.getPinTypeId());
+		AnnotationType at = annotationTypeDAO.findOne(annotation.getAnnotationTypeId());
+		AnnotationContentType  act = annotationContentTypeDAO.findOne(annotation.getAnnotationContentTypeId());
+		Emoji em = emojiDAO.findOne(annotation.getEmojiId());
+		return new AnnotationResponse(annotation, am, pd, pt, at, act, em);
+	}
+	
 	public Object searchUserAnnotations(String term, String userName) {
 		try {
 		List<AnnotationResponse> annotationResponses = new ArrayList<AnnotationResponse>();

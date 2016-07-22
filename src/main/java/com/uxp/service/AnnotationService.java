@@ -6,6 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.uxp.model.Annotation;
+import com.uxp.model.AnnotationResponse;
+
 public interface AnnotationService {
 	Object postAnnotation( String annotationTitle, String annotationText, String emoji,
 		String pinType, String userName, String pinTypeDescription,	String annotationContentType,
@@ -31,4 +34,6 @@ public interface AnnotationService {
 			String pinXCoordinate, String pinYCoordinate, String annotationMediaType, int annotationPageHeight, int annotationPageWidth, 
 			String programId, long userId, String hashtag, StringBuffer annotationMediaImage, StringBuffer annotationMediaAudio, String recommendation, String severity, String violation,
 			HttpServletRequest request, HttpServletResponse response);
+
+	AnnotationResponse responseFromAnnotation(Annotation annotation);
 }
