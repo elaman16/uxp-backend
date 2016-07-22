@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.uxp.dao.AnnotationDAO;
 import com.uxp.dao.CollectionAnnotationDAO;
 import com.uxp.dao.CollectionDAO;
 import com.uxp.dao.InvitationDAO;
@@ -38,8 +39,10 @@ import com.uxp.dao.UserPermissionDAO;
 import com.uxp.dao.UserProfileDAO;
 import com.uxp.dao.UserRoleDAO;
 import com.uxp.dao.VerificationDAO;
+import com.uxp.model.Annotation;
 import com.uxp.model.Collection;
 import com.uxp.model.CollectionAnnotation;
+import com.uxp.model.CollectionResponse;
 import com.uxp.model.InvitationRequest;
 import com.uxp.model.ResponseMsg;
 import com.uxp.model.Suggestion;
@@ -83,6 +86,8 @@ public class UserService_Impl implements UserService {
 	VerificationDAO verificationDAO;
 	@Autowired
 	CollectionAnnotationDAO caDAO;
+	@Autowired
+	AnnotationDAO annotationDAO;
 	
 	public List<Collection> searchUserCollections(String term, String userName) {
 		return collectionDAO.searchUserCollections(term, userName);
@@ -250,7 +255,15 @@ public class UserService_Impl implements UserService {
 	}
 	
 	public Object findCollectionById(long collectionId) {
-		return collectionDAO.findOne(collectionId);
+		Collection collection = collectionDAO.findOne(collectionId);
+		ArrayList<Annotation> annotations = new ArrayList<Annotation>();
+		ArrayList<CollectionAnnotation> annos = caDAO.findAllByCollectionId(collectionId);
+		for(CollectionAnnotation anno : annos) {
+			long id = Long.parseLong(anno.getAnnotationId());
+			Annotation annotation = annotationDAO.findOne(id);
+			annotations.add(annotation);
+		}
+		return new CollectionResponse(collection, annotations);
 	}
 	
 	public UserProfile getUserProfile(String userName) {

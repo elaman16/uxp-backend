@@ -266,9 +266,6 @@ public class UserController {
 	@RequestMapping(value="/collections/{collectionId}", method=RequestMethod.GET)
 	public @ResponseBody Object getCollection(@PathVariable("collectionId") long collectionId, @RequestHeader(name="Authorization") String token) {
 		
-		//making collections public for now, should revert back later
-		//return userService.findCollectionById(collectionId);
-		
 		try {
 			if(Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getIssuer().equals("UxP-Gll")) {
 				return userService.findCollectionById(collectionId);

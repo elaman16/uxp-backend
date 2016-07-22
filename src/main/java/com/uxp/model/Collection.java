@@ -33,6 +33,7 @@ public class Collection {
 		this.fileName = fileName;
 		this.userId = 0;
 	}
+	
 
 	public String getFileName() {
 		return fileName;
