@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.google.gson.Gson;
+
 @Entity
 public class CollectionResponse {
 	private static final long serialVersionUID = 1L;
@@ -33,7 +35,7 @@ public class CollectionResponse {
 		this.userName = collection.getUserName();
 		this.exportURI = collection.getExportURI();
 		this.fileName = collection.getFileName();
-		this.annotations = annotations.toString();
+		this.annotations = new Gson().toJson(annotations.toString());
 	}
 
 	public long getCollectionId() {
