@@ -84,11 +84,11 @@ public class UserService_Impl implements UserService {
 	@Autowired
 	private SuggestionDAO suggestionDAO;
 	@Autowired 
-	VerificationDAO verificationDAO;
+	private VerificationDAO verificationDAO;
 	@Autowired
-	CollectionAnnotationDAO caDAO;
+	private CollectionAnnotationDAO caDAO;
 	@Autowired
-	AnnotationDAO annotationDAO;
+	private AnnotationDAO annotationDAO;
 	
 	public List<Collection> searchUserCollections(String term, String userName) {
 		return collectionDAO.searchUserCollections(term, userName);
@@ -101,6 +101,7 @@ public class UserService_Impl implements UserService {
 	}
 	
 	public Object changeUserExpertise(String userName, String userExpertise) {
+		userName = userName.toLowerCase();
 		UserProfile u = userProfileDAO.findOneByUserName(userName);
 		User r = userDAO.findOneByUserProfileId(u.getUserProfileId());
 		UserExpertise x = userExpertiseDAO.findOne(r.getUserExpertiseId());
@@ -142,6 +143,7 @@ public class UserService_Impl implements UserService {
 	}
 	
 	public UserProfile getUserByEmail(String email) {
+		email = email.toLowerCase();
 		try {
 			return userProfileDAO.findOneByUserEmail(email);
 		} catch(Exception e) {
@@ -186,6 +188,7 @@ public class UserService_Impl implements UserService {
 			     map.put(entry[0].trim().replaceAll("^\"|\"$", ""), entry[1].trim().replaceAll("^\"|\"$", ""));          //add them to the hashmap and trim whitespaces
 			 }
 			 String email = map.get("email");
+			 email = email.toLowerCase();
 			 System.out.println("MAP CREATED: " + map.toString());
 			 out.close();
 			 return email;
@@ -196,6 +199,8 @@ public class UserService_Impl implements UserService {
 	}
 	
 	public Object logInvitationRequest(String email, String name, String company) {
+		email = email.toLowerCase();
+		
 		if(invitationDAO.findAllByEmail(email).isEmpty()) {
 			try {
 				InvitationRequest ir = new InvitationRequest(email, name, company);
@@ -218,6 +223,7 @@ public class UserService_Impl implements UserService {
 	}
 	
 	public Object checkUserNameAvailable(String userName) {
+		userName = userName.toLowerCase();
 		if(userProfileDAO.findOneByUserName(userName) == null) {
 			return Collections.singletonMap("status", "available");
 		} else {
@@ -226,6 +232,7 @@ public class UserService_Impl implements UserService {
 	}
 	
 	public Object checkEmailAvailable(String email) {
+		email = email.toLowerCase();
 		System.out.println("EMAIL:  " + email);
 		List<UserProfile> found = userProfileDAO.findAllByUserEmail(email);
 		if(found.isEmpty()) {
@@ -236,7 +243,7 @@ public class UserService_Impl implements UserService {
 	}
 	
 	public Object postNewCollection(String userName, String annotations, String exportURI, String fileName) {
-		
+		userName = userName.toLowerCase();
 		Collection collection = new Collection(userName, annotations, exportURI, fileName);
 		collectionDAO.save(collection);
 		
@@ -270,9 +277,11 @@ public class UserService_Impl implements UserService {
 	}
 	
 	public UserProfile getUserProfile(String userName) {
+		userName = userName.toLowerCase();
 		return userProfileDAO.findOneByUserName(userName);
 	}
 	public UserResponse getUserByUserName(String userName) {
+		userName = userName.toLowerCase();
 		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
 		UserExpertise ux = userExpertiseDAO.findOne(user.getUserExpertiseId());
@@ -280,6 +289,7 @@ public class UserService_Impl implements UserService {
 		return up;
 	}
 	public UserResponse getUserByUserName(String userName, String token) {
+		userName = userName.toLowerCase();
 		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
 		UserExpertise ux = userExpertiseDAO.findOne(user.getUserExpertiseId());
@@ -288,6 +298,7 @@ public class UserService_Impl implements UserService {
 	}
 	
 	public User userLogin(String userName, String userPass) {
+		userName = userName.toLowerCase();
 		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
 			if(userProfile == null) {
 				return null;
@@ -327,6 +338,9 @@ public class UserService_Impl implements UserService {
 		   String userDesignation, String userCity, String userState, String programId, 
 		   long updatedBy, String userExpertise, String userRoleDescription, String userPermissionCode,
 		   String userPermissionDescription, HttpServletRequest request, HttpServletResponse response) {
+				userName = userName.toLowerCase();
+				userEmail = userEmail.toLowerCase();
+				
 				if(userProfileDAO.findOneByUserName(userName) == null) {
 					long profileId;
 				    try {	 

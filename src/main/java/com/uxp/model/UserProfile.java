@@ -46,11 +46,11 @@ public class UserProfile implements Serializable {
 	public UserProfile(String userName, String userFirstName, String userLastName, String userPicURL,
 			String userEmail, String userEmployer, String userDesignation, String userCity, String userState,
 			String programId, String locId) {
-		this.userName = userName;
+		this.userName = userName.toLowerCase();
 		this.userFirstName = userFirstName;
 		this.userLastName = userLastName;
 		this.userPicURL = userPicURL;
-		this.userEmail = userEmail;
+		this.userEmail = userEmail.toLowerCase();
 		this.userEmployer = userEmployer;
 		this.userDesignation = userDesignation;
 		this.userCity = userCity;
