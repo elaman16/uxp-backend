@@ -1,0 +1,4 @@
+#!/bin/bash
+git add .
+git commit -am 'go'
+git push heroku master
