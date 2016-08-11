@@ -1,15 +1,46 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
+		<link rel='stylesheet' th:href="@{~/style.css}"> </link>
 	</head>
 	
 	<body>
-	
-		<div>
-			<h1>Welcome to adminhome</h1>
+		<div class='adminToolBar'>
+				<h4 id='dash' class='toolBarItem'>Dashboard</h4>
+				<h4 id='invite' class='toolBarItem'>Invitations</h4>
+				<h4 id='active' class='toolBarItem'>Active Accounts</h4>
+				<h4 id='block' class='toolBarItem'>Blocked Users</h4>
 		</div>
-	
+		<div id='adminContent'>
+		</div>
+	<script src='/js/jquery-3.1.0.js'></script>
+	<script src='/js/bundle.js'></script>
+	<script>
+		$('.toolBarItem, .toolText').click(function(event) {
+			
+			var id = event.target.id;
+			
+			switch(id) {
+			case 'dash': {
+				adminTools.showHomeDash();
+				break;
+			}
+			case 'invite': {
+				adminTools.showInviteDash();
+				break;
+			}
+			case 'active': {
+				adminTools.showActivityDash();
+				break;
+			}
+			case 'block': {
+				adminTools.showBlockedDash();
+				break;
+			}
+			}
+		})
+	</script>
 	</body>
 	
 </html>

@@ -72,31 +72,12 @@
 	        <artifactId>javax.inject</artifactId>
 	        <version>1</version>
 	    </dependency>
-	     <dependency>
-                <groupId>org.springframework.session</groupId>
-                <artifactId>spring-session</artifactId>
-                <version>1.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-                <groupId>org.springframework.session</groupId>
-                <artifactId>spring-session-data-redis</artifactId>
-                <version>1.2.0.RELEASE</version>
-                <type>pom</type>
-        </dependency>
         <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
                 <version>4.2.5.RELEASE</version>
         </dependency>
- 		<!-- <dependency>
-	        <groupId>org.springframework.social</groupId>
-	        <artifactId>spring-social</artifactId>
-	        <version>1.1.4.RELEASE</version>
-	    </dependency> -->
-	    <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-facebook</artifactId>
-        </dependency>
+	    
     </dependencies>
     <!-- Additional lines to be added here... -->
 	<build>

@@ -1,4 +1,4 @@
-package com.uxp;
+/*package com.uxp;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -37,4 +37,4 @@ public class HttpSessionConfig {
                     super(HttpSessionConfig.class); 
             }
     }
-}
+}*/
