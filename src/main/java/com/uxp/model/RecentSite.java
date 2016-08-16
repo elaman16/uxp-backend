@@ -1,5 +1,6 @@
 package com.uxp.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,8 +14,10 @@ public class RecentSite {
 	private long siteId;
 	private long userId;
 	private String lastVisitTime;
+	@Column(columnDefinition = "TEXT")
 	private String title;
 	private long typedCount;
+	@Column(columnDefinition = "TEXT")
 	private String url;
 	private long visitCount;
 	private long id;

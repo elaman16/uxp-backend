@@ -1,5 +1,6 @@
 package com.uxp.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,9 @@ public class TopSite {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long siteId;
 	private long userId;
+	@Column(columnDefinition = "TEXT")
 	private String url;
+	@Column(columnDefinition = "TEXT")
 	private String title;
 	
 	public TopSite() {};
