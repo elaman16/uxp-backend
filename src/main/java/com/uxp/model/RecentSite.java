@@ -17,11 +17,11 @@ public class RecentSite {
 	private long typedCount;
 	private String url;
 	private long visitCount;
-	
+	private long id;
 	public RecentSite() {}
 
 	public RecentSite(long siteId, long userId, String lastVisitTime, String title, long typedCount, String url,
-			long visitCount) {
+			long visitCount, long id) {
 		super();
 		this.siteId = siteId;
 		this.userId = userId;
@@ -30,6 +30,15 @@ public class RecentSite {
 		this.typedCount = typedCount;
 		this.url = url;
 		this.visitCount = visitCount;
+		this.id = id;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public long getSiteId() {
