@@ -106,6 +106,7 @@ public class UserService_Impl implements UserService {
 			RecentSite[] recentSitesList = mapper.readValue(recentSites, RecentSite[].class);
 			for(RecentSite site : recentSitesList) {
 				RecentSite rsite = new RecentSite();
+				System.out.println(site.getUrl());
 				rsite.setTitle(site.getTitle());
 				rsite.setLastVisitTime(site.getLastVisitTime());
 				rsite.setTypedCount(site.getTypedCount());
