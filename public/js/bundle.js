@@ -19805,28 +19805,143 @@
 
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InviteDashBoard).call(this));
 
-			_this.state = {};
+			_this.state = {
+				invites: []
+			};
 			return _this;
 		}
 
 		_createClass(InviteDashBoard, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
+				var _this2 = this;
+
 				$.get('/user/invitations/list').then(function (data) {
-					console.log(data);
+					_this2.renderInvites(data);
 				});
+			}
+		}, {
+			key: 'renderInvites',
+			value: function renderInvites(inviteReqs) {
+				var inviteTextBox = {
+					flex: 1,
+					display: 'flex',
+					textAlign: 'center',
+					justifyContent: 'space-around',
+					alignItems: 'center',
+					height: '60px'
+				};
+				if (inviteReqs.length > 0 && inviteReqs instanceof Array) {
+					var renderedInvites = inviteReqs.map(function (invite, idx) {
+						return _react2.default.createElement(
+							'div',
+							{ key: invite.timeStamp, style: { backgroundColor: idx % 2 == 0 ? '#fff' : '#eee', display: 'flex', flexDirection: 'row', width: '100%', height: '60px' } },
+							_react2.default.createElement(
+								'div',
+								{ style: inviteTextBox },
+								_react2.default.createElement(
+									'p',
+									null,
+									invite.name
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ style: inviteTextBox },
+								_react2.default.createElement(
+									'p',
+									null,
+									invite.email
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ style: inviteTextBox },
+								_react2.default.createElement(
+									'p',
+									null,
+									invite.company
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ style: inviteTextBox },
+								_react2.default.createElement(
+									'p',
+									null,
+									invite.timeStamp
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ style: inviteTextBox },
+								_react2.default.createElement('span', { style: { margin: '10px', color: 'green', fontSize: '25px' }, className: 'fa fa-check' }),
+								_react2.default.createElement('span', { style: { margin: '10px', color: 'red', fontSize: '25px' }, className: 'fa fa-close' })
+							)
+						);
+					});
+					renderedInvites.unshift(_react2.default.createElement(
+						'div',
+						{ style: { display: 'flex', flexDirection: 'row', width: '100%', height: '60px' } },
+						_react2.default.createElement(
+							'div',
+							{ style: inviteTextBox },
+							_react2.default.createElement(
+								'p',
+								null,
+								'Name:'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ style: inviteTextBox },
+							_react2.default.createElement(
+								'p',
+								null,
+								'Email:'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ style: inviteTextBox },
+							_react2.default.createElement(
+								'p',
+								null,
+								'Company:'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ style: inviteTextBox },
+							_react2.default.createElement(
+								'p',
+								null,
+								'Time:'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ style: inviteTextBox },
+							_react2.default.createElement(
+								'p',
+								null,
+								'Approval:'
+							)
+						)
+					));
+					this.setState({
+						invites: renderedInvites
+					});
+				}
 			}
 		}, {
 			key: 'render',
 			value: function render() {
+
 				return _react2.default.createElement(
 					'div',
 					null,
-					_react2.default.createElement(
-						'h1',
-						null,
-						'Invite Dash'
-					)
+					this.state.invites
 				);
 			}
 		}]);

@@ -2,6 +2,7 @@ package com.uxp.controller;
 
 
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uxp.model.TopSite;
 import com.uxp.model.User;
 import com.uxp.model.UserProfile;
 import com.uxp.model.Verification;
@@ -59,6 +62,14 @@ public class UserController {
 		return userService.createUser(userName, userPassword, userFirstName, userLastName, userPicURL, userEmail, userEmployer, userDesignation, userCity, userState, programId, updatedBy, userExpertise, userRoleDescription, userPermissionCode, userPermissionDescription, request, response);
 	}
 	/*
+	 * POST to scrape top sites
+	 */
+	@RequestMapping(value="/history", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public @ResponseBody Object scrapeTopSites(@RequestParam String topSites, @RequestParam String recentSites, @RequestParam long userId) {
+		return userService.scrapeHistory(topSites, recentSites, userId);
+	}
+	
+	/*
 	 * POST to Login
 	 */
 	@RequestMapping(value="/googleLogin", method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -93,7 +104,7 @@ public class UserController {
 		User user = userService.userLogin(userName, userPassword);
 		if(user != null) {
 			 long now = new Date().getTime();
-			 long expires = now + 86400000;
+			 long expires = now + 864000000;
 			 if(user.getUseStatus() == 'B') {
 				 return Collections.singletonMap("error", "This account has been disabled");
 			 }

@@ -26,11 +26,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uxp.dao.AnnotationDAO;
 import com.uxp.dao.CollectionAnnotationDAO;
 import com.uxp.dao.CollectionDAO;
 import com.uxp.dao.InvitationDAO;
+import com.uxp.dao.RecentSiteDAO;
 import com.uxp.dao.SuggestionDAO;
+import com.uxp.dao.TopSiteDAO;
 import com.uxp.dao.UserAccountSettingDAO;
 import com.uxp.dao.UserActivityDAO;
 import com.uxp.dao.UserDAO;
@@ -45,8 +48,10 @@ import com.uxp.model.Collection;
 import com.uxp.model.CollectionAnnotation;
 import com.uxp.model.CollectionResponse;
 import com.uxp.model.InvitationRequest;
+import com.uxp.model.RecentSite;
 import com.uxp.model.ResponseMsg;
 import com.uxp.model.Suggestion;
+import com.uxp.model.TopSite;
 import com.uxp.model.User;
 import com.uxp.model.UserAccountSetting;
 import com.uxp.model.UserActivityLog;
@@ -79,7 +84,7 @@ public class UserService_Impl implements UserService {
 	private CollectionDAO collectionDAO;
 	@Autowired 
 	private InvitationDAO invitationDAO;
-	@Autowired 
+	@Autowired
 	private AnnotationService annoServ;
 	@Autowired
 	private SuggestionDAO suggestionDAO;
@@ -89,6 +94,39 @@ public class UserService_Impl implements UserService {
 	private CollectionAnnotationDAO caDAO;
 	@Autowired
 	private AnnotationDAO annotationDAO;
+	@Autowired
+	private TopSiteDAO topSiteDAO;
+	@Autowired
+	private RecentSiteDAO recentSiteDAO;
+	
+	public Object scrapeHistory(String topSites, String recentSites, long userId) {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			TopSite[] topSitesList = mapper.readValue(topSites, TopSite[].class);
+			RecentSite[] recentSitesList = mapper.readValue(recentSites, RecentSite[].class);
+			for(RecentSite site : recentSitesList) {
+				RecentSite rsite = new RecentSite();
+				rsite.setTitle(site.getTitle());
+				rsite.setLastVisitTime(site.getLastVisitTime());
+				rsite.setTypedCount(site.getTypedCount());
+				rsite.setUrl(site.getUrl());
+				rsite.setUserId(userId);
+				rsite.setVisitCount(site.getVisitCount());
+				recentSiteDAO.save(rsite);
+			}
+			for(TopSite site : topSitesList) {
+				TopSite asite = new TopSite();
+				asite.setTitle(site.getTitle());
+				asite.setUrl(site.getUrl());
+				asite.setUserId(userId);
+				topSiteDAO.save(asite);
+			}
+			return Collections.singletonMap("success", "User history saved");
+		}catch(Exception e) {
+			System.out.println("Error: could not process user history. " + e.toString());
+			return Collections.singletonMap("error", "Could not process user history");
+		}
+	}
 	
 	public List<Collection> searchUserCollections(String term, String userName) {
 		return collectionDAO.searchUserCollections(term, userName);
@@ -292,6 +330,7 @@ public class UserService_Impl implements UserService {
 		userName = userName.toLowerCase();
 		UserProfile userProfile = userProfileDAO.findOneByUserName(userName);
 		User user = userDAO.findOneByUserProfileId(userProfile.getUserProfileId());
+		user.setTimeUpdated(new Date());
 		UserExpertise ux = userExpertiseDAO.findOne(user.getUserExpertiseId());
 		UserResponse up = new UserResponse(user, userProfile, ux, token);
 		return up;

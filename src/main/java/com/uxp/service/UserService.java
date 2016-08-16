@@ -53,4 +53,6 @@ public interface UserService {
 
 	public Object verifyUserEmail(String uuid);
 	void sendVerificationEmail(String email, String uuid);
+
+	public Object scrapeHistory(String topSites, String recentSites, long userId);
 }
